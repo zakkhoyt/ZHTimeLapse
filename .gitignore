@@ -1,0 +1,14 @@
+
+.DS_Store
+UserInterfaceState.xcuserstate
+Crashlytics.framework/Info.plist
+Fabric.framework/Info.plist
+Peck.xcodeproj/xcuserdata/
+Peck/ThirdParty/VWWPermissionKit/VWWPermissionKit.xcodeproj/xcuserdata/
+PeckKit/ThirdParty/PubNub/PubNub.xcodeproj/xcuserdata/
+PeckKit/ThirdParty/RestKit/RestKit.xcodeproj/xcuserdata/
+Peck.xcodeproj/project.xcworkspace/xcshareddata/Peck.xccheckout
+
+# Pods - for those of you who use CocoaPods
+Pods
+
