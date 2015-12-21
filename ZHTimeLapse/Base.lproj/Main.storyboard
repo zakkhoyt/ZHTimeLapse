@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Cds-ph-uOw">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Test View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ZHTestViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +17,81 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ayg-Tn-DZb">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="68R-wV-R8g">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Choose" id="Yec-3c-kPx">
+                                        <connections>
+                                            <action selector="albumButtonTouchUpInside:" destination="BYZ-38-t0r" id="auS-6G-6bu"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IdZ-Gn-Bd3"/>
+                                    <barButtonItem title="Camera" id="e3e-Mn-tfP">
+                                        <connections>
+                                            <action selector="cameraButtonTouchUpInside:" destination="BYZ-38-t0r" id="OOk-a5-WgC"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wVO-Ex-qhC"/>
+                                    <barButtonItem title="Filter" id="UyI-w6-tZK">
+                                        <connections>
+                                            <action selector="filterButtonTouchUpInside:" destination="BYZ-38-t0r" id="Dqy-VY-dg9"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="jUV-Xe-ApG"/>
+                                    <barButtonItem title="Save" id="9TR-el-CB1">
+                                        <connections>
+                                            <action selector="saveButtonTouchUpInside:" destination="BYZ-38-t0r" id="upi-tf-gPp"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ayg-Tn-DZb" secondAttribute="bottom" id="6uu-sb-1YX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ayg-Tn-DZb" secondAttribute="trailing" constant="-20" id="WGZ-rq-enG"/>
+                            <constraint firstItem="ayg-Tn-DZb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="bNU-p8-csP"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="68R-wV-R8g" secondAttribute="bottom" id="gCJ-VE-0It"/>
+                            <constraint firstItem="68R-wV-R8g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="pEQ-Ge-0Sc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="68R-wV-R8g" secondAttribute="trailing" constant="-20" id="qXO-FM-5l9"/>
+                            <constraint firstItem="ayg-Tn-DZb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="yHX-zm-dOd"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="rXf-hU-iwg"/>
+                    <connections>
+                        <outlet property="albumButton" destination="Yec-3c-kPx" id="6P1-HW-QNI"/>
+                        <outlet property="cameraButton" destination="e3e-Mn-tfP" id="Qsf-K0-wnl"/>
+                        <outlet property="filterButton" destination="UyI-w6-tZK" id="tju-0q-fEw"/>
+                        <outlet property="saveButton" destination="9TR-el-CB1" id="xOp-ya-1sf"/>
+                        <outlet property="selectedImageView" destination="ayg-Tn-DZb" id="RWN-Du-zeg"/>
+                        <outlet property="toolbar" destination="68R-wV-R8g" id="E5J-fZ-U4t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1364" y="525"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jNo-bU-Isg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cds-ph-uOw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XHk-Zc-tw5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8TL-rX-MhV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A2Y-Sb-8qu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="552" y="525"/>
         </scene>
     </scenes>
 </document>

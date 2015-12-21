@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0154DB02A626499788686998 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 893447F9A9D2FCD841C56B50 /* libPods.a */; };
 		C6D4429B1C2756D700CE843E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4429A1C2756D700CE843E /* AppDelegate.swift */; };
 		C6D4429D1C2756D700CE843E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4429C1C2756D700CE843E /* ViewController.swift */; };
 		C6D442A01C2756D700CE843E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6D4429E1C2756D700CE843E /* Main.storyboard */; };
@@ -14,6 +15,9 @@
 		C6D442A51C2756D700CE843E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6D442A31C2756D700CE843E /* LaunchScreen.storyboard */; };
 		C6D442B01C2756D700CE843E /* ZHTimeLapseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D442AF1C2756D700CE843E /* ZHTimeLapseTests.swift */; };
 		C6D442BB1C2756D700CE843E /* ZHTimeLapseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D442BA1C2756D700CE843E /* ZHTimeLapseUITests.swift */; };
+		C6D442C91C27570B00CE843E /* ZHRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D442C81C27570B00CE843E /* ZHRenderer.swift */; };
+		C6D442D11C289E2700CE843E /* ZHTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442D01C289E2700CE843E /* ZHTestViewController.m */; };
+		C6D442D81C28A34D00CE843E /* PHAsset+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		457310F4E255CAF4B358112E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		893447F9A9D2FCD841C56B50 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA33167DB87EF6FE7D9B9A70 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C6D442971C2756D700CE843E /* ZHTimeLapse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZHTimeLapse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D4429A1C2756D700CE843E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6D4429C1C2756D700CE843E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +54,12 @@
 		C6D442B61C2756D700CE843E /* ZHTimeLapseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZHTimeLapseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D442BA1C2756D700CE843E /* ZHTimeLapseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZHTimeLapseUITests.swift; sourceTree = "<group>"; };
 		C6D442BC1C2756D700CE843E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6D442C81C27570B00CE843E /* ZHRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHRenderer.swift; sourceTree = "<group>"; };
+		C6D442CE1C289E2700CE843E /* ZHTimeLapse-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZHTimeLapse-Bridging-Header.h"; sourceTree = "<group>"; };
+		C6D442CF1C289E2700CE843E /* ZHTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTestViewController.h; sourceTree = "<group>"; };
+		C6D442D01C289E2700CE843E /* ZHTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTestViewController.m; sourceTree = "<group>"; };
+		C6D442D61C28A34D00CE843E /* PHAsset+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAsset+Utility.h"; sourceTree = "<group>"; };
+		C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+Utility.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0154DB02A626499788686998 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +95,8 @@
 				C6D442AE1C2756D700CE843E /* ZHTimeLapseTests */,
 				C6D442B91C2756D700CE843E /* ZHTimeLapseUITests */,
 				C6D442981C2756D700CE843E /* Products */,
+				C7E40C232DDEB9B00B8B8E77 /* Pods */,
+				F22E2BCC89B2EC6D87935546 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,12 +113,12 @@
 		C6D442991C2756D700CE843E /* ZHTimeLapse */ = {
 			isa = PBXGroup;
 			children = (
-				C6D4429A1C2756D700CE843E /* AppDelegate.swift */,
-				C6D4429C1C2756D700CE843E /* ViewController.swift */,
-				C6D4429E1C2756D700CE843E /* Main.storyboard */,
-				C6D442A11C2756D700CE843E /* Assets.xcassets */,
-				C6D442A31C2756D700CE843E /* LaunchScreen.storyboard */,
-				C6D442A61C2756D700CE843E /* Info.plist */,
+				C6D442D61C28A34D00CE843E /* PHAsset+Utility.h */,
+				C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */,
+				C6D442D21C289E2E00CE843E /* SupportingFiles */,
+				C6D442D51C289E4300CE843E /* UserInterface */,
+				C6D442D31C289E3800CE843E /* Utils */,
+				C6D442D41C289E3D00CE843E /* ViewControllers */,
 			);
 			path = ZHTimeLapse;
 			sourceTree = "<group>";
@@ -125,6 +141,61 @@
 			path = ZHTimeLapseUITests;
 			sourceTree = "<group>";
 		};
+		C6D442D21C289E2E00CE843E /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C6D4429A1C2756D700CE843E /* AppDelegate.swift */,
+				C6D442A61C2756D700CE843E /* Info.plist */,
+				C6D442CE1C289E2700CE843E /* ZHTimeLapse-Bridging-Header.h */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C6D442D31C289E3800CE843E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C6D442C81C27570B00CE843E /* ZHRenderer.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		C6D442D41C289E3D00CE843E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C6D4429C1C2756D700CE843E /* ViewController.swift */,
+				C6D442CF1C289E2700CE843E /* ZHTestViewController.h */,
+				C6D442D01C289E2700CE843E /* ZHTestViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C6D442D51C289E4300CE843E /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				C6D4429E1C2756D700CE843E /* Main.storyboard */,
+				C6D442A11C2756D700CE843E /* Assets.xcassets */,
+				C6D442A31C2756D700CE843E /* LaunchScreen.storyboard */,
+			);
+			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		C7E40C232DDEB9B00B8B8E77 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AA33167DB87EF6FE7D9B9A70 /* Pods.debug.xcconfig */,
+				457310F4E255CAF4B358112E /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F22E2BCC89B2EC6D87935546 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				893447F9A9D2FCD841C56B50 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +203,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C6D442BF1C2756D700CE843E /* Build configuration list for PBXNativeTarget "ZHTimeLapse" */;
 			buildPhases = (
+				6EBFC7C210196766884AE3AA /* Check Pods Manifest.lock */,
 				C6D442931C2756D700CE843E /* Sources */,
 				C6D442941C2756D700CE843E /* Frameworks */,
 				C6D442951C2756D700CE843E /* Resources */,
+				F915E41647CB1FAA6C0BDA19 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -251,12 +324,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6EBFC7C210196766884AE3AA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F915E41647CB1FAA6C0BDA19 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C6D442931C2756D700CE843E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6D442D81C28A34D00CE843E /* PHAsset+Utility.m in Sources */,
 				C6D4429D1C2756D700CE843E /* ViewController.swift in Sources */,
+				C6D442C91C27570B00CE843E /* ZHRenderer.swift in Sources */,
+				C6D442D11C289E2700CE843E /* ZHTestViewController.m in Sources */,
 				C6D4429B1C2756D700CE843E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,23 +506,30 @@
 		};
 		C6D442C01C2756D700CE843E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA33167DB87EF6FE7D9B9A70 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ZHTimeLapse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZHTimeLapse/ZHTimeLapse-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		C6D442C11C2756D700CE843E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 457310F4E255CAF4B358112E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ZHTimeLapse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZHTimeLapse/ZHTimeLapse-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -484,6 +600,7 @@
 				C6D442C11C2756D700CE843E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C6D442C21C2756D700CE843E /* Build configuration list for PBXNativeTarget "ZHTimeLapseTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +609,7 @@
 				C6D442C41C2756D700CE843E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C6D442C51C2756D700CE843E /* Build configuration list for PBXNativeTarget "ZHTimeLapseUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +618,7 @@
 				C6D442C71C2756D700CE843E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
