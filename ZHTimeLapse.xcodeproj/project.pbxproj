@@ -18,6 +18,9 @@
 		C6D442C91C27570B00CE843E /* ZHRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D442C81C27570B00CE843E /* ZHRenderer.swift */; };
 		C6D442D11C289E2700CE843E /* ZHTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442D01C289E2700CE843E /* ZHTestViewController.m */; };
 		C6D442D81C28A34D00CE843E /* PHAsset+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */; };
+		C6D442DF1C28A64200CE843E /* notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = C6D442DE1C28A64200CE843E /* notes.txt */; };
+		C6D442E51C28A7BD00CE843E /* ZHCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */; };
+		C6D442E81C28A99400CE843E /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442E71C28A99400CE843E /* NSTimer+Blocks.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,11 @@
 		C6D442D01C289E2700CE843E /* ZHTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTestViewController.m; sourceTree = "<group>"; };
 		C6D442D61C28A34D00CE843E /* PHAsset+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAsset+Utility.h"; sourceTree = "<group>"; };
 		C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+Utility.m"; sourceTree = "<group>"; };
+		C6D442DE1C28A64200CE843E /* notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
+		C6D442E31C28A7BD00CE843E /* ZHCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHCaptureViewController.h; sourceTree = "<group>"; };
+		C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHCaptureViewController.m; sourceTree = "<group>"; };
+		C6D442E61C28A99400CE843E /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
+		C6D442E71C28A99400CE843E /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,12 +121,15 @@
 		C6D442991C2756D700CE843E /* ZHTimeLapse */ = {
 			isa = PBXGroup;
 			children = (
+				C6D442E61C28A99400CE843E /* NSTimer+Blocks.h */,
+				C6D442E71C28A99400CE843E /* NSTimer+Blocks.m */,
 				C6D442D61C28A34D00CE843E /* PHAsset+Utility.h */,
 				C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */,
 				C6D442D21C289E2E00CE843E /* SupportingFiles */,
 				C6D442D51C289E4300CE843E /* UserInterface */,
 				C6D442D31C289E3800CE843E /* Utils */,
 				C6D442D41C289E3D00CE843E /* ViewControllers */,
+				C6D442DE1C28A64200CE843E /* notes.txt */,
 			);
 			path = ZHTimeLapse;
 			sourceTree = "<group>";
@@ -165,6 +176,8 @@
 				C6D4429C1C2756D700CE843E /* ViewController.swift */,
 				C6D442CF1C289E2700CE843E /* ZHTestViewController.h */,
 				C6D442D01C289E2700CE843E /* ZHTestViewController.m */,
+				C6D442E31C28A7BD00CE843E /* ZHCaptureViewController.h */,
+				C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -305,6 +318,7 @@
 				C6D442A51C2756D700CE843E /* LaunchScreen.storyboard in Resources */,
 				C6D442A21C2756D700CE843E /* Assets.xcassets in Resources */,
 				C6D442A01C2756D700CE843E /* Main.storyboard in Resources */,
+				C6D442DF1C28A64200CE843E /* notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +381,8 @@
 				C6D442C91C27570B00CE843E /* ZHRenderer.swift in Sources */,
 				C6D442D11C289E2700CE843E /* ZHTestViewController.m in Sources */,
 				C6D4429B1C2756D700CE843E /* AppDelegate.swift in Sources */,
+				C6D442E51C28A7BD00CE843E /* ZHCaptureViewController.m in Sources */,
+				C6D442E81C28A99400CE843E /* NSTimer+Blocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

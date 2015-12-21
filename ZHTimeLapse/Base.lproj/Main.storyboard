@@ -86,12 +86,72 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8TL-rX-MhV"/>
+                        <segue destination="fGH-Mm-j49" kind="relationship" relationship="rootViewController" id="cLK-kg-Vrd"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2Y-Sb-8qu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="552" y="525"/>
+        </scene>
+        <!--Capture View Controller-->
+        <scene sceneID="02U-Gp-u3C">
+            <objects>
+                <viewController id="fGH-Mm-j49" customClass="ZHCaptureViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QQB-21-lUq"/>
+                        <viewControllerLayoutGuide type="bottom" id="dFm-cb-ikw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OPG-kF-HTY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRy-Ay-wEB" customClass="GPUImageView">
+                                <rect key="frame" x="20" y="72" width="560" height="508"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="25s-Dw-j1M">
+                                        <rect key="frame" x="504" y="436" width="48" height="64"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="48" id="RdS-bb-65O"/>
+                                            <constraint firstAttribute="height" constant="64" id="wxC-Zc-20S"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="25s-Dw-j1M" secondAttribute="bottom" constant="8" id="Ywk-Fc-QRU"/>
+                                    <constraint firstAttribute="trailing" secondItem="25s-Dw-j1M" secondAttribute="trailing" constant="8" id="cF9-SX-LEt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KRy-Ay-wEB" firstAttribute="leading" secondItem="OPG-kF-HTY" secondAttribute="leadingMargin" id="LUj-6w-cgv"/>
+                            <constraint firstItem="KRy-Ay-wEB" firstAttribute="trailing" secondItem="OPG-kF-HTY" secondAttribute="trailingMargin" id="OzH-hL-jHr"/>
+                            <constraint firstItem="KRy-Ay-wEB" firstAttribute="top" secondItem="QQB-21-lUq" secondAttribute="bottom" constant="8" id="dX4-BE-pTs"/>
+                            <constraint firstItem="dFm-cb-ikw" firstAttribute="top" secondItem="KRy-Ay-wEB" secondAttribute="bottom" constant="20" id="heJ-61-BHA"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Wdg-zm-3rD">
+                        <barButtonItem key="leftBarButtonItem" title="Stop" id="aO8-wy-6gl">
+                            <connections>
+                                <action selector="stopBarButtonAction:" destination="fGH-Mm-j49" id="6kr-XB-Kcy"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Start" id="aAW-bG-4AB">
+                            <connections>
+                                <action selector="startBarButtonAction:" destination="fGH-Mm-j49" id="wBM-9p-do0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="captureImageView" destination="25s-Dw-j1M" id="1Ap-WX-KpP"/>
+                        <outlet property="filterView" destination="KRy-Ay-wEB" id="LzQ-qQ-8xF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rWa-j0-zgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1364" y="1304"/>
         </scene>
     </scenes>
 </document>

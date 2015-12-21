@@ -1,0 +1,15 @@
+// ** View Controller
+* Show a live stream (video)
+* Show last captured frame
+* Timer to capture frames
+* Save frame to array with filter applied
+
+// ** Renderer
+* Pass frames to util
+* Process into video
+
+// ** Options
+* Capture size
+* Render size
+* Capture framerate
+* Render framerate
