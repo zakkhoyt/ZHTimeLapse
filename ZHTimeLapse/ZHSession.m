@@ -88,6 +88,9 @@
     NSString *docsPath = [ZHFileManager pathForDocumentsDirectory];
     _projectPath = [docsPath stringByAppendingPathComponent:_uuid];
     [ZHFileManager ensureDirectoryExistsAtPath:_projectPath];
+    
+    NSString *videoPath = [_projectPath stringByAppendingPathComponent:@"output.mov"];
+    _output.outputURL = [NSURL fileURLWithPath:videoPath];
 }
 
 -(void)saveConfig{
@@ -120,6 +123,21 @@
 //    }
 
 }
+
+
+-(NSUInteger)frameCount{
+    return [ZHFileManager frameCountForSession:self];
+}
+
+-(UIImage*)imageForIndex:(NSUInteger)index{
+    NSString *fileName = [NSString stringWithFormat:@"%05lu.jpg", (unsigned long)index];
+    NSString *filePath = [_projectPath stringByAppendingPathComponent:@"frames"];
+    filePath = [filePath stringByAppendingPathComponent:fileName];
+    UIImage *image = [UIImage imageWithContentsOfFile:filePath];
+    return image;
+}
+
+
 
 -(void)listFrames{
     

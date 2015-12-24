@@ -27,6 +27,11 @@
 
 -(void)saveConfig;
 -(void)cacheImage:(UIImage*)image index:(NSUInteger)index;
+
+-(NSUInteger)frameCount;
+-(UIImage*)imageForIndex:(NSUInteger)index;
+
+
 -(void)listFrames;
 -(void)renderVideoFromFrames;
 

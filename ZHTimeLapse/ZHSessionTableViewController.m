@@ -10,6 +10,7 @@
 #import "ZHSession.h"
 #import "ZHCaptureViewController.h"
 #import "ZHFileManager.h"
+#import "ZHRenderer.h"
 
 static NSString *SegueOptionsToCapture = @"SegueOptionsToCapture";
 static NSString *SegueOptionsToRender = @"SegueOptionsToRender";
@@ -104,6 +105,12 @@ typedef enum {
     NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
     NSLog(@"%lu frames", (unsigned long) frameCount);
     
+    ZHRenderer *renderer = [[ZHRenderer alloc]init];
+    [renderer renderSession:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
+        NSLog(@"rendered %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
+    } completionBlock:^(ZHSession *session) {
+        NSLog(@"completed");
+    }];
 //    [self performSegueWithIdentifier:SegueOptionsToRender sender:nil];
 }
 

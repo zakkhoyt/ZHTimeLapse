@@ -77,6 +77,15 @@
     return sessions;
 }
 
++(void)deleteFileAtURL:(NSURL*)url{
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+    if(error != nil) {
+        NSLog(@"Error deleting file at url: %@", url.description);
+    }
+}
+
+
 +(BOOL)deleteSession:(ZHSession*)session {
     NSError *error = nil;
     [[NSFileManager defaultManager] removeItemAtPath:session.projectPath error:&error];
