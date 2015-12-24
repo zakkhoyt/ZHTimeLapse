@@ -161,5 +161,10 @@
     return _uuid.hash;
 }
 
+-(NSTimeInterval)timeLength{
+    NSTimeInterval length = 1/(double)self.output.frameRate;
+    length *= [self frameCount];
+    return length;
+}
 
 @end

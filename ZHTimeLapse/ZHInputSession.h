@@ -14,6 +14,8 @@
 @property (nonatomic) CGSize size;
 @property (nonatomic) NSTimeInterval frameRate;
 @property (nonatomic, strong) NSMutableArray *frames;
+@property (nonatomic) AVCaptureDevicePosition captureDevicePosition;
+@property (nonatomic) UIDeviceOrientation orientation;
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 -(NSDictionary*)dictionaryRepresentation;

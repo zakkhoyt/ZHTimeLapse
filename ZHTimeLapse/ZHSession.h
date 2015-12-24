@@ -35,4 +35,5 @@
 -(void)listFrames;
 -(void)renderVideoFromFrames;
 
+-(NSTimeInterval)timeLength;
 @end

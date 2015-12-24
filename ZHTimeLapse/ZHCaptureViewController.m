@@ -72,13 +72,26 @@
 
 -(void)setupCaptureSession{
     self.captureImageView.hidden = YES;
-    
     self.filterView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
-    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionFront];
+    // Clean up
+    if(self.videoCamera) {
+        [self.videoCamera stopCameraCapture];
+        [self.videoCamera removeAllTargets];
+        [self.filter removeAllTargets];
+        self.rawOutput = nil;
+        self.videoCamera = nil;
+    }
+    
+    
+    
+    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:AVCaptureDevicePositionBack];
     self.videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    self.videoCamera.horizontallyMirrorFrontFacingCamera = YES;
     
     self.filter = [GPUImageCannyEdgeDetectionFilter new];
+//    self.filter = [GPUImagePrewittEdgeDetectionFilter new];
+//    self.filter = [GPUImageThresholdEdgeDetectionFilter new];
     [self.filter addTarget:self.filterView];
     
 
@@ -93,6 +106,14 @@
 #pragma mark IBActions
 
 - (IBAction)startButtonTouchUpInside:(id)sender {
+
+    // Save our config
+    self.session.input.captureDevicePosition = self.videoCamera.cameraPosition;
+    self.session.input.orientation = [UIDevice currentDevice].orientation;
+    [self.session saveConfig];
+    
+    NSLog(@"orientation: %lu", self.session.input.orientation);
+    
     self.navigationItem.rightBarButtonItem = self.stopBarButtonItem;
     self.captureImageView.hidden = NO;
     self.frameCountLabel.hidden = NO;
@@ -109,7 +130,13 @@
     self.navigationItem.rightBarButtonItem = self.startBarButtonItem;
     self.stopButton.hidden = YES;
     self.startButton.hidden = NO;
+    
+    [self.navigationController popViewControllerAnimated:YES];
 
+}
+
+- (IBAction)swapButtonTouchUpInside:(id)sender {
+    [self setupCaptureSession];
 }
 
 #pragma mark Private methods
@@ -124,7 +151,7 @@
                                                               rawData,
                                                               width*height*4,
                                                               NULL);
-    
+
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
     CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
     CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
@@ -148,10 +175,17 @@
     self.captureImageView.image = image;
 
     [self.session cacheImage:image index:self.frameCounter];
-    self.frameCounter++;    
+    self.frameCounter++;
+    
+    // Clean up
+    image = nil;
+    CGImageRelease(imageRef);
+    CGColorSpaceRelease(colorSpaceRef);
+    CGDataProviderRelease(provider);
 //    self.frameCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long) self.session.frame.count];
     
 }
 
 
 @end
+

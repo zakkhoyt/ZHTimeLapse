@@ -10,7 +10,9 @@
 #import "ZHSessionTableViewController.h"
 #import "ZHFileManager.h"
 #import "ZHSession.h"
-#import "NSDate+ZH.h"
+
+#import "ZHSessionTableViewCell.h"
+
 
 static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
 
@@ -30,8 +32,13 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     _sessions = [[ZHFileManager sessions] mutableCopy];
     [_tableView reloadData];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -57,10 +64,9 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Session"];
+    ZHSessionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZHSessionTableViewCell"];
     ZHSession *session = _sessions[indexPath.row];
-    cell.textLabel.text = session.name;
-    cell.detailTextLabel.text = [session.date stringFromDateShort];
+    cell.session = session;
     return cell;
 }
 @end

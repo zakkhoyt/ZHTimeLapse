@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class ZHSession;
 
-typedef void (^ZHRendererCompletionBlock)(ZHSession* session);
+typedef void (^ZHRendererCompletionBlock)(BOOL success, ZHSession* session);
 typedef void (^ZHRendererProgressBlock)(NSUInteger framesRendered, NSUInteger totalFrames);
 
 @interface ZHRenderer : NSObject

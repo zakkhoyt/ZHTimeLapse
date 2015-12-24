@@ -15,6 +15,7 @@
 		C69ADCB11C2BD1D300612146 /* UIColor+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCAD1C2BD1D300612146 /* UIColor+ZH.m */; };
 		C69ADCB21C2BD1D300612146 /* UIViewController+AlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCAF1C2BD1D300612146 /* UIViewController+AlertController.m */; };
 		C69ADCB81C2BDE8800612146 /* ZHRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCB71C2BDE8800612146 /* ZHRenderer.m */; };
+		C69ADCBD1C2C90E600612146 /* ZHSessionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCBC1C2C90E600612146 /* ZHSessionTableViewCell.m */; };
 		C6D4429B1C2756D700CE843E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4429A1C2756D700CE843E /* AppDelegate.swift */; };
 		C6D4429D1C2756D700CE843E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4429C1C2756D700CE843E /* ViewController.swift */; };
 		C6D442A01C2756D700CE843E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6D4429E1C2756D700CE843E /* Main.storyboard */; };
@@ -68,6 +69,8 @@
 		C69ADCAF1C2BD1D300612146 /* UIViewController+AlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AlertController.m"; sourceTree = "<group>"; };
 		C69ADCB61C2BDE8800612146 /* ZHRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHRenderer.h; sourceTree = "<group>"; };
 		C69ADCB71C2BDE8800612146 /* ZHRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHRenderer.m; sourceTree = "<group>"; };
+		C69ADCBB1C2C90E600612146 /* ZHSessionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionTableViewCell.h; sourceTree = "<group>"; };
+		C69ADCBC1C2C90E600612146 /* ZHSessionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionTableViewCell.m; sourceTree = "<group>"; };
 		C6D442971C2756D700CE843E /* ZHTimeLapse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZHTimeLapse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D4429A1C2756D700CE843E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6D4429C1C2756D700CE843E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +136,17 @@
 				C6D442DE1C28A64200CE843E /* notes.txt */,
 			);
 			name = Documents;
+			sourceTree = "<group>";
+		};
+		C69ADCBA1C2C90D000612146 /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */,
+				C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */,
+				C69ADCBB1C2C90E600612146 /* ZHSessionTableViewCell.h */,
+				C69ADCBC1C2C90E600612146 /* ZHSessionTableViewCell.m */,
+			);
+			name = Sessions;
 			sourceTree = "<group>";
 		};
 		C6D4428E1C2756D700CE843E = {
@@ -220,8 +234,7 @@
 				C6D442D01C289E2700CE843E /* ZHTestViewController.m */,
 				C6D442E31C28A7BD00CE843E /* ZHCaptureViewController.h */,
 				C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */,
-				C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */,
-				C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */,
+				C69ADCBA1C2C90D000612146 /* Sessions */,
 				C69ADCA21C2BB1E300612146 /* ZHSessionTableViewController.h */,
 				C69ADCA31C2BB1E300612146 /* ZHSessionTableViewController.m */,
 			);
@@ -458,6 +471,7 @@
 				C6D442D81C28A34D00CE843E /* PHAsset+Utility.m in Sources */,
 				C69ADCB81C2BDE8800612146 /* ZHRenderer.m in Sources */,
 				C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */,
+				C69ADCBD1C2C90E600612146 /* ZHSessionTableViewCell.m in Sources */,
 				C6D4429D1C2756D700CE843E /* ViewController.swift in Sources */,
 				C6D442D11C289E2700CE843E /* ZHTestViewController.m in Sources */,
 				C6D442EC1C28E36B00CE843E /* ZHSession.m in Sources */,

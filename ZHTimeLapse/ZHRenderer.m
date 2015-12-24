@@ -20,103 +20,60 @@
 @implementation ZHRenderer
 
 
-//-(void)renderSession:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock {
-//    NSError *error = nil;
-//    AVAssetWriter *videoWriter = [[AVAssetWriter alloc] initWithURL:
-//                                  [NSURL fileURLWithPath:somePath] fileType:AVFileTypeQuickTimeMovie
-//                                                              error:&error];
-//    NSParameterAssert(videoWriter);
-//    
-//    NSDictionary *videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                   AVVideoCodecH264, AVVideoCodecKey,
-//                                   [NSNumber numberWithInt:640], AVVideoWidthKey,
-//                                   [NSNumber numberWithInt:480], AVVideoHeightKey,
-//                                   nil];
-//    AVAssetWriterInput* writerInput = [[AVAssetWriterInput
-//                                        assetWriterInputWithMediaType:AVMediaTypeVideo
-//                                        outputSettings:videoSettings] retain]; //retain should be removed if ARC
-//    
-//    NSParameterAssert(writerInput);
-//    NSParameterAssert([videoWriter canAddInput:writerInput]);
-//    [videoWriter addInput:writerInput];
-//    
-//    
-//    
-//    [videoWriter startWriting];
-//    [videoWriter startSessionAtSourceTime:…] //use kCMTimeZero if unsure
-//    
-//    
-//    
-//    
-//    // Or you can use AVAssetWriterInputPixelBufferAdaptor.
-//    // That lets you feed the writer input data from a CVPixelBuffer
-//    // that’s quite easy to create from a CGImage.
-//    [writerInput appendSampleBuffer:sampleBuffer];
-//    
-//    
-//    [writerInput markAsFinished];
-//    [videoWriter endSessionAtSourceTime:…]; //optional can call finishWriting without specifiying endTime
-//    [videoWriter finishWriting]; //deprecated in ios6
-//    /*
-//     [videoWriter finishWritingWithCompletionHandler:...]; //ios 6.0+
-//     */
-//    
-//    
-//}
+
+//static inline double radians (double degrees) {return degrees * M_PI/180;}
 //
-//- (CVPixelBufferRef) newPixelBufferFromCGImage: (CGImageRef) image
-//{
-//    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-//                             [NSNumber numberWithBool:YES], kCVPixelBufferCGImageCompatibilityKey,
-//                             [NSNumber numberWithBool:YES], kCVPixelBufferCGBitmapContextCompatibilityKey,
-//                             nil];
-//    CVPixelBufferRef pxbuffer = NULL;
-//    CVReturn status = CVPixelBufferCreate(kCFAllocatorDefault, frameSize.width,
-//                                          frameSize.height, kCVPixelFormatType_32ARGB, (CFDictionaryRef) options,
-//                                          &pxbuffer);
-//    NSParameterAssert(status == kCVReturnSuccess && pxbuffer != NULL);
+//-(UIImage*)rotateImage:(UIImage*)image degrees:(double)degrees {
+//    UIGraphicsBeginImageContext(image.size);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    CGContextRotateCTM (context, radians(degrees));
+//    [image drawAtPoint:CGPointMake(0, 0)];
 //    
-//    CVPixelBufferLockBaseAddress(pxbuffer, 0);
-//    void *pxdata = CVPixelBufferGetBaseAddress(pxbuffer);
-//    NSParameterAssert(pxdata != NULL);
-//    
-//    CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
-//    CGContextRef context = CGBitmapContextCreate(pxdata, frameSize.width,
-//                                                 frameSize.height, 8, 4*frameSize.width, rgbColorSpace,
-//                                                 kCGImageAlphaNoneSkipFirst);
-//    NSParameterAssert(context);
-//    CGContextConcatCTM(context, frameTransform);
-//    CGContextDrawImage(context, CGRectMake(0, 0, CGImageGetWidth(image),
-//                                           CGImageGetHeight(image)), image);
-//    CGColorSpaceRelease(rgbColorSpace);
-//    CGContextRelease(context);
-//    
-//    CVPixelBufferUnlockBaseAddress(pxbuffer, 0);
-//    
-//    return pxbuffer;
+//    UIImage *rotatedImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    return rotatedImage;
 //}
 
 
+
+- (UIImage*)rotateImage:(UIImage*)sourceImage orientation:(UIImageOrientation)orientation {
+    CGSize size = sourceImage.size;
+    UIGraphicsBeginImageContext(CGSizeMake(size.height, size.width));
+    UIImage *rotatedImage = [UIImage imageWithCGImage:[sourceImage CGImage] scale:1.0 orientation:orientation];
+    [rotatedImage drawInRect:CGRectMake(0,0,size.height ,size.width)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 
 -(void)renderSession:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock {
     
+    // Delete any existing file first.
     [ZHFileManager deleteFileAtURL:session.output.outputURL];
     
-    
+    // Create our video writer and configure
     NSError *error = nil;
-//    self.videoWriter = [[AVAssetWriter alloc] initWithURL:session.output.outputURL fileType:AVFileTypeMPEG4 error:&error];
     self.videoWriter = [[AVAssetWriter alloc]initWithURL:session.output.outputURL fileType:AVFileTypeQuickTimeMovie error:&error];
-    // Codec compression settings
-    NSDictionary *videoSettings = @{
-                                    AVVideoCodecKey : AVVideoCodecH264,
-                                    AVVideoWidthKey : @(session.output.size.width),
-                                    AVVideoHeightKey : @(session.output.size.height),
-                                    AVVideoCompressionPropertiesKey : @{
-                                            AVVideoAverageBitRateKey : @(20000*1000), // 20 000 kbits/s
-                                            AVVideoProfileLevelKey : AVVideoProfileLevelH264High40,
-                                            AVVideoMaxKeyFrameIntervalKey : @(1)
-                                            }
-                                    };
+    NSDictionary *videoSettings = nil;
+    
+    
+    if(session.input.orientation == UIDeviceOrientationLandscapeRight ||
+       session.input.orientation == UIDeviceOrientationLandscapeLeft) {
+        videoSettings = @{AVVideoCodecKey : AVVideoCodecH264,
+                          AVVideoWidthKey : @(session.output.size.height),
+                          AVVideoHeightKey : @(session.output.size.width),
+                          };
+        
+    } else {
+        videoSettings = @{AVVideoCodecKey : AVVideoCodecH264,
+                          AVVideoWidthKey : @(session.output.size.width),
+                          AVVideoHeightKey : @(session.output.size.height),
+                          };
+    }
+    
+    
+    
     
     AVAssetWriterInput* videoWriterInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:videoSettings];
     
@@ -130,53 +87,100 @@
     [self.videoWriter startSessionAtSourceTime:kCMTimeZero];
     
     [adaptor.assetWriterInput requestMediaDataWhenReadyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0) usingBlock:^{
-//        CMTime time = CMTimeMakeWithSeconds(0, 30);
-
+        
+        // Iterate over each frame we have until one isn't found or we've rendered them all.
         for(NSUInteger index = 0; index < session.frameCount; index++) {
-            UIImage* image = [session imageForIndex:index];
-            if(image == nil) {
-                NSLog(@"Error Frame not found: ");
-                break;
-            }
-            
-            CVPixelBufferRef buffer = [self pixelBufferFromImage:image withImageSize:session.output.size];
-            [self appendToAdapter:adaptor pixelBuffer:buffer atTime:CMTimeMake(index, 30)];
-            CVPixelBufferRelease(buffer);
-//            
-//            CMTime millisecondsDuration = CMTimeMake(index+1, 30);
-//            time = CMTimeAdd(time, millisecondsDuration);
-            
-            if(progressBlock) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    progressBlock(index, session.frameCount);
-                });
+            do {
+                [NSThread sleepForTimeInterval:0.01]; // 10 ms
+            } while ([adaptor.assetWriterInput isReadyForMoreMediaData] == NO);
+                
+            @autoreleasepool {
+                UIImage* image = [session imageForIndex:index];
+                if(image == nil) {
+                    NSLog(@"Error Frame not found for index: %lu", (unsigned long)index);
+                    break;
+                }
+                
+                // rotate frames if needed
+                CGSize outputSize = CGSizeZero;
+                // TODO: Support upside down. NEed to modify rotate function.
+//                if(session.input.orientation == UIDeviceOrientationPortraitUpsideDown) {
+//                    outputSize = session.output.size;
+//                    image = [self rotateImage:image orientation:UIImageOrientationDownMirrored];
+//                } else
+                if(session.input.orientation == UIDeviceOrientationLandscapeRight) {
+                    outputSize = CGSizeMake(session.output.size.height, session.output.size.width);
+                    image = [self rotateImage:image orientation:UIImageOrientationRight];
+                } else if(session.input.orientation == UIDeviceOrientationLandscapeLeft) {
+                    outputSize = CGSizeMake(session.output.size.height, session.output.size.width);
+                    image = [self rotateImage:image orientation:UIImageOrientationLeft];
+                } else {
+                    // portrait, unknown, face down, face up.
+                    outputSize = session.output.size;
+                }
+                
+                CVPixelBufferRef buffer = [self pixelBufferFromImage:image withImageSize:outputSize];
+                [self appendToAdapter:adaptor pixelBuffer:buffer atTime:CMTimeMake(index, session.output.frameRate)];
+                CVPixelBufferRelease(buffer);
+                
+                // Update our caller
+                if(progressBlock) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        progressBlock(index+1, session.frameCount);
+                    });
+                }
             }
         }
         
+        // Finished writing frames. Finish up.
         [videoWriterInput markAsFinished];
-        [self.videoWriter endSessionAtSourceTime:CMTimeMake(session.frameCount, 30)];
-        [self.videoWriter finishWritingWithCompletionHandler:^{
-            
-            if(self.videoWriter.status == AVAssetWriterStatusCompleted){
-                NSLog(@"Video writer has finished creating video");
+        [self.videoWriter endSessionAtSourceTime:CMTimeMake(session.frameCount, session.output.frameRate)];
+        
+        // Add a small delay to make sure the session is finished.
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.videoWriter finishWritingWithCompletionHandler:^{
                 
-                [PHAsset saveVideoAtURL:session.output.outputURL location:nil completionBlock:^(PHAsset *asset, BOOL success) {
-                    NSLog(@"Exported video to camera roll");
+                if(self.videoWriter.status == AVAssetWriterStatusCompleted){
+                    NSLog(@"Video writer has finished creating video");
                     
+                    [PHAsset saveVideoAtURL:session.output.outputURL location:nil completionBlock:^(PHAsset *asset, BOOL success) {
+                        NSLog(@"Exported video to camera roll");
+                        
+                        if (success == YES) {
+                            [asset saveToAlbum:@"ZHTimeLapse" completionBlock:^(BOOL success) {
+                                NSLog(@"Saved time lapse video to album folder");
+                            }];
+                        }
+                        
+                        if(completionBlock) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                if(success == YES) {
+                                    completionBlock(YES, session);
+                                } else {
+                                    completionBlock(NO, nil);
+                                }
+                            });
+                        }
+                    }];
+                    
+                } else if (self.videoWriter.status == AVAssetWriterStatusFailed){
+                    NSLog(@"Error: %@", self.videoWriter.error.localizedDescription);
                     if(completionBlock) {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            completionBlock(session);
+                            completionBlock(NO, nil);
                         });
                     }
-                }];
-
-            } else if (self.videoWriter.status == AVAssetWriterStatusFailed){
-                NSLog(@"Error: %@", self.videoWriter.error.localizedDescription);
-            } else {
-                NSLog(@"Unknown condition");
-            }
-            
-        }];
+                    
+                } else {
+                    NSLog(@"Unknown condition");
+                    if(completionBlock) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completionBlock(NO, nil);
+                        });
+                    }
+                }
+            }];
+        });
     }];
 }
 
@@ -214,8 +218,8 @@
 }
 
 -(BOOL)appendToAdapter:(AVAssetWriterInputPixelBufferAdaptor*)adaptor
-            pixelBuffer:(CVPixelBufferRef)buffer
-                 atTime:(CMTime)time{
+           pixelBuffer:(CVPixelBufferRef)buffer
+                atTime:(CMTime)time{
     while (!adaptor.assetWriterInput.readyForMoreMediaData) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }

@@ -11,6 +11,8 @@
 #import "ZHCaptureViewController.h"
 #import "ZHFileManager.h"
 #import "ZHRenderer.h"
+#import "UIViewController+AlertController.h"
+#import "MBProgressHUD.h"
 
 static NSString *SegueOptionsToCapture = @"SegueOptionsToCapture";
 static NSString *SegueOptionsToRender = @"SegueOptionsToRender";
@@ -50,6 +52,12 @@ typedef enum {
 //    self.renderButton.enabled = NO;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    [UIApplication sharedApplication].statusBarHidden = NO;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
@@ -60,6 +68,10 @@ typedef enum {
         ZHCaptureViewController *vc = segue.destinationViewController;
         vc.session = _session;
     }
+}
+
+- (IBAction)closeBarButtonAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)nextBarButtonAction:(id)sender {
@@ -86,9 +98,10 @@ typedef enum {
     }
 }
 
-- (IBAction)captureFramesButtonTouchUpInside:(id)sender {
-
-    _session.input.size = CGSizeMake(480, 640);
+- (IBAction)captureFramesButtonTouchUpInside:(UIButton*)sender {
+    sender.enabled = NO;
+    
+    _session.input.size = CGSizeMake(720, 1280);
     _session.input.frameRate = 5;
     
     _session.output.size = _session.input.size;
@@ -98,9 +111,20 @@ typedef enum {
     [_session saveConfig];
     
     [self performSegueWithIdentifier:SegueOptionsToCapture sender:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        sender.enabled = YES;
+    });
 }
 
-- (IBAction)renderButtonTouchUpInside:(id)sender {
+- (IBAction)renderButtonTouchUpInside:(UIButton*)sender {
+    
+    sender.enabled = NO;
+    
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:hud];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Loading";
+    [hud show:YES];
     
     NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
     NSLog(@"%lu frames", (unsigned long) frameCount);
@@ -108,9 +132,31 @@ typedef enum {
     ZHRenderer *renderer = [[ZHRenderer alloc]init];
     [renderer renderSession:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
         NSLog(@"rendered %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
-    } completionBlock:^(ZHSession *session) {
+        hud.progress = framesRendered / (float)frameCount;
+    } completionBlock:^(BOOL success, ZHSession *session) {
         NSLog(@"completed");
+        
+
+        if(success == YES) {
+            UIImage *image = [UIImage imageNamed:@"37x-Checkmark.png"];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            hud.customView = imageView;
+            hud.mode = MBProgressHUDModeCustomView;
+            hud.labelText = @"Exported to Camera Roll";
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [hud hide:YES];
+            });
+
+            NSLog(@"TODO: Cleanup");
+        } else {
+            [hud hide:YES];
+            [self presentAlertDialogWithMessage:@"Failed"];
+        }
+        
+        sender.enabled = YES;
     }];
+    
 //    [self performSegueWithIdentifier:SegueOptionsToRender sender:nil];
 }
 

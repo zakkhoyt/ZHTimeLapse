@@ -22,6 +22,17 @@
         if(frameRateNumber) {
             _frameRate = frameRateNumber.doubleValue;
         }
+        
+        NSNumber *captureDevicePositionNumber = dictionary[@"captureDevicePosition"];
+        if(captureDevicePositionNumber) {
+            _captureDevicePosition = captureDevicePositionNumber.unsignedIntegerValue;
+        }
+        
+        NSNumber *orientationNumber = dictionary[@"orientation"];
+        if(orientationNumber) {
+            _orientation = orientationNumber.unsignedIntegerValue;
+        }
+
     }
     return self;
 }
@@ -32,6 +43,8 @@
     NSMutableDictionary *dictionary = [@{}mutableCopy];
     dictionary[@"size"] = NSStringFromCGSize(_size);
     dictionary[@"frameRate"] = @(_frameRate);
+    dictionary[@"captureDevicePosition"] = @(_captureDevicePosition);
+    dictionary[@"orientation"] = @(_orientation);
     return dictionary;
 }
 

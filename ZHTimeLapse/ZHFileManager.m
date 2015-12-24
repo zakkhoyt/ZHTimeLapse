@@ -106,9 +106,9 @@
         return 0;
     }
 
-    [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSLog(@"path: %@", path);
-    }];
+//    [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
+//        NSLog(@"path: %@", path);
+//    }];
     
     return contents.count;
 }
