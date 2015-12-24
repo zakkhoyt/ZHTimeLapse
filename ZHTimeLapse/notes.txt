@@ -13,3 +13,9 @@
 * Render size
 * Capture framerate
 * Render framerate
+
+
+
+// Directory will look like:
+$DocumentsDir/$UUID/Frames -> contains loose images
+$DocumentsDir/$UUID/session.json -> contains info about the project

@@ -1,14 +1,14 @@
 //
-//  ZHCaptureViewController.h
+//  ZHSessionTableViewController.h
 //  ZHTimeLapse
 //
-//  Created by Zakk Hoyt on 12/21/15.
+//  Created by Zakk Hoyt on 12/23/15.
 //  Copyright © 2015 Zakk Hoyt. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 @class ZHSession;
 
-@interface ZHCaptureViewController : UIViewController
+@interface ZHSessionTableViewController : UITableViewController
 @property (nonatomic, strong) ZHSession *session;
 @end

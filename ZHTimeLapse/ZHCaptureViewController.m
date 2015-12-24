@@ -9,16 +9,22 @@
 #import "ZHCaptureViewController.h"
 #import "GPUImage.h"
 #import "NSTimer+Blocks.h"
+#import "ZHSession.h"
 
 @interface ZHCaptureViewController ()
 @property (weak, nonatomic) IBOutlet GPUImageView *filterView;
 @property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
-@property (nonatomic, strong) GPUImageFilter *filter;
+@property (nonatomic, strong) GPUImageOutput<GPUImageInput> *filter;
 @property (nonatomic, strong) NSTimer *captureTimer;
-@property (nonatomic, strong) NSArray *frames;
 @property (nonatomic, strong) GPUImageRawDataOutput *rawOutput;
-@property (nonatomic) CGSize frameSize;
+
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *startBarButtonItem;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *stopBarButtonItem;
+@property (weak, nonatomic) IBOutlet UILabel *frameCountLabel;
+@property (nonatomic) NSUInteger frameCounter;
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
+@property (weak, nonatomic) IBOutlet UIButton *stopButton;
 @end
 
 @implementation ZHCaptureViewController
@@ -26,22 +32,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.filterView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
+    self.frameCountLabel.text = @"";
+    self.frameCounter = 0;
     
-    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionFront];
-    self.videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    self.captureImageView.layer.borderWidth = 1.0;
+    self.captureImageView.layer.borderColor = [UIColor greenColor].CGColor;
     
-    self.filter = [GPUImageSepiaFilter new];
-    [self.filter addTarget:self.filterView];
-    
-    self.frameSize = CGSizeMake(480, 640);
-    self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.frameSize resultsInBGRAFormat:YES];
-    [self.filter addTarget:self.rawOutput];
-    
-    [self.videoCamera addTarget:self.filter];
-    [self.videoCamera startCameraCapture];
-    
+    self.stopButton.hidden = YES;
 
+    [self setupCaptureSession];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+    [UIApplication sharedApplication].statusBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,6 +54,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL)prefersStatusBarHidden {
+    return YES;
+}
 /*
 #pragma mark - Navigation
 
@@ -59,25 +67,58 @@
 }
 */
 
-#pragma mark IBActions
 
-- (IBAction)startBarButtonAction:(id)sender {
-    self.frames = [[NSMutableArray alloc]init];
-    self.captureTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(captureFrame:) userInfo:nil repeats:YES];
+#pragma mark Private methods
+
+-(void)setupCaptureSession{
+    self.captureImageView.hidden = YES;
+    
+    self.filterView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
+    
+    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionFront];
+    self.videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    
+    self.filter = [GPUImageCannyEdgeDetectionFilter new];
+    [self.filter addTarget:self.filterView];
+    
+
+    self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
+    [self.filter addTarget:self.rawOutput];
+    
+    [self.videoCamera addTarget:self.filter];
+    [self.videoCamera startCameraCapture];
+
 }
 
-- (IBAction)stopBarButtonAction:(id)sender {
-    
+#pragma mark IBActions
+
+- (IBAction)startButtonTouchUpInside:(id)sender {
+    self.navigationItem.rightBarButtonItem = self.stopBarButtonItem;
+    self.captureImageView.hidden = NO;
+    self.frameCountLabel.hidden = NO;
+    self.captureTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(captureFrame:) userInfo:nil repeats:YES];
+    self.stopButton.hidden = NO;
+    self.startButton.hidden = YES;
+}
+
+- (IBAction)stopButtonTouchUpInside:(id)sender {
+    self.captureImageView.hidden = YES;
+    self.frameCountLabel.hidden = YES;
+    [self.captureTimer invalidate];
+    self.captureTimer = nil;
+    self.navigationItem.rightBarButtonItem = self.startBarButtonItem;
+    self.stopButton.hidden = YES;
+    self.startButton.hidden = NO;
+
 }
 
 #pragma mark Private methods
 -(void)captureFrame:(NSTimer*)sender {
     
-    NSUInteger width = self.frameSize.width;
-    NSUInteger height = self.frameSize.height;
+    NSUInteger width = self.session.input.size.width;
+    NSUInteger height = self.session.input.size.height;
     
     GLubyte *rawData = self.rawOutput.rawBytesForImage;
-    
     
     CGDataProviderRef provider = CGDataProviderCreateWithData(NULL,
                                                               rawData,
@@ -98,13 +139,17 @@
           (unsigned long)CGImageGetWidth(imageRef),
           (unsigned long)CGImageGetHeight(imageRef));
     
-    UIImage *newImage = [UIImage imageWithCGImage:imageRef];
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
     
     NSLog(@"UIImage: width:%lu, height:%lu",
-          (unsigned long)newImage.size.width,
-          (unsigned long)newImage.size.height);
+          (unsigned long)image.size.width,
+          (unsigned long)image.size.height);
     
-    self.captureImageView.image = newImage;
+    self.captureImageView.image = image;
+
+    [self.session cacheImage:image index:self.frameCounter];
+    self.frameCounter++;    
+//    self.frameCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long) self.session.frame.count];
     
 }
 

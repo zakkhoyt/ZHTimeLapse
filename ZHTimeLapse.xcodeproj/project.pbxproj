@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0154DB02A626499788686998 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 893447F9A9D2FCD841C56B50 /* libPods.a */; };
+		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
+		C69ADCA41C2BB1E300612146 /* ZHSessionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHSessionTableViewController.m */; };
+		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
+		C69ADCB01C2BD1D300612146 /* NSDate+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCAB1C2BD1D300612146 /* NSDate+ZH.m */; };
+		C69ADCB11C2BD1D300612146 /* UIColor+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCAD1C2BD1D300612146 /* UIColor+ZH.m */; };
+		C69ADCB21C2BD1D300612146 /* UIViewController+AlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCAF1C2BD1D300612146 /* UIViewController+AlertController.m */; };
+		C69ADCB81C2BDE8800612146 /* ZHRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCB71C2BDE8800612146 /* ZHRenderer.m */; };
 		C6D4429B1C2756D700CE843E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4429A1C2756D700CE843E /* AppDelegate.swift */; };
 		C6D4429D1C2756D700CE843E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D4429C1C2756D700CE843E /* ViewController.swift */; };
 		C6D442A01C2756D700CE843E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6D4429E1C2756D700CE843E /* Main.storyboard */; };
@@ -15,12 +22,15 @@
 		C6D442A51C2756D700CE843E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6D442A31C2756D700CE843E /* LaunchScreen.storyboard */; };
 		C6D442B01C2756D700CE843E /* ZHTimeLapseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D442AF1C2756D700CE843E /* ZHTimeLapseTests.swift */; };
 		C6D442BB1C2756D700CE843E /* ZHTimeLapseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D442BA1C2756D700CE843E /* ZHTimeLapseUITests.swift */; };
-		C6D442C91C27570B00CE843E /* ZHRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D442C81C27570B00CE843E /* ZHRenderer.swift */; };
 		C6D442D11C289E2700CE843E /* ZHTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442D01C289E2700CE843E /* ZHTestViewController.m */; };
 		C6D442D81C28A34D00CE843E /* PHAsset+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */; };
 		C6D442DF1C28A64200CE843E /* notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = C6D442DE1C28A64200CE843E /* notes.txt */; };
 		C6D442E51C28A7BD00CE843E /* ZHCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */; };
 		C6D442E81C28A99400CE843E /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442E71C28A99400CE843E /* NSTimer+Blocks.m */; };
+		C6D442EC1C28E36B00CE843E /* ZHSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442EB1C28E36B00CE843E /* ZHSession.m */; };
+		C6D442F01C28E39000CE843E /* ZHInputSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442EF1C28E39000CE843E /* ZHInputSession.m */; };
+		C6D442F31C28E39B00CE843E /* ZHOutputSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442F21C28E39B00CE843E /* ZHOutputSession.m */; };
+		C6D442F61C28E49900CE843E /* ZHFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D442F51C28E49900CE843E /* ZHFileManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +54,20 @@
 		457310F4E255CAF4B358112E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		893447F9A9D2FCD841C56B50 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA33167DB87EF6FE7D9B9A70 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
+		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
+		C69ADCA21C2BB1E300612146 /* ZHSessionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionTableViewController.h; sourceTree = "<group>"; };
+		C69ADCA31C2BB1E300612146 /* ZHSessionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionTableViewController.m; sourceTree = "<group>"; };
+		C69ADCA71C2BCA5100612146 /* ZHUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHUserDefaults.h; sourceTree = "<group>"; };
+		C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHUserDefaults.m; sourceTree = "<group>"; };
+		C69ADCAA1C2BD1D300612146 /* NSDate+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZH.h"; sourceTree = "<group>"; };
+		C69ADCAB1C2BD1D300612146 /* NSDate+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZH.m"; sourceTree = "<group>"; };
+		C69ADCAC1C2BD1D300612146 /* UIColor+ZH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZH.h"; sourceTree = "<group>"; };
+		C69ADCAD1C2BD1D300612146 /* UIColor+ZH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZH.m"; sourceTree = "<group>"; };
+		C69ADCAE1C2BD1D300612146 /* UIViewController+AlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AlertController.h"; sourceTree = "<group>"; };
+		C69ADCAF1C2BD1D300612146 /* UIViewController+AlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AlertController.m"; sourceTree = "<group>"; };
+		C69ADCB61C2BDE8800612146 /* ZHRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHRenderer.h; sourceTree = "<group>"; };
+		C69ADCB71C2BDE8800612146 /* ZHRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHRenderer.m; sourceTree = "<group>"; };
 		C6D442971C2756D700CE843E /* ZHTimeLapse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZHTimeLapse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D4429A1C2756D700CE843E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6D4429C1C2756D700CE843E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +81,6 @@
 		C6D442B61C2756D700CE843E /* ZHTimeLapseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZHTimeLapseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D442BA1C2756D700CE843E /* ZHTimeLapseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZHTimeLapseUITests.swift; sourceTree = "<group>"; };
 		C6D442BC1C2756D700CE843E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6D442C81C27570B00CE843E /* ZHRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHRenderer.swift; sourceTree = "<group>"; };
 		C6D442CE1C289E2700CE843E /* ZHTimeLapse-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZHTimeLapse-Bridging-Header.h"; sourceTree = "<group>"; };
 		C6D442CF1C289E2700CE843E /* ZHTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHTestViewController.h; sourceTree = "<group>"; };
 		C6D442D01C289E2700CE843E /* ZHTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHTestViewController.m; sourceTree = "<group>"; };
@@ -68,6 +91,14 @@
 		C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHCaptureViewController.m; sourceTree = "<group>"; };
 		C6D442E61C28A99400CE843E /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
 		C6D442E71C28A99400CE843E /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
+		C6D442EA1C28E36B00CE843E /* ZHSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSession.h; sourceTree = "<group>"; };
+		C6D442EB1C28E36B00CE843E /* ZHSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSession.m; sourceTree = "<group>"; };
+		C6D442EE1C28E39000CE843E /* ZHInputSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHInputSession.h; sourceTree = "<group>"; };
+		C6D442EF1C28E39000CE843E /* ZHInputSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHInputSession.m; sourceTree = "<group>"; };
+		C6D442F11C28E39B00CE843E /* ZHOutputSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOutputSession.h; sourceTree = "<group>"; };
+		C6D442F21C28E39B00CE843E /* ZHOutputSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHOutputSession.m; sourceTree = "<group>"; };
+		C6D442F41C28E49900CE843E /* ZHFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFileManager.h; sourceTree = "<group>"; };
+		C6D442F51C28E49900CE843E /* ZHFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFileManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +127,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C69ADCA61C2BC91600612146 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				C6D442DE1C28A64200CE843E /* notes.txt */,
+			);
+			name = Documents;
+			sourceTree = "<group>";
+		};
 		C6D4428E1C2756D700CE843E = {
 			isa = PBXGroup;
 			children = (
@@ -121,15 +160,13 @@
 		C6D442991C2756D700CE843E /* ZHTimeLapse */ = {
 			isa = PBXGroup;
 			children = (
-				C6D442E61C28A99400CE843E /* NSTimer+Blocks.h */,
-				C6D442E71C28A99400CE843E /* NSTimer+Blocks.m */,
-				C6D442D61C28A34D00CE843E /* PHAsset+Utility.h */,
-				C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */,
+				C6D442E91C28E35600CE843E /* Categories */,
+				C6D442ED1C28E37C00CE843E /* Model */,
+				C69ADCA61C2BC91600612146 /* Documents */,
 				C6D442D21C289E2E00CE843E /* SupportingFiles */,
 				C6D442D51C289E4300CE843E /* UserInterface */,
 				C6D442D31C289E3800CE843E /* Utils */,
 				C6D442D41C289E3D00CE843E /* ViewControllers */,
-				C6D442DE1C28A64200CE843E /* notes.txt */,
 			);
 			path = ZHTimeLapse;
 			sourceTree = "<group>";
@@ -165,7 +202,12 @@
 		C6D442D31C289E3800CE843E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C6D442C81C27570B00CE843E /* ZHRenderer.swift */,
+				C6D442F41C28E49900CE843E /* ZHFileManager.h */,
+				C6D442F51C28E49900CE843E /* ZHFileManager.m */,
+				C69ADCA71C2BCA5100612146 /* ZHUserDefaults.h */,
+				C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */,
+				C69ADCB61C2BDE8800612146 /* ZHRenderer.h */,
+				C69ADCB71C2BDE8800612146 /* ZHRenderer.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -178,6 +220,10 @@
 				C6D442D01C289E2700CE843E /* ZHTestViewController.m */,
 				C6D442E31C28A7BD00CE843E /* ZHCaptureViewController.h */,
 				C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */,
+				C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */,
+				C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */,
+				C69ADCA21C2BB1E300612146 /* ZHSessionTableViewController.h */,
+				C69ADCA31C2BB1E300612146 /* ZHSessionTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -190,6 +236,36 @@
 				C6D442A31C2756D700CE843E /* LaunchScreen.storyboard */,
 			);
 			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		C6D442E91C28E35600CE843E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C6D442E61C28A99400CE843E /* NSTimer+Blocks.h */,
+				C6D442E71C28A99400CE843E /* NSTimer+Blocks.m */,
+				C6D442D61C28A34D00CE843E /* PHAsset+Utility.h */,
+				C6D442D71C28A34D00CE843E /* PHAsset+Utility.m */,
+				C69ADCAA1C2BD1D300612146 /* NSDate+ZH.h */,
+				C69ADCAB1C2BD1D300612146 /* NSDate+ZH.m */,
+				C69ADCAC1C2BD1D300612146 /* UIColor+ZH.h */,
+				C69ADCAD1C2BD1D300612146 /* UIColor+ZH.m */,
+				C69ADCAE1C2BD1D300612146 /* UIViewController+AlertController.h */,
+				C69ADCAF1C2BD1D300612146 /* UIViewController+AlertController.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		C6D442ED1C28E37C00CE843E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C6D442EA1C28E36B00CE843E /* ZHSession.h */,
+				C6D442EB1C28E36B00CE843E /* ZHSession.m */,
+				C6D442EE1C28E39000CE843E /* ZHInputSession.h */,
+				C6D442EF1C28E39000CE843E /* ZHInputSession.m */,
+				C6D442F11C28E39B00CE843E /* ZHOutputSession.h */,
+				C6D442F21C28E39B00CE843E /* ZHOutputSession.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		C7E40C232DDEB9B00B8B8E77 /* Pods */ = {
@@ -376,12 +452,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */,
+				C69ADCB11C2BD1D300612146 /* UIColor+ZH.m in Sources */,
+				C69ADCB21C2BD1D300612146 /* UIViewController+AlertController.m in Sources */,
 				C6D442D81C28A34D00CE843E /* PHAsset+Utility.m in Sources */,
+				C69ADCB81C2BDE8800612146 /* ZHRenderer.m in Sources */,
+				C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */,
 				C6D4429D1C2756D700CE843E /* ViewController.swift in Sources */,
-				C6D442C91C27570B00CE843E /* ZHRenderer.swift in Sources */,
 				C6D442D11C289E2700CE843E /* ZHTestViewController.m in Sources */,
+				C6D442EC1C28E36B00CE843E /* ZHSession.m in Sources */,
+				C6D442F01C28E39000CE843E /* ZHInputSession.m in Sources */,
 				C6D4429B1C2756D700CE843E /* AppDelegate.swift in Sources */,
+				C69ADCA41C2BB1E300612146 /* ZHSessionTableViewController.m in Sources */,
+				C6D442F61C28E49900CE843E /* ZHFileManager.m in Sources */,
 				C6D442E51C28A7BD00CE843E /* ZHCaptureViewController.m in Sources */,
+				C6D442F31C28E39B00CE843E /* ZHOutputSession.m in Sources */,
+				C69ADCB01C2BD1D300612146 /* NSDate+ZH.m in Sources */,
 				C6D442E81C28A99400CE843E /* NSTimer+Blocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
