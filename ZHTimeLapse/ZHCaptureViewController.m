@@ -25,12 +25,15 @@
 @property (nonatomic) NSUInteger frameCounter;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
+@property (nonatomic) AVCaptureDevicePosition cameraPosition;
 @end
 
 @implementation ZHCaptureViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.cameraPosition = AVCaptureDevicePositionBack;
 
     self.frameCountLabel.text = @"";
     self.frameCounter = 0;
@@ -85,7 +88,7 @@
     
     
     
-    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:AVCaptureDevicePositionBack];
+    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:self.cameraPosition];
     self.videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     self.videoCamera.horizontallyMirrorFrontFacingCamera = YES;
     
@@ -136,6 +139,13 @@
 }
 
 - (IBAction)swapButtonTouchUpInside:(id)sender {
+    
+    if(self.cameraPosition == AVCaptureDevicePositionBack) {
+        self.cameraPosition = AVCaptureDevicePositionFront;
+    } else {
+        self.cameraPosition = AVCaptureDevicePositionBack;
+    }
+    
     [self setupCaptureSession];
 }
 
