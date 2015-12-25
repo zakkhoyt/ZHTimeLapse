@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0154DB02A626499788686998 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 893447F9A9D2FCD841C56B50 /* libPods.a */; };
+		C620869F1C2D0B3E0026B943 /* ZHFiltersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C620869E1C2D0B3E0026B943 /* ZHFiltersViewController.m */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
 		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
@@ -54,6 +55,8 @@
 		457310F4E255CAF4B358112E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		893447F9A9D2FCD841C56B50 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA33167DB87EF6FE7D9B9A70 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C620869D1C2D0B3E0026B943 /* ZHFiltersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFiltersViewController.h; sourceTree = "<group>"; };
+		C620869E1C2D0B3E0026B943 /* ZHFiltersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFiltersViewController.m; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
 		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
 		C69ADCA21C2BB1E300612146 /* ZHOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -266,6 +269,8 @@
 				C6BBBFD31C2CBEF400FCBC3F /* Capture */,
 				C69ADCBA1C2C90D000612146 /* Sessions */,
 				C6BBBFD21C2CBEF000FCBC3F /* Options */,
+				C620869D1C2D0B3E0026B943 /* ZHFiltersViewController.h */,
+				C620869E1C2D0B3E0026B943 /* ZHFiltersViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -508,6 +513,7 @@
 				C6D442F61C28E49900CE843E /* ZHFileManager.m in Sources */,
 				C6BBBFD11C2CBE3000FCBC3F /* ZHNavigationController.m in Sources */,
 				C6D442E51C28A7BD00CE843E /* ZHCaptureViewController.m in Sources */,
+				C620869F1C2D0B3E0026B943 /* ZHFiltersViewController.m in Sources */,
 				C6D442F31C28E39B00CE843E /* ZHOutputSession.m in Sources */,
 				C69ADCB01C2BD1D300612146 /* NSDate+ZH.m in Sources */,
 				C6D442E81C28A99400CE843E /* NSTimer+Blocks.m in Sources */,

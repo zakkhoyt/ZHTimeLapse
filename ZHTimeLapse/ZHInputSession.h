@@ -16,16 +16,9 @@ typedef enum {
     ZHSessionFilterThresholdEdgeDetection,
     ZHSessionFilterSobelEdgeDetection,
     ZHSessionFilterSketch,
-    ZHSessionFilterToon,
     ZHSessionFilterSmoothToon,
-    ZHSessionFilterDilation,
-    ZHSessionFilterErosion,
-    ZHSessionFilterMosaic,
-    ZHSessionFilterGlassSphere,
     ZHSessionFilterAdaptiveThreshold,
     ZHSessionFilterPolkaDot,
-    ZHSessionFilterHalftone,
-    ZHSessionFilterHoughLineDetection,
     ZHSessionFilterMask = 255,
 } ZHSessionFilter;
 

@@ -133,7 +133,7 @@
             <objects>
                 <tableViewController id="TdJ-N5-fgU" customClass="ZHOptionsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="S3W-ZJ-aso">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -358,8 +358,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="1200"/>
                     <connections>
                         <outlet property="captureButton" destination="0qE-j6-dzm" id="zmT-vo-7u9"/>
                         <outlet property="filterLabel" destination="d2Z-iq-CBe" id="bmz-p1-Rwc"/>
@@ -386,14 +384,14 @@
                         <viewControllerLayoutGuide type="bottom" id="dFm-cb-ikw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OPG-kF-HTY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRy-Ay-wEB" customClass="GPUImageView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="1200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eV-X0-9tK">
-                                        <rect key="frame" x="0.0" y="1056" width="600" height="144"/>
+                                        <rect key="frame" x="0.0" y="456" width="600" height="144"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n64-qf-NPg">
                                                 <rect key="frame" x="283" y="57" width="34" height="30"/>
@@ -452,20 +450,29 @@
                                                     <action selector="swapButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="QfK-ft-Le6"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfn-zc-odn">
-                                                <rect key="frame" x="8" y="7" width="39" height="30"/>
-                                                <state key="normal" title="Close"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voP-E0-Ioc">
+                                                <rect key="frame" x="283" y="7" width="35" height="30"/>
+                                                <state key="normal" title="Filter"/>
                                                 <connections>
-                                                    <action selector="closeButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="kBY-be-8oT"/>
+                                                    <action selector="filterButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="MeC-El-e7P"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wse-gm-dhy">
+                                                <rect key="frame" x="8" y="7" width="35" height="30"/>
+                                                <state key="normal" title="2 fps"/>
+                                                <connections>
+                                                    <action selector="frameRateButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="z8h-ay-vYF"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="0.25363685339999997" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="vfn-zc-odn" firstAttribute="leading" secondItem="tWv-Nv-rMa" secondAttribute="leading" constant="8" id="C0v-mn-Nfp"/>
                                             <constraint firstAttribute="trailing" secondItem="AHf-Pk-9T3" secondAttribute="trailing" constant="8" id="GcC-gr-tLX"/>
-                                            <constraint firstItem="vfn-zc-odn" firstAttribute="centerY" secondItem="tWv-Nv-rMa" secondAttribute="centerY" id="QH0-ud-fUN"/>
+                                            <constraint firstItem="voP-E0-Ioc" firstAttribute="centerY" secondItem="tWv-Nv-rMa" secondAttribute="centerY" id="M0E-5p-2hJ"/>
                                             <constraint firstItem="AHf-Pk-9T3" firstAttribute="centerY" secondItem="tWv-Nv-rMa" secondAttribute="centerY" id="TPb-dA-pec"/>
+                                            <constraint firstItem="voP-E0-Ioc" firstAttribute="centerX" secondItem="tWv-Nv-rMa" secondAttribute="centerX" id="TpQ-5h-IVl"/>
+                                            <constraint firstItem="wse-gm-dhy" firstAttribute="leading" secondItem="tWv-Nv-rMa" secondAttribute="leading" constant="8" id="Xl1-DR-sLL"/>
+                                            <constraint firstItem="wse-gm-dhy" firstAttribute="centerY" secondItem="tWv-Nv-rMa" secondAttribute="centerY" id="eGA-Qt-PrB"/>
                                             <constraint firstAttribute="height" constant="44" id="n2H-ET-ieX"/>
                                         </constraints>
                                     </view>
@@ -501,9 +508,9 @@
                     <connections>
                         <outlet property="bottomToolbarView" destination="0eV-X0-9tK" id="MqG-nS-86C"/>
                         <outlet property="captureImageView" destination="25s-Dw-j1M" id="1Ap-WX-KpP"/>
-                        <outlet property="closeButton" destination="vfn-zc-odn" id="2dp-El-SGn"/>
                         <outlet property="filterView" destination="KRy-Ay-wEB" id="LzQ-qQ-8xF"/>
                         <outlet property="frameCountLabel" destination="N4L-Qq-cJF" id="7CO-HY-KZQ"/>
+                        <outlet property="frameRateButton" destination="wse-gm-dhy" id="URF-0f-Hx7"/>
                         <outlet property="startBarButtonItem" destination="aAW-bG-4AB" id="U8V-GZ-ccn"/>
                         <outlet property="startButton" destination="n64-qf-NPg" id="cBW-m2-cjK"/>
                         <outlet property="stopBarButtonItem" destination="aO8-wy-6gl" id="5jU-z9-YZe"/>

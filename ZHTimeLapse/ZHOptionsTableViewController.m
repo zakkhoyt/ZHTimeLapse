@@ -113,31 +113,8 @@ typedef enum {
             self.filterLabel.text = @"Sketch";
         }
             break;
-        case ZHSessionFilterToon:{
-            self.filterLabel.text = @"Toon";
-        }
-            break;
         case ZHSessionFilterSmoothToon:{
             self.filterLabel.text = @"Smooth Toon";
-        }
-            break;
-            
-            
-            
-        case ZHSessionFilterDilation:{
-            self.filterLabel.text = @"Dilation";
-        }
-            break;
-        case ZHSessionFilterErosion:{
-            self.filterLabel.text = @"Erosion";
-        }
-            break;
-        case ZHSessionFilterMosaic:{
-            self.filterLabel.text = @"Mosaic";
-        }
-            break;
-        case ZHSessionFilterGlassSphere:{
-            self.filterLabel.text = @"Glass Sphere";
         }
             break;
         case ZHSessionFilterAdaptiveThreshold:{
@@ -148,18 +125,6 @@ typedef enum {
             self.filterLabel.text = @"Polka Dot";
         }
             break;
-        case ZHSessionFilterHalftone:{
-            self.filterLabel.text = @"Halftone";
-        }
-            break;
-        case ZHSessionFilterHoughLineDetection:{
-            self.filterLabel.text = @"Hough Line";
-        }
-            break;
-            
-            
-            
-            
         case ZHSessionFilterNone:{
             self.filterLabel.text = @"None";
         }
@@ -268,29 +233,8 @@ typedef enum {
         _session.input.filter = ZHSessionFilterSketch;
         [self updateUI];
     }]];
-
-    [ac addAction:[UIAlertAction actionWithTitle:@"Toon" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterToon;
-        [self updateUI];
-    }]];
     [ac addAction:[UIAlertAction actionWithTitle:@"Smooth Toon" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.filter = ZHSessionFilterSmoothToon;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Dilation" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterDilation;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Erosion" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterErosion;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Mosaic" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterMosaic;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Glass Sphere" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterGlassSphere;
         [self updateUI];
     }]];
     [ac addAction:[UIAlertAction actionWithTitle:@"Adaptive Threshold" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -301,16 +245,7 @@ typedef enum {
         _session.input.filter = ZHSessionFilterPolkaDot;
         [self updateUI];
     }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Halftone" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterHalftone;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Hough Line" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterHoughLineDetection;
-        [self updateUI];
-    }]];
-    
-    
+
     [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }]];
 
