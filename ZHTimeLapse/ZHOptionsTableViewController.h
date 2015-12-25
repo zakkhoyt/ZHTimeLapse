@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 @class ZHSession;
 
-@interface ZHSessionTableViewController : UITableViewController
+@interface ZHOptionsTableViewController : UITableViewController
 @property (nonatomic, strong) ZHSession *session;
 @end

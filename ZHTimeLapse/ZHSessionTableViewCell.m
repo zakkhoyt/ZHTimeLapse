@@ -27,7 +27,7 @@
         _nameLabel.text = @"(no name)";
     }
     _uuidLabel.text = session.uuid;
-    _dateLabel.text = [session.date stringFromDateShort];
+    _dateLabel.text = [session.date stringFromDate];
     _frameCountLabel.text = [NSString stringWithFormat:@"%lu frames | %.2f sec",
                              (unsigned long)[session frameCount],
                              [session timeLength]];

@@ -11,7 +11,7 @@
 @interface NSDate (ZH)
 +(NSDate*)dateFromString:(NSString*)string;
 
-
+-(NSString*)stringFromDate;
 -(NSString*)stringFromDateShort;
 -(NSString*)stringRelativeTimeFromDate;
 

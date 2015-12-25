@@ -29,6 +29,8 @@
         _uuid = [[NSUUID UUID] UUIDString];
         _date = [NSDate date];
         
+        
+        
         _input = [ZHInputSession new];
         _output = [ZHOutputSession new];
     

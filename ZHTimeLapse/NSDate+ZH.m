@@ -50,6 +50,23 @@
 }
 
 
+
+-(NSString*)stringFromDate{
+    NSString *dateFormatString = @"EEE MMM dd, YYYY @HH:mm";
+    
+    NSDateFormatter* dateUTC = [[NSDateFormatter alloc] init];
+    [dateUTC setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [dateUTC setDateFormat:dateFormatString];
+    
+    NSDateFormatter* dateLocal = [[NSDateFormatter alloc] init];
+    [dateLocal setTimeZone:[NSTimeZone localTimeZone]];
+    [dateLocal setDateFormat:dateFormatString];
+    
+    NSString* dateString = [dateLocal stringFromDate:self];
+    if(dateString == nil) dateString = @"";
+    return dateString;
+}
+
 -(NSString*)stringFromDateShort{
     NSString *dateFormatString = @"EE MMM dd, YYYY";
     

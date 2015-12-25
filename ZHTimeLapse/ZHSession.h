@@ -11,12 +11,14 @@
 #import "ZHInputSession.h"
 #import "ZHOutputSession.h"
 
+
 @interface ZHSession : NSObject
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uuid;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *projectPath;
+
 
 @property (nonatomic, strong) ZHInputSession *input;
 @property (nonatomic, strong) ZHOutputSession *output;

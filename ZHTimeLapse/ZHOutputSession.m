@@ -10,9 +10,20 @@
 
 @implementation ZHOutputSession
 
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary {
     self = [super init];
     if(self) {
+        
+        [self commonInit];
+        
         NSString *sizeString = dictionary[@"size"];
         if(sizeString) {
             _size = CGSizeFromString(sizeString);
@@ -24,6 +35,11 @@
         }
     }
     return self;
+}
+
+-(void)commonInit{
+    _frameRate = 30;
+    _size = CGSizeMake(720, 1280);
 }
 
 -(NSDictionary*)dictionaryRepresentation {

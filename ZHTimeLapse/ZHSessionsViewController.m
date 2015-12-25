@@ -7,7 +7,7 @@
 //
 
 #import "ZHSessionsViewController.h"
-#import "ZHSessionTableViewController.h"
+#import "ZHOptionsTableViewController.h"
 #import "ZHFileManager.h"
 #import "ZHSession.h"
 
@@ -44,7 +44,7 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:SegueSessionsToOptions]) {
         UINavigationController *nc = segue.destinationViewController;
-        ZHSessionTableViewController *vc = [nc.viewControllers firstObject];
+        ZHOptionsTableViewController *vc = [nc.viewControllers firstObject];
         vc.session = sender;
     }
 }

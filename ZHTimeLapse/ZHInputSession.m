@@ -10,9 +10,27 @@
 
 @implementation ZHInputSession
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self commonInit];
+        
+    }
+    return self;
+}
+
+
+-(void)commonInit {
+    _frameRate = 2;
+    _size = CGSizeMake(720, 1280);
+    _filter = ZHSessionFilterCannyEdgeDetection;
+}
+
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary {
     self = [super init];
     if(self) {
+        [self commonInit];
+        
         NSString *sizeString = dictionary[@"size"];
         if(sizeString) {
             _size = CGSizeFromString(sizeString);
@@ -21,6 +39,11 @@
         NSNumber *frameRateNumber = dictionary[@"frameRate"];
         if(frameRateNumber) {
             _frameRate = frameRateNumber.doubleValue;
+        }
+        
+        NSNumber *filterNumber = dictionary[@"filter"];
+        if(filterNumber) {
+            _filter = (ZHSessionFilter)filterNumber.unsignedIntegerValue;
         }
         
         NSNumber *captureDevicePositionNumber = dictionary[@"captureDevicePosition"];
@@ -43,8 +66,10 @@
     NSMutableDictionary *dictionary = [@{}mutableCopy];
     dictionary[@"size"] = NSStringFromCGSize(_size);
     dictionary[@"frameRate"] = @(_frameRate);
+    dictionary[@"filter"] = @(_filter);
     dictionary[@"captureDevicePosition"] = @(_captureDevicePosition);
     dictionary[@"orientation"] = @(_orientation);
+    
     return dictionary;
 }
 

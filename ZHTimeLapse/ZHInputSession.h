@@ -9,8 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "GPUImage.h"
 
+typedef enum {
+    ZHSessionFilterNone = 0,
+    ZHSessionFilterCannyEdgeDetection,
+    ZHSessionFilterPrewittEdgeDetection,
+    ZHSessionFilterThresholdEdgeDetection,
+    ZHSessionFilterSobelEdgeDetection,
+    ZHSessionFilterSketch,
+    ZHSessionFilterToon,
+    ZHSessionFilterSmoothToon,
+    ZHSessionFilterDilation,
+    ZHSessionFilterErosion,
+    ZHSessionFilterMosaic,
+    ZHSessionFilterGlassSphere,
+    ZHSessionFilterAdaptiveThreshold,
+    ZHSessionFilterPolkaDot,
+    ZHSessionFilterHalftone,
+    ZHSessionFilterHoughLineDetection,
+    ZHSessionFilterMask = 255,
+} ZHSessionFilter;
+
 @interface ZHInputSession : NSObject
-@property (nonatomic, strong) GPUImageFilter *filter;
+@property (nonatomic) ZHSessionFilter filter;
 @property (nonatomic) CGSize size;
 @property (nonatomic) NSTimeInterval frameRate;
 @property (nonatomic, strong) NSMutableArray *frames;
