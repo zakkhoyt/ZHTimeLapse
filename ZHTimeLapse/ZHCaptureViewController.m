@@ -11,6 +11,7 @@
 #import "NSTimer+Blocks.h"
 #import "ZHSession.h"
 #import "UIViewController+AlertController.h"
+#import "ZHFiltersViewController.h"
 
 @interface ZHCaptureViewController ()
 @property (weak, nonatomic) IBOutlet GPUImageView *filterView;
@@ -35,6 +36,8 @@
 
 @property (nonatomic, strong) UIView *filterSelectionView;
 @property (weak, nonatomic) IBOutlet UIButton *frameRateButton;
+
+
 
 
 @end
@@ -335,238 +338,21 @@
 
 
 -(void)showFilterView {
-    
-    const CGFloat kLabelHeight = 21;
-    
-    CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
-    self.filterSelectionView = [[UIView alloc]initWithFrame:frame];
-    self.filterSelectionView.backgroundColor = [UIColor blackColor];
-    self.filterSelectionView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-    self.filterSelectionView.alpha = 0;
-    
-    
-    CGFloat thirdWidth = self.filterSelectionView.bounds.size.width / 3.0;
-    CGFloat thirdHeight = self.filterSelectionView.bounds.size.height / 3.0;
-    
-    CGRect frame0 = CGRectMake(0 * thirdWidth, 0 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView0 = [[GPUImageView alloc]initWithFrame:frame0];
-    GPUImageOutput<GPUImageInput> *filter0 = [GPUImageCannyEdgeDetectionFilter new];
-    [self.videoCamera addTarget:filter0];
-    [filter0 addTarget:filterView0];
-    [self.filterSelectionView addSubview:filterView0];
-    
-    CGRect labelFrame0 = CGRectMake(0 * thirdWidth, 0 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label0 = [[UILabel alloc]initWithFrame:labelFrame0];
-    label0.textAlignment = NSTextAlignmentCenter;
-    label0.text = @"Canny";
-    label0.textColor = [UIColor whiteColor];
-    label0.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label0];
-    
-    CGRect frame1 = CGRectMake(1 * thirdWidth, 0 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView1 = [[GPUImageView alloc]initWithFrame:frame1];
-    GPUImageOutput<GPUImageInput> *filter1 = [GPUImagePrewittEdgeDetectionFilter new];
-    [self.videoCamera addTarget:filter1];
-    [filter1 addTarget:filterView1];
-    [self.filterSelectionView addSubview:filterView1];
+    __weak ZHFiltersViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ZHFiltersViewController"];
 
-    
-    CGRect labelFrame1 = CGRectMake(1 * thirdWidth, 0 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label1 = [[UILabel alloc]initWithFrame:labelFrame1];
-    label1.textAlignment = NSTextAlignmentCenter;
-    label1.text = @"Prewitt";
-    label1.textColor = [UIColor whiteColor];
-    label1.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label1];
-
-    
-    CGRect frame2 = CGRectMake(2 * thirdWidth, 0 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView2 = [[GPUImageView alloc]initWithFrame:frame2];
-    GPUImageOutput<GPUImageInput> *filter2 = [GPUImageThresholdEdgeDetectionFilter new];
-    [self.videoCamera addTarget:filter2];
-    [filter2 addTarget:filterView2];
-    [self.filterSelectionView addSubview:filterView2];
-    
-    CGRect labelFrame2 = CGRectMake(2 * thirdWidth, 0 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label2 = [[UILabel alloc]initWithFrame:labelFrame2];
-    label2.textAlignment = NSTextAlignmentCenter;
-    label2.text = @"Threshold";
-    label2.textColor = [UIColor whiteColor];
-    label2.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label2];
-
-
-    CGRect frame3 = CGRectMake(0 * thirdWidth, 1 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView3 = [[GPUImageView alloc]initWithFrame:frame3];
-    GPUImageOutput<GPUImageInput> *filter3 = [GPUImageSobelEdgeDetectionFilter new];
-    [self.videoCamera addTarget:filter3];
-    [filter3 addTarget:filterView3];
-    [self.filterSelectionView addSubview:filterView3];
-    
-    CGRect labelFrame3 = CGRectMake(0 * thirdWidth, 1 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label3 = [[UILabel alloc]initWithFrame:labelFrame3];
-    label3.textAlignment = NSTextAlignmentCenter;
-    label3.text = @"Sobel";
-    label3.textColor = [UIColor whiteColor];
-    label3.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label3];
-
-    CGRect frame4 = CGRectMake(1 * thirdWidth, 1 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView4 = [[GPUImageView alloc]initWithFrame:frame4];
-    GPUImageOutput<GPUImageInput> *filter4 = [GPUImageFilter new];
-    [self.videoCamera addTarget:filter4];
-    [filter4 addTarget:filterView4];
-    [self.filterSelectionView addSubview:filterView4];
-    
-    CGRect labelFrame4 = CGRectMake(1 * thirdWidth, 1 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label4 = [[UILabel alloc]initWithFrame:labelFrame4];
-    label4.textAlignment = NSTextAlignmentCenter;
-    label4.text = @"None";
-    label4.textColor = [UIColor whiteColor];
-    label4.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label4];
-
-
-    CGRect frame5 = CGRectMake(2 * thirdWidth, 1 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView5 = [[GPUImageView alloc]initWithFrame:frame5];
-    GPUImageOutput<GPUImageInput> *filter5 = [GPUImageSketchFilter new];
-    [self.videoCamera addTarget:filter5];
-    [filter5 addTarget:filterView5];
-    [self.filterSelectionView addSubview:filterView5];
-    
-    CGRect labelFrame5 = CGRectMake(2 * thirdWidth, 1 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label5 = [[UILabel alloc]initWithFrame:labelFrame5];
-    label5.textAlignment = NSTextAlignmentCenter;
-    label5.text = @"Sketch";
-    label5.textColor = [UIColor whiteColor];
-    label5.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label5];
-
-    CGRect frame6 = CGRectMake(0 * thirdWidth, 2 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView6 = [[GPUImageView alloc]initWithFrame:frame6];
-    GPUImageOutput<GPUImageInput> *filter6 = [GPUImageSmoothToonFilter new];
-    [self.videoCamera addTarget:filter6];
-    [filter6 addTarget:filterView6];
-    [self.filterSelectionView addSubview:filterView6];
-    
-    CGRect labelFrame6 = CGRectMake(0 * thirdWidth, 2 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label6 = [[UILabel alloc]initWithFrame:labelFrame6];
-    label6.textAlignment = NSTextAlignmentCenter;
-    label6.text = @"Toon";
-    label6.textColor = [UIColor whiteColor];
-    label6.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label6];
-
-
-    CGRect frame7 = CGRectMake(1 * thirdWidth, 2 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView7 = [[GPUImageView alloc]initWithFrame:frame7];
-    GPUImageOutput<GPUImageInput> *filter7 = [GPUImageAdaptiveThresholdFilter new];
-    [self.videoCamera addTarget:filter7];
-    [filter7 addTarget:filterView7];
-    [self.filterSelectionView addSubview:filterView7];
-    
-    CGRect labelFrame7 = CGRectMake(1 * thirdWidth, 2 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label7 = [[UILabel alloc]initWithFrame:labelFrame7];
-    label7.textAlignment = NSTextAlignmentCenter;
-    label7.text = @"Adaptive";
-    label7.textColor = [UIColor whiteColor];
-    label7.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label7];
-
-
-    CGRect frame8 = CGRectMake(2 * thirdWidth, 2 * thirdHeight, thirdWidth, thirdHeight);
-    GPUImageView *filterView8 = [[GPUImageView alloc]initWithFrame:frame8];
-    GPUImageOutput<GPUImageInput> *filter8 = [GPUImagePolkaDotFilter new];
-    [self.videoCamera addTarget:filter8];
-    [filter8 addTarget:filterView8];
-    [self.filterSelectionView addSubview:filterView8];
-
-    CGRect labelFrame8 = CGRectMake(2 * thirdWidth, 2 * thirdHeight + (thirdHeight - kLabelHeight), thirdWidth, kLabelHeight);
-    UILabel *label8 = [[UILabel alloc]initWithFrame:labelFrame8];
-    label8.textAlignment = NSTextAlignmentCenter;
-    label8.text = @"Polka Dots";
-    label8.textColor = [UIColor whiteColor];
-    label8.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.5];
-    [self.filterSelectionView addSubview:label8];
-
-    
-    
-    [self.view addSubview:self.filterSelectionView];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.filterSelectionView.transform = CGAffineTransformIdentity;
-        self.filterSelectionView.alpha = 1.0;
-    } completion:^(BOOL finished) {
+    [vc setVideoCamera:self.videoCamera completionBlock:^(GPUImageOutput<GPUImageInput> *filter) {
         
+//        _session.input.filter =
+        [vc.view removeFromSuperview];
+        [vc removeFromParentViewController];
+
     }];
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            self.filterSelectionView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-            self.filterSelectionView.alpha = 0;
-        } completion:^(BOOL finished) {
-            
-            
-            
-            [self.videoCamera removeTarget:filter0];
-            [filter0 removeAllTargets];
-            [filterView0 removeFromSuperview];
-
-            [self.videoCamera removeTarget:filter0];
-            [filter1 removeAllTargets];
-            [filterView1 removeFromSuperview];
-
-            [self.videoCamera removeTarget:filter2];
-            [filter2 removeAllTargets];
-            [filterView2 removeFromSuperview];
-
-            [self.videoCamera removeTarget:filter3];
-            [filter3 removeAllTargets];
-            [filterView3 removeFromSuperview];
-
-            [self.videoCamera removeTarget:filter4];
-            [filter4 removeAllTargets];
-            [filterView4 removeFromSuperview];
-
-            [self.videoCamera removeTarget:filter5];
-            [filter5 removeAllTargets];
-            [filterView5 removeFromSuperview];
-
-            [self.videoCamera removeTarget:filter6];
-            [filter6 removeAllTargets];
-            [filterView6 removeFromSuperview];
-
-            [self.videoCamera removeTarget:filter7];
-            [filter7 removeAllTargets];
-            [filterView7 removeFromSuperview];
-
-            [self.videoCamera removeTarget:filter8];
-            [filter8 removeAllTargets];
-            [filterView8 removeFromSuperview];
-
-            
-            
-            
-            
-            [self.filterSelectionView removeFromSuperview];
-            _filterSelectionView = nil;
-        }];
-
-    });
+    [self addChildViewController:vc];
+    vc.view.frame = self.view.bounds;
+    [self.view addSubview:vc.view];
+    [vc didMoveToParentViewController:self];
     
 }
-
-
 @end
 

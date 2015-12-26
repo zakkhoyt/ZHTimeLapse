@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GPUImage.h"
+
+typedef void (^ZHFiltersViewControllerFilterBlock)(GPUImageOutput<GPUImageInput> *filter);
 
 @interface ZHFiltersViewController : UIViewController
-
+-(void)setVideoCamera:(GPUImageVideoCamera *)videoCamera completionBlock:(ZHFiltersViewControllerFilterBlock)completionBlock;
 @end

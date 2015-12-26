@@ -531,6 +531,24 @@
             </objects>
             <point key="canvasLocation" x="2250" y="1329"/>
         </scene>
+        <!--Filters View Controller-->
+        <scene sceneID="inU-tL-ylc">
+            <objects>
+                <viewController storyboardIdentifier="ZHFiltersViewController" id="m45-SX-k9f" customClass="ZHFiltersViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="w9f-4g-z0j"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ifw-1c-w1i"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dNX-37-RT0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frk-Jn-XqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2992" y="1329"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="kIR-mo-SNW">
             <objects>
