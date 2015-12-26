@@ -22,6 +22,13 @@ typedef enum {
     ZHSessionFilterMask = 255,
 } ZHSessionFilter;
 
+// **** B&W
+// Threshold sketch
+
+// ** COLOR
+// Erosion
+
+
 @interface ZHInputSession : NSObject
 @property (nonatomic) ZHSessionFilter filter;
 @property (nonatomic) CGSize size;

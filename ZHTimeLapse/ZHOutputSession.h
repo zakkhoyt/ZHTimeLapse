@@ -12,6 +12,7 @@
 @property (nonatomic) CGSize size;
 @property (nonatomic) NSTimeInterval frameRate;
 @property (nonatomic, strong) NSURL *outputURL;
+@property (nonatomic, strong) NSURL *outputGIF;
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 -(NSDictionary*)dictionaryRepresentation;

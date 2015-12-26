@@ -5,6 +5,7 @@
 //  Created by Zakk Hoyt on 12/21/15.
 //  Copyright © 2015 Zakk Hoyt. All rights reserved.
 //
+//  https://github.com/rehatkathuria/SnappingSlider
 
 #import "ZHCaptureViewController.h"
 #import "GPUImage.h"
@@ -22,12 +23,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *startBarButtonItem;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *stopBarButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel *frameCountLabel;
 @property (nonatomic) NSUInteger frameCounter;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (nonatomic) AVCaptureDevicePosition cameraPosition;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomToolbarView;
@@ -38,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *frameRateButton;
 
 
+@property (weak, nonatomic) IBOutlet UISlider *paramSlider;
 
 
 @end
@@ -47,7 +47,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.startButton.layer.cornerRadius = self.startButton.bounds.size.width / 2.0;
+    self.startButton.layer.masksToBounds = YES;
+    self.startButton.layer.borderWidth = 1.0;
+    self.startButton.layer.borderColor = self.startButton.tintColor.CGColor;
     
+    self.stopButton.layer.cornerRadius = self.stopButton.bounds.size.width / 2.0;
+    self.stopButton.layer.masksToBounds = YES;
+    self.stopButton.layer.borderWidth = 1.0;
+    self.stopButton.layer.borderColor = self.stopButton.tintColor.CGColor;
+
     self.captureImageView.layer.borderWidth = 1.0;
     self.captureImageView.layer.borderColor = self.view.tintColor.CGColor;
     
@@ -157,44 +166,78 @@
     switch (self.session.input.filter) {
 
         case ZHSessionFilterCannyEdgeDetection:{
+            [self.paramSlider setMinimumValue:0.0];
+            [self.paramSlider setMaximumValue:1.0];
+            [self.paramSlider setValue:1.0];
+
             GPUImageCannyEdgeDetectionFilter *filter = [GPUImageCannyEdgeDetectionFilter new];
             self.filter = filter;
         }
             break;
         case ZHSessionFilterPrewittEdgeDetection:{
+            [self.paramSlider setMinimumValue:0.0];
+            [self.paramSlider setMaximumValue:1.0];
+            [self.paramSlider setValue:1.0];
+            
             GPUImagePrewittEdgeDetectionFilter *filter = [GPUImagePrewittEdgeDetectionFilter new];
             self.filter = filter;
         }
             break;
         case ZHSessionFilterThresholdEdgeDetection:{
+            
+            [self.paramSlider setMinimumValue:0.0];
+            [self.paramSlider setMaximumValue:1.0];
+            [self.paramSlider setValue:0.25];
+
             GPUImageThresholdEdgeDetectionFilter *filter = [GPUImageThresholdEdgeDetectionFilter new];
             self.filter = filter;
         }
             break;
         case ZHSessionFilterSobelEdgeDetection:{
+            
+            [self.paramSlider setMinimumValue:0.0];
+            [self.paramSlider setMaximumValue:1.0];
+            [self.paramSlider setValue:0.25];
+
             GPUImageSobelEdgeDetectionFilter *filter = [GPUImageSobelEdgeDetectionFilter new];
             self.filter = filter;
         }
             break;
         case ZHSessionFilterSketch:{
+            
+            [self.paramSlider setMinimumValue:0.0];
+            [self.paramSlider setMaximumValue:1.0];
+            [self.paramSlider setValue:0.25];
+
             GPUImageSketchFilter *filter = [GPUImageSketchFilter new];
             self.filter = filter;
         }
             break;
 
         case ZHSessionFilterSmoothToon:{
+            [self.paramSlider setMinimumValue:1.0];
+            [self.paramSlider setMaximumValue:6.0];
+            [self.paramSlider setValue:1.0];
+            
             GPUImageSmoothToonFilter *filter = [GPUImageSmoothToonFilter new];
             self.filter = filter;
         }
             break;
         case ZHSessionFilterAdaptiveThreshold:{
+            [self.paramSlider setMinimumValue:1.0];
+            [self.paramSlider setMaximumValue:20.0];
+            [self.paramSlider setValue:1.0];
+
             GPUImageAdaptiveThresholdFilter *filter = [GPUImageAdaptiveThresholdFilter new];
-            [filter setBlurRadiusInPixels:2.0];
             self.filter = filter;
         }
             break;
 
         case ZHSessionFilterPolkaDot:{
+            [self.paramSlider setValue:0.05];
+            [self.paramSlider setMinimumValue:0.0];
+            [self.paramSlider setMaximumValue:0.3];
+
             GPUImagePolkaDotFilter *filter = [GPUImagePolkaDotFilter new];
             self.filter = filter;
         }
@@ -207,6 +250,9 @@
             break;
     }
     
+    // Force initial values
+    [self paramSliderValueChanged:self.paramSlider];
+    
     
 //    //    // Add mask to video
 //    self.filter = [GPUImageMaskFilter new];
@@ -218,8 +264,6 @@
     
     [self.filter addTarget:self.filterView];
     
-    
-    
     self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
     [self.filter addTarget:self.rawOutput];
     
@@ -229,6 +273,50 @@
 }
 
 #pragma mark IBActions
+- (IBAction)paramSliderValueChanged:(UISlider*)sender {
+    switch (_session.input.filter) {
+            
+        case ZHSessionFilterCannyEdgeDetection:{
+            [(GPUImageCannyEdgeDetectionFilter*)_filter setBlurTexelSpacingMultiplier:sender.value];
+        }
+            break;
+        case ZHSessionFilterPrewittEdgeDetection:{
+             [(GPUImagePrewittEdgeDetectionFilter*)_filter setEdgeStrength:sender.value];
+        }
+            break;
+        case ZHSessionFilterThresholdEdgeDetection:{
+            [(GPUImageLuminanceThresholdFilter*)_filter setThreshold:sender.value];
+        }
+            break;
+        case ZHSessionFilterSobelEdgeDetection:{
+            [(GPUImageSobelEdgeDetectionFilter*)_filter setEdgeStrength:sender.value];
+        }
+            break;
+        case ZHSessionFilterSketch:{
+            [(GPUImageSketchFilter*)_filter setEdgeStrength:sender.value];
+        }
+            break;
+        case ZHSessionFilterSmoothToon:{
+            [(GPUImageSmoothToonFilter*)_filter setBlurRadiusInPixels:sender.value];
+        }
+            break;
+        case ZHSessionFilterAdaptiveThreshold:{
+            [(GPUImageAdaptiveThresholdFilter*)_filter setBlurRadiusInPixels:sender.value];
+        }
+            break;
+        case ZHSessionFilterPolkaDot:{
+            [(GPUImagePolkaDotFilter*)_filter setFractionalWidthOfAPixel:sender.value];
+        }
+            break;
+        case ZHSessionFilterNone: {
+            
+        }
+            break;
+        default:{
+        }
+            break;
+    }
+}
 
 - (IBAction)frameRateButtonTouchUpInside:(id)sender {
     [self presentAlertDialogWithMessage:@"Swipe left/right to change frame rate."];
@@ -251,24 +339,45 @@
     
     NSLog(@"orientation: %lu", self.session.input.orientation);
     
-    self.navigationItem.rightBarButtonItem = self.stopBarButtonItem;
     self.captureTimer = [NSTimer scheduledTimerWithTimeInterval:1/(float)self.session.input.frameRate target:self selector:@selector(captureFrame:) userInfo:nil repeats:YES];
     [self captureFrame:self.captureTimer];
     
     self.stopButton.hidden = NO;
     self.startButton.hidden = YES;
-    self.closeButton.hidden = YES;
+    
+    // Hide top toolbar while recording
+    [UIView animateWithDuration:0.3 animations:^{
+        self.topToolbarView.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.topToolbarView.hidden = YES;
+    }];
+    
+    // Disable screensaver
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
 - (IBAction)stopButtonTouchUpInside:(id)sender {
+    
+    // Show top toolbar
+    self.topToolbarView.hidden = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.topToolbarView.alpha = 1.0;
+    }];
+
+    
     [self.captureTimer invalidate];
     self.captureTimer = nil;
     self.navigationItem.rightBarButtonItem = self.startBarButtonItem;
     self.stopButton.hidden = YES;
     self.startButton.hidden = NO;
-    self.closeButton.hidden = NO;
     
-    [self.navigationController popViewControllerAnimated:YES];
+
+    
+    // Enable screensaver
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+
+//    // Pop
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)swapButtonTouchUpInside:(id)sender {
@@ -340,18 +449,33 @@
 -(void)showFilterView {
     __weak ZHFiltersViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ZHFiltersViewController"];
 
-    [vc setVideoCamera:self.videoCamera completionBlock:^(GPUImageOutput<GPUImageInput> *filter) {
-        
-//        _session.input.filter =
-        [vc.view removeFromSuperview];
-        [vc removeFromParentViewController];
+    [vc setVideoCamera:self.videoCamera completionBlock:^(ZHSessionFilter filter) {
 
+        [UIView animateWithDuration:0.5 animations:^{
+            vc.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
+            vc.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [vc.view removeFromSuperview];
+            [vc removeFromParentViewController];
+        }];
+        
+
+        _session.input.filter = filter;
+        [self setupCaptureSession];
     }];
     
     [self addChildViewController:vc];
     vc.view.frame = self.view.bounds;
+    vc.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    vc.view.alpha = 0;
     [self.view addSubview:vc.view];
     [vc didMoveToParentViewController:self];
+    
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        vc.view.transform = CGAffineTransformIdentity;
+        vc.view.alpha = 1.0;
+    }];
     
 }
 @end

@@ -23,7 +23,7 @@
 -(void)commonInit {
     _frameRate = 2;
     _size = CGSizeMake(720, 1280);
-    _filter = ZHSessionFilterCannyEdgeDetection;
+    _filter = ZHSessionFilterNone;// CannyEdgeDetection;
 }
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary {

@@ -5,9 +5,12 @@
 //  Created by Zakk Hoyt on 12/24/15.
 //  Copyright © 2015 Zakk Hoyt. All rights reserved.
 //
+//
+//
 
 #import "ZHFiltersViewController.h"
 #import "ZHFilterView.h"
+
 
 @interface ZHFiltersViewController ()
 @property (nonatomic, strong) NSArray <ZHFilterView*> *filterViews;
@@ -20,118 +23,73 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupFilterViews];
 }
 
 
 -(void)setVideoCamera:(GPUImageVideoCamera *)videoCamera completionBlock:(ZHFiltersViewControllerFilterBlock)completionBlock {
     _videoCamera = videoCamera;
     _completionBlock = completionBlock;
+    [self setupFilterViews];
 }
 
-
+// Create a 3x3 grid of filter previews.
 -(void)setupFilterViews {
     
     CGFloat thirdWidth = self.view.bounds.size.width / 3.0;
     CGFloat thirdHeight = self.view.bounds.size.height / 3.0;
     
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImageCannyEdgeDetectionFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(0 * thirdWidth, 0 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"Canny" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
-    }
     
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImagePrewittEdgeDetectionFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(1 * thirdWidth, 0 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"Prewitt" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
+    for(NSUInteger y = 0; y < 3; y++) {
+        for(NSUInteger x = 0; x < 3; x++) {
+            ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
+            filterView.frame = CGRectMake(x * thirdWidth, y * thirdHeight, thirdWidth, thirdHeight);
+            
+            // Assign our filter
+            switch (y * 3 + x) {
+                case 0:
+                    [filterView setFilter:ZHSessionFilterCannyEdgeDetection videoCamera:self.videoCamera];
+                    break;
+                case 1:
+                    [filterView setFilter:ZHSessionFilterPrewittEdgeDetection videoCamera:self.videoCamera];
+                    break;
+                case 2:
+                    [filterView setFilter:ZHSessionFilterThresholdEdgeDetection videoCamera:self.videoCamera];
+                    break;
+                case 3:
+                    [filterView setFilter:ZHSessionFilterSobelEdgeDetection videoCamera:self.videoCamera];
+                    break;
+                case 4:
+                    [filterView setFilter:ZHSessionFilterNone videoCamera:self.videoCamera];
+                    break;
+                case 5:
+                    [filterView setFilter:ZHSessionFilterSketch videoCamera:self.videoCamera];
+                    break;
+                case 6:
+                    [filterView setFilter:ZHSessionFilterSmoothToon videoCamera:self.videoCamera];
+                    break;
+                case 7:
+                    [filterView setFilter:ZHSessionFilterAdaptiveThreshold videoCamera:self.videoCamera];
+                    break;
+                case 8:
+                    [filterView setFilter:ZHSessionFilterPolkaDot videoCamera:self.videoCamera];
+                    break;
+                default:
+                    NSLog(@"invalid x/y index");
+                    break;
+            }
+            
+            [self.view addSubview:filterView];
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
+            [filterView addGestureRecognizer:tapGesture];
+        }
     }
-    
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImageThresholdEdgeDetectionFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(2 * thirdWidth, 0 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"Threshold" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
-    }
-    
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImageSobelEdgeDetectionFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(0 * thirdWidth, 1 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"Sobel" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
-    }
-    
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImageFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(1 * thirdWidth, 1 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"None" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
-    }
-    
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImageSketchFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(2 * thirdWidth, 1 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"Sketch" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
-    }
-    
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImageSmoothToonFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(0 * thirdWidth, 2 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"Toon" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
-    }
-    
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImageAdaptiveThresholdFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(1 * thirdWidth, 2 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"Adaptive" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
-    }
-    
-    {
-        GPUImageOutput<GPUImageInput> *filter = [GPUImagePolkaDotFilter new];
-        ZHFilterView *filterView = [[[NSBundle mainBundle]loadNibNamed:@"ZHFilterView" owner:self options:nil] firstObject];
-        filterView.frame = CGRectMake(2 * thirdWidth, 2 * thirdHeight, thirdWidth, thirdHeight);
-        [filterView setFilter:filter filterName:@"Polka Dot" videoCamera:self.videoCamera];
-        [self.view addSubview:filterView];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-        [filterView addGestureRecognizer:tapGesture];
-    }
-
 }
 
-
+// Fire our completion block with a ZHSessionFilter
 -(void)tapGesture:(UITapGestureRecognizer*)sender {
     if([sender.view isKindOfClass:[ZHFilterView class]]) {
         ZHFilterView *filterView = (ZHFilterView*)sender.view;
-        GPUImageOutput<GPUImageInput> *filter = filterView.filter;
+        ZHSessionFilter filter = filterView.filter;
         if(_completionBlock) {
             _completionBlock(filter);
         }

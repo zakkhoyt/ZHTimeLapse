@@ -36,44 +36,44 @@
 
 
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-
-    //The device has already rotated, that's why this method is being called.
-    UIDeviceOrientation orientation   = [[UIDevice currentDevice] orientation];
-
-//    [UIView animateWithDuration:0.3 animations:^{
-//        switch (orientation) {
-//            case UIDeviceOrientationPortrait:
-//                [self.rotatableViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    view.transform = CGAffineTransformIdentity;
-//                }];
-//                break;
-//            case UIDeviceOrientationPortraitUpsideDown:
-//                [self.rotatableViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    view.transform = CGAffineTransformMakeRotation(M_PI);
-//                }];
+//-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 //
-//                break;
-//            case UIDeviceOrientationLandscapeLeft:
-//                [self.rotatableViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    view.transform = CGAffineTransformMakeRotation(M_PI / 2.0);
-//                }];
-//                break;
-//            case UIDeviceOrientationLandscapeRight:
-//                [self.rotatableViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    view.transform = CGAffineTransformMakeRotation(-M_PI / 2.0);
-//                }];
+//    //The device has already rotated, that's why this method is being called.
+//    UIDeviceOrientation orientation   = [[UIDevice currentDevice] orientation];
 //
-//                break;
-//            default:
-//                break;
-//        }
+////    [UIView animateWithDuration:0.3 animations:^{
+////        switch (orientation) {
+////            case UIDeviceOrientationPortrait:
+////                [self.rotatableViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+////                    view.transform = CGAffineTransformIdentity;
+////                }];
+////                break;
+////            case UIDeviceOrientationPortraitUpsideDown:
+////                [self.rotatableViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+////                    view.transform = CGAffineTransformMakeRotation(M_PI);
+////                }];
+////
+////                break;
+////            case UIDeviceOrientationLandscapeLeft:
+////                [self.rotatableViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+////                    view.transform = CGAffineTransformMakeRotation(M_PI / 2.0);
+////                }];
+////                break;
+////            case UIDeviceOrientationLandscapeRight:
+////                [self.rotatableViews enumerateObjectsUsingBlock:^(UIView *  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+////                    view.transform = CGAffineTransformMakeRotation(-M_PI / 2.0);
+////                }];
+////
+////                break;
+////            default:
+////                break;
+////        }
+////
+////    } completion:^(BOOL finished) {
+////
+////    }];
 //
-//    } completion:^(BOOL finished) {
-//
-//    }];
-
-    return NO;
-}
+//    return NO;
+//}
 
 @end

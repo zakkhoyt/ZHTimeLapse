@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GPUImage.h"
+#import "ZHSession.h"
 
 @interface ZHFilterView : UIView
-//@property (nonatomic, strong) GPUImageOutput<GPUImageInput> *filter;
--(void)setFilter:(GPUImageOutput<GPUImageInput>*)filter
-      filterName:(NSString*)filterName
+
+-(void)setFilter:(ZHSessionFilter)filter
      videoCamera:(GPUImageVideoCamera*)videoCamera;
 
--(GPUImageOutput<GPUImageInput>*)filter;
+-(ZHSessionFilter)filter;
+
 @end

@@ -13,5 +13,6 @@ typedef void (^ZHRendererCompletionBlock)(BOOL success, ZHSession* session);
 typedef void (^ZHRendererProgressBlock)(NSUInteger framesRendered, NSUInteger totalFrames);
 
 @interface ZHRenderer : NSObject
--(void)renderSession:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock;
+-(void)renderSessionToVideo:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock;
+-(void)renderSessionToGIF:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock;
 @end

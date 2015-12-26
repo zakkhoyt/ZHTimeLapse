@@ -5,9 +5,15 @@
 //  Created by Zakk Hoyt on 12/24/15.
 //  Copyright © 2015 Zakk Hoyt. All rights reserved.
 //
+//  Info on how to make a gif:
+//  http://stackoverflow.com/questions/14915138/create-and-and-export-an-animated-gif-via-ios
+
 
 #import "ZHRenderer.h"
 @import AVFoundation;
+@import ImageIO;
+@import  MobileCoreServices;
+
 #import "ZHSession.h"
 #import "PHAsset+Utility.h"
 #import "ZHFileManager.h"
@@ -18,22 +24,6 @@
 @end
 
 @implementation ZHRenderer
-
-
-
-//static inline double radians (double degrees) {return degrees * M_PI/180;}
-//
-//-(UIImage*)rotateImage:(UIImage*)image degrees:(double)degrees {
-//    UIGraphicsBeginImageContext(image.size);
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    CGContextRotateCTM (context, radians(degrees));
-//    [image drawAtPoint:CGPointMake(0, 0)];
-//    
-//    UIImage *rotatedImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    return rotatedImage;
-//}
-
 
 
 - (UIImage*)rotateImage:(UIImage*)sourceImage orientation:(UIImageOrientation)orientation {
@@ -47,7 +37,7 @@
     return newImage;
 }
 
--(void)renderSession:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock {
+-(void)renderSessionToVideo:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock {
     
     // Delete any existing file first.
     [ZHFileManager deleteFileAtURL:session.output.outputURL];
@@ -93,7 +83,7 @@
             do {
                 [NSThread sleepForTimeInterval:0.01]; // 10 ms
             } while ([adaptor.assetWriterInput isReadyForMoreMediaData] == NO);
-                
+            
             @autoreleasepool {
                 UIImage* image = [session imageForIndex:index];
                 if(image == nil) {
@@ -104,10 +94,10 @@
                 // rotate frames if needed
                 CGSize outputSize = CGSizeZero;
                 // TODO: Support upside down. NEed to modify rotate function.
-//                if(session.input.orientation == UIDeviceOrientationPortraitUpsideDown) {
-//                    outputSize = session.output.size;
-//                    image = [self rotateImage:image orientation:UIImageOrientationDownMirrored];
-//                } else
+                //                if(session.input.orientation == UIDeviceOrientationPortraitUpsideDown) {
+                //                    outputSize = session.output.size;
+                //                    image = [self rotateImage:image orientation:UIImageOrientationDownMirrored];
+                //                } else
                 if(session.input.orientation == UIDeviceOrientationLandscapeRight) {
                     outputSize = CGSizeMake(session.output.size.height, session.output.size.width);
                     image = [self rotateImage:image orientation:UIImageOrientationRight];
@@ -225,4 +215,98 @@
     }
     return [adaptor appendPixelBuffer:buffer withPresentationTime:time];
 }
+
+
+
+
+
+-(void)renderSessionToGIF:(ZHSession*)session
+            progressBlock:(ZHRendererProgressBlock)progressBlock
+          completionBlock:(ZHRendererCompletionBlock)completionBlock {
+    
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        
+        NSUInteger frameCount = session.frameCount;
+        
+        NSDictionary *fileProperties = @{
+                                         (__bridge id)kCGImagePropertyGIFDictionary: @{
+                                                 (__bridge id)kCGImagePropertyGIFLoopCount: @0, // 0 means loop forever
+                                                 }
+                                         };
+        
+        NSDictionary *frameProperties = @{
+                                          (__bridge id)kCGImagePropertyGIFDictionary: @{
+                                                  (__bridge id)kCGImagePropertyGIFDelayTime: @0.033f, // a float (not double!) in seconds, rounded to centiseconds in the GIF data
+                                                  }
+                                          };
+        
+        //    NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
+        //    NSURL *fileURL = [documentsDirectoryURL URLByAppendingPathComponent:@"animated.gif"];
+        
+        
+        CGImageDestinationRef destination = CGImageDestinationCreateWithURL((__bridge CFURLRef)session.output.outputGIF, kUTTypeGIF, frameCount, NULL);
+        CGImageDestinationSetProperties(destination, (__bridge CFDictionaryRef)fileProperties);
+        
+        for (NSUInteger index = 0; index < frameCount; index++) {
+            @autoreleasepool {
+                UIImage* image = [session imageForIndex:index];
+                if(image == nil) {
+                    NSLog(@"Error Frame not found for index: %lu", (unsigned long)index);
+                    break;
+                }
+                
+                // rotate frames if needed
+                CGSize outputSize = CGSizeZero;
+                // TODO: Support upside down. NEed to modify rotate function.
+                //                if(session.input.orientation == UIDeviceOrientationPortraitUpsideDown) {
+                //                    outputSize = session.output.size;
+                //                    image = [self rotateImage:image orientation:UIImageOrientationDownMirrored];
+                //                } else
+                if(session.input.orientation == UIDeviceOrientationLandscapeRight) {
+                    outputSize = CGSizeMake(session.output.size.height, session.output.size.width);
+                    image = [self rotateImage:image orientation:UIImageOrientationRight];
+                } else if(session.input.orientation == UIDeviceOrientationLandscapeLeft) {
+                    outputSize = CGSizeMake(session.output.size.height, session.output.size.width);
+                    image = [self rotateImage:image orientation:UIImageOrientationLeft];
+                } else {
+                    // portrait, unknown, face down, face up.
+                    outputSize = session.output.size;
+                }
+                
+                CGImageDestinationAddImage(destination, image.CGImage, (__bridge CFDictionaryRef)frameProperties);
+                
+                // Update our caller
+                if(progressBlock) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        progressBlock(index+1, session.frameCount);
+                    });
+                }
+            }
+            
+        }
+        
+        BOOL success = YES;
+        if (!CGImageDestinationFinalize(destination)) {
+            NSLog(@"Error: failed to finalize image destination");
+        } else {
+            NSLog(@"Success! Rendered GIF");
+        }
+        
+        // Cleanup
+        CFRelease(destination);
+        
+        // Completion
+        if(completionBlock) {
+            completionBlock(success, session);
+        }
+    });
+}
+
+
 @end
+
+
+
+

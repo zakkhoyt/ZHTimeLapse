@@ -274,20 +274,18 @@ typedef enum {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:hud];
     hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.labelText = @"Loading";
+    hud.labelText = @"Rendering video";
     [hud show:YES];
     
     NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
     NSLog(@"%lu frames", (unsigned long) frameCount);
     
     ZHRenderer *renderer = [[ZHRenderer alloc]init];
-    [renderer renderSession:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
-        NSLog(@"rendered %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
+    [renderer renderSessionToVideo:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
+        NSLog(@"rendered video frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
         hud.progress = framesRendered / (float)frameCount;
     } completionBlock:^(BOOL success, ZHSession *session) {
         NSLog(@"completed");
-        
-
         if(success == YES) {
             UIImage *image = [UIImage imageNamed:@"37x-Checkmark.png"];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -309,6 +307,46 @@ typedef enum {
     }];
     
 //    [self performSegueWithIdentifier:SegueOptionsToRender sender:nil];
+}
+
+- (IBAction)renderGifButtonTouchUpInside:(UIButton*)sender {
+    sender.enabled = NO;
+    
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:hud];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Rendering gif";
+    [hud show:YES];
+    
+    NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
+    NSLog(@"%lu frames", (unsigned long) frameCount);
+    
+    ZHRenderer *renderer = [[ZHRenderer alloc]init];
+    [renderer renderSessionToGIF:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
+        NSLog(@"rendered gif frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
+        hud.progress = framesRendered / (float)frameCount;
+    } completionBlock:^(BOOL success, ZHSession *session) {
+        NSLog(@"completed");
+        if(success == YES) {
+            UIImage *image = [UIImage imageNamed:@"37x-Checkmark.png"];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            hud.customView = imageView;
+            hud.mode = MBProgressHUDModeCustomView;
+            hud.labelText = @"Gif in bundle";
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [hud hide:YES];
+            });
+            
+            NSLog(@"TODO: Cleanup");
+        } else {
+            [hud hide:YES];
+            [self presentAlertDialogWithMessage:@"Failed"];
+        }
+        
+        sender.enabled = YES;
+    }];
+    
 }
 
 @end

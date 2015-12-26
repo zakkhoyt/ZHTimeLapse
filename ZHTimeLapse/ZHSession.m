@@ -93,6 +93,10 @@
     
     NSString *videoPath = [_projectPath stringByAppendingPathComponent:@"output.mov"];
     _output.outputURL = [NSURL fileURLWithPath:videoPath];
+    
+    NSString *gifPath = [_projectPath stringByAppendingPathComponent:@"output.gif"];
+    _output.outputGIF = [NSURL fileURLWithPath:gifPath];
+
 }
 
 -(void)saveConfig{
