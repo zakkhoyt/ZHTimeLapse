@@ -23,7 +23,7 @@
 -(void)commonInit {
     _frameRate = 2;
     _size = CGSizeMake(720, 1280);
-    _filter = ZHSessionFilterNone;// CannyEdgeDetection;
+    _filter = ZHSessionInputFilterNone;// CannyEdgeDetection;
 }
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary {
@@ -43,7 +43,7 @@
         
         NSNumber *filterNumber = dictionary[@"filter"];
         if(filterNumber) {
-            _filter = (ZHSessionFilter)filterNumber.unsignedIntegerValue;
+            _filter = (ZHSessionInputFilter)filterNumber.unsignedIntegerValue;
         }
         
         NSNumber *captureDevicePositionNumber = dictionary[@"captureDevicePosition"];

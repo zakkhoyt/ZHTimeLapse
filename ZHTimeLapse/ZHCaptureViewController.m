@@ -165,7 +165,7 @@
 
     switch (self.session.input.filter) {
 
-        case ZHSessionFilterCannyEdgeDetection:{
+        case ZHSessionInputFilterCannyEdgeDetection:{
             [self.paramSlider setMinimumValue:0.0];
             [self.paramSlider setMaximumValue:1.0];
             [self.paramSlider setValue:1.0];
@@ -174,7 +174,7 @@
             self.filter = filter;
         }
             break;
-        case ZHSessionFilterPrewittEdgeDetection:{
+        case ZHSessionInputFilterPrewittEdgeDetection:{
             [self.paramSlider setMinimumValue:0.0];
             [self.paramSlider setMaximumValue:1.0];
             [self.paramSlider setValue:1.0];
@@ -183,7 +183,7 @@
             self.filter = filter;
         }
             break;
-        case ZHSessionFilterThresholdEdgeDetection:{
+        case ZHSessionInputFilterThresholdEdgeDetection:{
             
             [self.paramSlider setMinimumValue:0.0];
             [self.paramSlider setMaximumValue:1.0];
@@ -193,7 +193,7 @@
             self.filter = filter;
         }
             break;
-        case ZHSessionFilterSobelEdgeDetection:{
+        case ZHSessionInputFilterSobelEdgeDetection:{
             
             [self.paramSlider setMinimumValue:0.0];
             [self.paramSlider setMaximumValue:1.0];
@@ -203,7 +203,7 @@
             self.filter = filter;
         }
             break;
-        case ZHSessionFilterSketch:{
+        case ZHSessionInputFilterSketch:{
             
             [self.paramSlider setMinimumValue:0.0];
             [self.paramSlider setMaximumValue:1.0];
@@ -214,7 +214,7 @@
         }
             break;
 
-        case ZHSessionFilterSmoothToon:{
+        case ZHSessionInputFilterSmoothToon:{
             [self.paramSlider setMinimumValue:1.0];
             [self.paramSlider setMaximumValue:6.0];
             [self.paramSlider setValue:1.0];
@@ -223,7 +223,7 @@
             self.filter = filter;
         }
             break;
-        case ZHSessionFilterAdaptiveThreshold:{
+        case ZHSessionInputFilterAdaptiveThreshold:{
             [self.paramSlider setMinimumValue:1.0];
             [self.paramSlider setMaximumValue:20.0];
             [self.paramSlider setValue:1.0];
@@ -233,7 +233,7 @@
         }
             break;
 
-        case ZHSessionFilterPolkaDot:{
+        case ZHSessionInputFilterPolkaDot:{
             [self.paramSlider setValue:0.05];
             [self.paramSlider setMinimumValue:0.0];
             [self.paramSlider setMaximumValue:0.3];
@@ -242,7 +242,7 @@
             self.filter = filter;
         }
             break;
-        case ZHSessionFilterNone:
+        case ZHSessionInputFilterNone:
         default:{
             GPUImageFilter *filter = [GPUImageFilter new];
             self.filter = filter;
@@ -276,39 +276,39 @@
 - (IBAction)paramSliderValueChanged:(UISlider*)sender {
     switch (_session.input.filter) {
             
-        case ZHSessionFilterCannyEdgeDetection:{
+        case ZHSessionInputFilterCannyEdgeDetection:{
             [(GPUImageCannyEdgeDetectionFilter*)_filter setBlurTexelSpacingMultiplier:sender.value];
         }
             break;
-        case ZHSessionFilterPrewittEdgeDetection:{
+        case ZHSessionInputFilterPrewittEdgeDetection:{
              [(GPUImagePrewittEdgeDetectionFilter*)_filter setEdgeStrength:sender.value];
         }
             break;
-        case ZHSessionFilterThresholdEdgeDetection:{
+        case ZHSessionInputFilterThresholdEdgeDetection:{
             [(GPUImageLuminanceThresholdFilter*)_filter setThreshold:sender.value];
         }
             break;
-        case ZHSessionFilterSobelEdgeDetection:{
+        case ZHSessionInputFilterSobelEdgeDetection:{
             [(GPUImageSobelEdgeDetectionFilter*)_filter setEdgeStrength:sender.value];
         }
             break;
-        case ZHSessionFilterSketch:{
+        case ZHSessionInputFilterSketch:{
             [(GPUImageSketchFilter*)_filter setEdgeStrength:sender.value];
         }
             break;
-        case ZHSessionFilterSmoothToon:{
+        case ZHSessionInputFilterSmoothToon:{
             [(GPUImageSmoothToonFilter*)_filter setBlurRadiusInPixels:sender.value];
         }
             break;
-        case ZHSessionFilterAdaptiveThreshold:{
+        case ZHSessionInputFilterAdaptiveThreshold:{
             [(GPUImageAdaptiveThresholdFilter*)_filter setBlurRadiusInPixels:sender.value];
         }
             break;
-        case ZHSessionFilterPolkaDot:{
+        case ZHSessionInputFilterPolkaDot:{
             [(GPUImagePolkaDotFilter*)_filter setFractionalWidthOfAPixel:sender.value];
         }
             break;
-        case ZHSessionFilterNone: {
+        case ZHSessionInputFilterNone: {
             
         }
             break;
@@ -449,10 +449,13 @@
 -(void)showFilterView {
     __weak ZHFiltersViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ZHFiltersViewController"];
 
-    [vc setVideoCamera:self.videoCamera completionBlock:^(ZHSessionFilter filter) {
+    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(0.3, 0.3);
+    NSTimeInterval duration = 0.3;
+    [vc setVideoCamera:self.videoCamera completionBlock:^(ZHSessionInputFilter filter) {
 
-        [UIView animateWithDuration:0.5 animations:^{
-            vc.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
+        [UIView animateWithDuration:duration animations:^{
+//        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            vc.view.transform = scaleTransform;
             vc.view.alpha = 0;
         } completion:^(BOOL finished) {
             [vc.view removeFromSuperview];
@@ -466,16 +469,16 @@
     
     [self addChildViewController:vc];
     vc.view.frame = self.view.bounds;
-    vc.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    vc.view.transform = scaleTransform;
     vc.view.alpha = 0;
     [self.view addSubview:vc.view];
     [vc didMoveToParentViewController:self];
     
-    
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:duration animations:^{
+//    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         vc.view.transform = CGAffineTransformIdentity;
         vc.view.alpha = 1.0;
-    }];
+    } completion:NULL];
     
 }
 @end

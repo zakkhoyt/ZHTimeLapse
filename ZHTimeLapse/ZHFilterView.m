@@ -13,7 +13,7 @@
 @interface ZHFilterView ()
 
 @property (nonatomic, strong) GPUImageOutput<GPUImageInput>* gpuFilter;
-@property (nonatomic) ZHSessionFilter filter;
+@property (nonatomic) ZHSessionInputFilter filter;
 @property (nonatomic, strong) GPUImageVideoCamera* videoCamera;
 @property (weak, nonatomic) IBOutlet GPUImageView *filterView;
 @property (weak, nonatomic) IBOutlet UILabel *filterLabel;
@@ -21,7 +21,7 @@
 
 @implementation ZHFilterView
 
--(void)setFilter:(ZHSessionFilter)filter
+-(void)setFilter:(ZHSessionInputFilter)filter
      videoCamera:(GPUImageVideoCamera*)videoCamera {
 
     _filter = filter;
@@ -30,48 +30,48 @@
     
     switch (_filter) {
             
-        case ZHSessionFilterCannyEdgeDetection:{
+        case ZHSessionInputFilterCannyEdgeDetection:{
             self.filterLabel.text = @"Canny";
             _gpuFilter = [GPUImageCannyEdgeDetectionFilter new];
         }
             break;
-        case ZHSessionFilterPrewittEdgeDetection:{
+        case ZHSessionInputFilterPrewittEdgeDetection:{
             
             self.filterLabel.text = @"Prewitt";
             _gpuFilter = [GPUImagePrewittEdgeDetectionFilter new];
         }
             break;
-        case ZHSessionFilterThresholdEdgeDetection:{
+        case ZHSessionInputFilterThresholdEdgeDetection:{
             self.filterLabel.text = @"Threshold";
             _gpuFilter = [GPUImageThresholdEdgeDetectionFilter new];
         }
             break;
-        case ZHSessionFilterSobelEdgeDetection:{
+        case ZHSessionInputFilterSobelEdgeDetection:{
             self.filterLabel.text = @"Sobel";
             _gpuFilter = [GPUImageSobelEdgeDetectionFilter new];
         }
             break;
-        case ZHSessionFilterSketch:{
+        case ZHSessionInputFilterSketch:{
             self.filterLabel.text = @"Sketch";
             _gpuFilter = [GPUImageSketchFilter new];
         }
             break;
-        case ZHSessionFilterSmoothToon:{
+        case ZHSessionInputFilterSmoothToon:{
             self.filterLabel.text = @"Toon";
             _gpuFilter = [GPUImageSmoothToonFilter new];
         }
             break;
-        case ZHSessionFilterAdaptiveThreshold:{
+        case ZHSessionInputFilterAdaptiveThreshold:{
             self.filterLabel.text = @"Adaptive";
             _gpuFilter = [GPUImageAdaptiveThresholdFilter new];
         }
             break;
-        case ZHSessionFilterPolkaDot:{
+        case ZHSessionInputFilterPolkaDot:{
             self.filterLabel.text = @"Polka Dot";
             _gpuFilter = [GPUImagePolkaDotFilter new];
         }
             break;
-        case ZHSessionFilterNone:{
+        case ZHSessionInputFilterNone:{
             self.filterLabel.text = @"None";
             _gpuFilter = [GPUImageFilter new];
         }
@@ -91,7 +91,7 @@
     [_gpuFilter removeAllTargets];
 }
 
--(ZHSessionFilter)filter{
+-(ZHSessionInputFilter)filter{
     return  _filter;
 }
 @end

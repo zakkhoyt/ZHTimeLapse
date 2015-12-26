@@ -10,27 +10,38 @@
 #import "GPUImage.h"
 
 typedef enum {
-    ZHSessionFilterNone = 0,
-    ZHSessionFilterCannyEdgeDetection,
-    ZHSessionFilterPrewittEdgeDetection,
-    ZHSessionFilterThresholdEdgeDetection,
-    ZHSessionFilterSobelEdgeDetection,
-    ZHSessionFilterSketch,
-    ZHSessionFilterSmoothToon,
-    ZHSessionFilterAdaptiveThreshold,
-    ZHSessionFilterPolkaDot,
-    ZHSessionFilterMask = 255,
-} ZHSessionFilter;
+    ZHSessionInputFilterNone = 0,
+    
+    // Black and White
+    ZHSessionInputFilterCannyEdgeDetection,
+    ZHSessionInputFilterPrewittEdgeDetection,
+    ZHSessionInputFilterThresholdEdgeDetection,
+    ZHSessionInputFilterSobelEdgeDetection,
+    ZHSessionInputFilterSketch,
+    ZHSessionInputFilterAdaptiveThreshold,
+    ZHSessionInputFilterThresholdSketch,
+    ZHSessionInputFilterHalftone,
+    ZHSessionInputFilterMosaic,
+    
+    // Color
+    ZHSessionInputFilterSmoothToon,
+    ZHSessionInputFilterPolkaDot,
+    ZHSessionInputFilterMask = 255,
+} ZHSessionInputFilter;
 
 // **** B&W
 // Threshold sketch
+// Halftone
+// Mosaic
 
 // ** COLOR
+// Polka Dot
 // Erosion
 
 
+
 @interface ZHInputSession : NSObject
-@property (nonatomic) ZHSessionFilter filter;
+@property (nonatomic) ZHSessionInputFilter filter;
 @property (nonatomic) CGSize size;
 @property (nonatomic) NSTimeInterval frameRate;
 @property (nonatomic, strong) NSMutableArray *frames;

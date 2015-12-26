@@ -47,31 +47,31 @@
             // Assign our filter
             switch (y * 3 + x) {
                 case 0:
-                    [filterView setFilter:ZHSessionFilterCannyEdgeDetection videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterCannyEdgeDetection videoCamera:self.videoCamera];
                     break;
                 case 1:
-                    [filterView setFilter:ZHSessionFilterPrewittEdgeDetection videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterPrewittEdgeDetection videoCamera:self.videoCamera];
                     break;
                 case 2:
-                    [filterView setFilter:ZHSessionFilterThresholdEdgeDetection videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterThresholdEdgeDetection videoCamera:self.videoCamera];
                     break;
                 case 3:
-                    [filterView setFilter:ZHSessionFilterSobelEdgeDetection videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterSobelEdgeDetection videoCamera:self.videoCamera];
                     break;
                 case 4:
-                    [filterView setFilter:ZHSessionFilterNone videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterNone videoCamera:self.videoCamera];
                     break;
                 case 5:
-                    [filterView setFilter:ZHSessionFilterSketch videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterSketch videoCamera:self.videoCamera];
                     break;
                 case 6:
-                    [filterView setFilter:ZHSessionFilterSmoothToon videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterSmoothToon videoCamera:self.videoCamera];
                     break;
                 case 7:
-                    [filterView setFilter:ZHSessionFilterAdaptiveThreshold videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterAdaptiveThreshold videoCamera:self.videoCamera];
                     break;
                 case 8:
-                    [filterView setFilter:ZHSessionFilterPolkaDot videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterPolkaDot videoCamera:self.videoCamera];
                     break;
                 default:
                     NSLog(@"invalid x/y index");
@@ -85,11 +85,11 @@
     }
 }
 
-// Fire our completion block with a ZHSessionFilter
+// Fire our completion block with a ZHSessionInputFilter
 -(void)tapGesture:(UITapGestureRecognizer*)sender {
     if([sender.view isKindOfClass:[ZHFilterView class]]) {
         ZHFilterView *filterView = (ZHFilterView*)sender.view;
-        ZHSessionFilter filter = filterView.filter;
+        ZHSessionInputFilter filter = filterView.filter;
         if(_completionBlock) {
             _completionBlock(filter);
         }

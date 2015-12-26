@@ -11,9 +11,9 @@
 
 @interface ZHFilterView : UIView
 
--(void)setFilter:(ZHSessionFilter)filter
+-(void)setFilter:(ZHSessionInputFilter)filter
      videoCamera:(GPUImageVideoCamera*)videoCamera;
 
--(ZHSessionFilter)filter;
+-(ZHSessionInputFilter)filter;
 
 @end
