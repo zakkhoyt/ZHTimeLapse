@@ -296,6 +296,29 @@
         
         // Cleanup
         CFRelease(destination);
+
+////        UIImage *image = [UIImage imageWithContentsOfFile:session.output.outputGIF.path];
+////        [PHAsset saveImageToCameraRoll:image location:nil completionBlock:^(PHAsset *asset, BOOL success) {
+//        [PHAsset saveGIFImageToCameraRoll:session.output.outputGIF location:nil completionBlock:^(PHAsset *asset, BOOL success) {
+//            NSLog(@"Exported giv to camera roll");
+//            
+//            if (success == YES) {
+//                [asset saveToAlbum:@"ZHTimeLapse" completionBlock:^(BOOL success) {
+//                    NSLog(@"Saved time lapse video to album folder");
+//                }];
+//            }
+//            
+//            if(completionBlock) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    if(success == YES) {
+//                        completionBlock(YES, session);
+//                    } else {
+//                        completionBlock(NO, nil);
+//                    }
+//                });
+//            }
+//
+//        }];
         
         // Completion
         if(completionBlock) {

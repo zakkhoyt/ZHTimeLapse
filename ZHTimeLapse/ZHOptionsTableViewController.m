@@ -13,6 +13,8 @@
 #import "ZHRenderer.h"
 #import "UIViewController+AlertController.h"
 #import "MBProgressHUD.h"
+#import "UIImage+animatedGIF.h"
+
 
 static NSString *SegueOptionsToCapture = @"SegueOptionsToCapture";
 static NSString *SegueOptionsToRender = @"SegueOptionsToRender";
@@ -144,6 +146,34 @@ typedef enum {
     
     [self performSegueWithIdentifier:SegueOptionsToCapture sender:nil];
 }
+
+
+-(void)shareItems:(NSArray*)items{
+    NSMutableArray *activities = [@[]mutableCopy];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:items
+                                                                                        applicationActivities:activities];
+    
+    [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
+        if(completed){
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
+    }];
+    
+    
+//    activityViewController.excludedActivityTypes = @[UIActivityTypePostToTwitter,
+//                                                     UIActivityTypePostToFacebook,
+//                                                     UIActivityTypePostToWeibo,
+//                                                     UIActivityTypePrint,
+//                                                     UIActivityTypeAssignToContact,
+//                                                     UIActivityTypeSaveToCameraRoll,
+//                                                     UIActivityTypeAddToReadingList,
+//                                                     UIActivityTypePostToFlickr,
+//                                                     UIActivityTypePostToVimeo,
+//                                                     UIActivityTypePostToTencentWeibo];
+    [self presentViewController:activityViewController animated:YES completion:nil];
+    
+}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1) {
@@ -348,6 +378,16 @@ typedef enum {
     }];
     
 }
+
+- (IBAction)shareVideoButtonTouchUpInside:(id)sender {
+    [self shareItems:@[self.session.output.outputURL]];
+}
+
+- (IBAction)shareGIFButtonTouchUpInside:(id)sender {
+    NSData *data = [NSData dataWithContentsOfFile:_session.output.outputGIF.path];
+    [self shareItems:@[data]];
+}
+
 
 @end
 

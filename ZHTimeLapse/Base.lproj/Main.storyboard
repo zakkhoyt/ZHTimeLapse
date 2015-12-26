@@ -336,9 +336,18 @@
                                                         <action selector="renderButtonTouchUpInside:" destination="TdJ-N5-fgU" eventType="touchUpInside" id="Lu3-46-81o"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54K-qu-wch">
+                                                    <rect key="frame" x="549" y="7" width="40" height="30"/>
+                                                    <state key="normal" title="Share"/>
+                                                    <connections>
+                                                        <action selector="shareVideoButtonTouchUpInside:" destination="TdJ-N5-fgU" eventType="touchUpInside" id="bZr-SH-odV"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="1Kn-aO-zVm" firstAttribute="centerY" secondItem="oHr-Tn-ggM" secondAttribute="centerY" id="l2z-z5-mVA"/>
+                                                <constraint firstItem="54K-qu-wch" firstAttribute="centerY" secondItem="oHr-Tn-ggM" secondAttribute="centerY" id="nkB-2B-SQ3"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="54K-qu-wch" secondAttribute="trailing" constant="3" id="qbA-3C-Egy"/>
                                                 <constraint firstItem="1Kn-aO-zVm" firstAttribute="centerX" secondItem="oHr-Tn-ggM" secondAttribute="centerX" id="vaC-gX-4YT"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -357,10 +366,19 @@
                                                         <action selector="renderGifButtonTouchUpInside:" destination="TdJ-N5-fgU" eventType="touchUpInside" id="ATF-PQ-nr5"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7K-fN-dWb">
+                                                    <rect key="frame" x="549" y="7" width="40" height="30"/>
+                                                    <state key="normal" title="Share"/>
+                                                    <connections>
+                                                        <action selector="shareGIFButtonTouchUpInside:" destination="TdJ-N5-fgU" eventType="touchUpInside" id="lOx-qN-VQX"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="w7K-fN-dWb" firstAttribute="centerY" secondItem="WTa-bh-mry" secondAttribute="centerY" id="5t2-4L-aWD"/>
                                                 <constraint firstItem="0cy-Le-NJv" firstAttribute="centerX" secondItem="WTa-bh-mry" secondAttribute="centerX" id="BzH-lm-yhp"/>
                                                 <constraint firstItem="0cy-Le-NJv" firstAttribute="centerY" secondItem="WTa-bh-mry" secondAttribute="centerY" id="Efx-Gk-ueE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="w7K-fN-dWb" secondAttribute="trailing" constant="3" id="GnH-o4-zep"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

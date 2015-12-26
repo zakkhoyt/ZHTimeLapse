@@ -56,6 +56,9 @@ typedef void (^PHAssetAssetBoolBlock)(PHAsset *asset, BOOL success);
  */
 +(void)saveVideoAtURL:(NSURL*)url location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock;
 
+
+
++(void)saveGIFImageToCameraRoll:(NSURL*)url location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock;
 @end
 
 
