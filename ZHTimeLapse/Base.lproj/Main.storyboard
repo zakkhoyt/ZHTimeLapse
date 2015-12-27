@@ -444,34 +444,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eV-X0-9tK">
                                         <rect key="frame" x="0.0" y="456" width="600" height="144"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n64-qf-NPg">
-                                                <rect key="frame" x="270" y="42" width="60" height="60"/>
-                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.20447198275862069" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="bZA-oM-2yG"/>
-                                                    <constraint firstAttribute="width" constant="60" id="fcG-DY-6V3"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Start"/>
-                                                <connections>
-                                                    <action selector="startButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="x53-dR-i0C"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CnB-Kh-Yus">
-                                                <rect key="frame" x="270" y="42" width="60" height="60"/>
-                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.20447198275862069" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="1aF-62-fqI"/>
-                                                    <constraint firstAttribute="width" constant="60" id="dyT-Ik-26r"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Stop"/>
-                                                <connections>
-                                                    <action selector="stopButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="uLU-cA-buh"/>
-                                                </connections>
-                                            </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="25s-Dw-j1M">
                                                 <rect key="frame" x="8" y="8" width="72" height="128"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="0.5" colorSpace="calibratedWhite"/>
@@ -479,7 +451,7 @@
                                                     <constraint firstAttribute="width" secondItem="25s-Dw-j1M" secondAttribute="height" multiplier="9:16" id="IIV-YC-P0d"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4L-Qq-cJF">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="12" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4L-Qq-cJF">
                                                 <rect key="frame" x="88" y="64" width="174" height="14.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -487,20 +459,35 @@
                                                 <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="shadowOffset" width="1" height="1"/>
                                             </label>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phu-hm-Rw5">
+                                                <rect key="frame" x="560" y="56" width="32" height="32"/>
+                                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" image="export"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyO-7N-etY" customClass="ZHShutterButton">
+                                                <rect key="frame" x="270" y="42" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="7Vj-yd-84D"/>
+                                                    <constraint firstAttribute="width" constant="60" id="gKT-nz-eUe"/>
+                                                </constraints>
+                                                <state key="normal" title="Shutter"/>
+                                                <connections>
+                                                    <action selector="shutterButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="nOi-R5-LO1"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.74509698275862069" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.89644396551724137" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="n64-qf-NPg" firstAttribute="centerY" secondItem="0eV-X0-9tK" secondAttribute="centerY" id="7Ee-L0-psF"/>
-                                            <constraint firstItem="CnB-Kh-Yus" firstAttribute="leading" secondItem="N4L-Qq-cJF" secondAttribute="trailing" constant="8" id="7bl-pb-qbb"/>
+                                            <constraint firstItem="cyO-7N-etY" firstAttribute="centerY" secondItem="0eV-X0-9tK" secondAttribute="centerY" id="4ta-q5-HP1"/>
                                             <constraint firstItem="N4L-Qq-cJF" firstAttribute="centerY" secondItem="25s-Dw-j1M" secondAttribute="centerY" id="B2n-so-huF"/>
-                                            <constraint firstItem="CnB-Kh-Yus" firstAttribute="centerX" secondItem="0eV-X0-9tK" secondAttribute="centerX" id="F0r-SY-RXI"/>
                                             <constraint firstItem="25s-Dw-j1M" firstAttribute="leading" secondItem="0eV-X0-9tK" secondAttribute="leading" constant="8" id="M6R-aj-lPh"/>
                                             <constraint firstAttribute="bottom" secondItem="25s-Dw-j1M" secondAttribute="bottom" constant="8" id="R0d-op-uap"/>
                                             <constraint firstItem="25s-Dw-j1M" firstAttribute="top" secondItem="0eV-X0-9tK" secondAttribute="top" constant="8" id="Ucu-yO-nIK"/>
-                                            <constraint firstItem="CnB-Kh-Yus" firstAttribute="centerY" secondItem="0eV-X0-9tK" secondAttribute="centerY" id="Uqh-fd-T2O"/>
                                             <constraint firstItem="N4L-Qq-cJF" firstAttribute="leading" secondItem="25s-Dw-j1M" secondAttribute="trailing" constant="8" id="Yle-Qn-7pb"/>
-                                            <constraint firstItem="n64-qf-NPg" firstAttribute="centerX" secondItem="0eV-X0-9tK" secondAttribute="centerX" id="cvP-cw-83p"/>
+                                            <constraint firstAttribute="trailing" secondItem="Phu-hm-Rw5" secondAttribute="trailing" constant="8" id="eSN-ya-hEH"/>
+                                            <constraint firstItem="Phu-hm-Rw5" firstAttribute="centerY" secondItem="0eV-X0-9tK" secondAttribute="centerY" id="nNr-wR-Miw"/>
                                             <constraint firstAttribute="height" constant="144" id="rom-J4-G3S"/>
+                                            <constraint firstItem="cyO-7N-etY" firstAttribute="centerX" secondItem="0eV-X0-9tK" secondAttribute="centerX" id="uqp-DM-nvO"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tWv-Nv-rMa">
@@ -550,7 +537,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.74509698275862069" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.89644396551724137" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="AHf-Pk-9T3" firstAttribute="leading" secondItem="pPZ-yZ-hF6" secondAttribute="trailing" constant="8" id="0dr-Tg-GbG"/>
                                             <constraint firstItem="wse-gm-dhy" firstAttribute="leading" secondItem="tWv-Nv-rMa" secondAttribute="leading" constant="8" id="2TX-nW-WUE"/>
@@ -603,24 +590,23 @@
                         <outlet property="cameraButton" destination="AHf-Pk-9T3" id="ysD-yV-Xyi"/>
                         <outlet property="captureImageView" destination="25s-Dw-j1M" id="1Ap-WX-KpP"/>
                         <outlet property="closeButton" destination="pPZ-yZ-hF6" id="yj4-KT-UE1"/>
+                        <outlet property="exportButton" destination="Phu-hm-Rw5" id="qSH-zK-vTP"/>
                         <outlet property="filterButton" destination="voP-E0-Ioc" id="ZRV-yF-fV9"/>
                         <outlet property="filterView" destination="KRy-Ay-wEB" id="LzQ-qQ-8xF"/>
                         <outlet property="frameCountLabel" destination="N4L-Qq-cJF" id="7CO-HY-KZQ"/>
                         <outlet property="frameRateButton" destination="wse-gm-dhy" id="URF-0f-Hx7"/>
                         <outlet property="frameRateLabel" destination="ZnT-Th-6Jw" id="hg5-Qw-JGc"/>
                         <outlet property="paramSlider" destination="GLs-ja-Y6T" id="LCj-aM-DTl"/>
+                        <outlet property="shutterButton" destination="cyO-7N-etY" id="uJu-0L-kfy"/>
                         <outlet property="startBarButtonItem" destination="aAW-bG-4AB" id="U8V-GZ-ccn"/>
-                        <outlet property="startButton" destination="n64-qf-NPg" id="cBW-m2-cjK"/>
-                        <outlet property="stopButton" destination="CnB-Kh-Yus" id="Xcw-kv-6Cr"/>
                         <outlet property="topToolbarView" destination="tWv-Nv-rMa" id="eqX-6x-TTa"/>
                         <outletCollection property="rotatableViews" destination="AHf-Pk-9T3" id="pvT-Jr-sfA"/>
-                        <outletCollection property="rotatableViews" destination="CnB-Kh-Yus" id="qEZ-US-vNV"/>
-                        <outletCollection property="rotatableViews" destination="n64-qf-NPg" id="Fv9-bv-Y54"/>
                         <outletCollection property="rotatableViews" destination="N4L-Qq-cJF" id="Uau-1g-OOD"/>
                         <outletCollection property="rotatableViews" destination="pPZ-yZ-hF6" id="fDc-sR-OAx"/>
                         <outletCollection property="rotatableViews" destination="voP-E0-Ioc" id="vwG-6j-GvV"/>
                         <outletCollection property="rotatableViews" destination="wse-gm-dhy" id="T33-u8-yqW"/>
                         <outletCollection property="rotatableViews" destination="ZnT-Th-6Jw" id="4ae-Tb-WAD"/>
+                        <outletCollection property="rotatableViews" destination="Phu-hm-Rw5" id="eXA-z2-pL3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWa-j0-zgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -672,6 +658,7 @@
     <resources>
         <image name="camera" width="32" height="32"/>
         <image name="close" width="32" height="32"/>
+        <image name="export" width="32" height="32"/>
         <image name="filter" width="32" height="32"/>
         <image name="framerate" width="32" height="32"/>
     </resources>

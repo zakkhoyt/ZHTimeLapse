@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^ZHShutterButtonEmptyBlock)();
+
 @interface ZHShutterButton : UIButton
 
--(void)startAnimation;
--(void)stopAnimation;
+-(void)setStartBlock:(ZHShutterButtonEmptyBlock)startBlock;
+-(void)setStopBlock:(ZHShutterButtonEmptyBlock)stopBlock;
+
 @end

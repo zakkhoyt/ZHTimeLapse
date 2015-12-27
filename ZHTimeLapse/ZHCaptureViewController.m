@@ -34,6 +34,8 @@
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rotatableViews;
 @property (weak, nonatomic) IBOutlet UIButton *frameRateButton;
 @property (weak, nonatomic) IBOutlet UILabel *frameRateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *exportButton;
+@property (weak, nonatomic) IBOutlet ZHShutterButton *shutterButton;
 
 @property (weak, nonatomic) IBOutlet UISlider *paramSlider;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
@@ -44,7 +46,7 @@
 @property (nonatomic) NSUInteger frameCounter;
 @property (nonatomic) AVCaptureDevicePosition cameraPosition;
 @property (nonatomic, strong) UIView *filterSelectionView;
-@property (nonatomic, strong) ZHShutterButton *shutterButton;
+
 @property (nonatomic) UIDeviceOrientation lastOrientation;
 @property (nonatomic) BOOL isRecording;
 @end
@@ -153,6 +155,9 @@
 }
 
 #pragma mark Private methods
+- (IBAction)shutterButtonTouchUpInside:(id)sender {
+    NSLog(@"%s", __FUNCTION__);
+}
 
 -(void)swipeAction:(UISwipeGestureRecognizer*)sender {
     
@@ -180,6 +185,11 @@
 }
 
 -(void)setupUI {
+
+    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
+    [self.exportButton setTitle:@"" forState:UIControlStateNormal];
+
     
     UIImage *closeImage = [[UIImage imageNamed:@"close"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.closeButton setImage:closeImage forState:UIControlStateNormal];
@@ -196,6 +206,14 @@
     UIImage *cameraImage = [[UIImage imageNamed:@"camera"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.cameraButton setImage:cameraImage forState:UIControlStateNormal];
     [self.cameraButton setTitle:@"" forState:UIControlStateNormal];
+    
+    [self.shutterButton setStartBlock:^{
+        [self startButtonTouchUpInside:self.startButton];
+    }];
+    
+    [self.shutterButton setStopBlock:^{
+        [self stopButtonTouchUpInside:self.stopButton];
+    }];
     
     self.startButton.layer.cornerRadius = self.startButton.bounds.size.width / 2.0;
     self.startButton.layer.masksToBounds = YES;
@@ -227,8 +245,8 @@
     rightSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.topToolbarView addGestureRecognizer:rightSwipeGesture];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
-    [self.filterView addGestureRecognizer:tapGesture];
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
+//    [self.filterView addGestureRecognizer:tapGesture];
     
     // ************ TODO: Work on a custom shutter button w/animations
     //    ZHShutterButton *shutterButton = [[[NSBundle mainBundle] loadNibNamed:@"ZHShutterButton" owner:self options:nil] firstObject];
