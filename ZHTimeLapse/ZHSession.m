@@ -116,10 +116,10 @@
 
 -(void)cacheImage:(UIImage*)image index:(NSUInteger)index {
     NSData *data = UIImagePNGRepresentation(image);
-    NSString *fileName = [NSString stringWithFormat:@"%05lu.jpg", (unsigned long)index];
+    NSString *fileName = [NSString stringWithFormat:@"%05lu.png", (unsigned long)index];
     NSString *filePath = [_projectPath stringByAppendingPathComponent:@"frames"];
     filePath = [filePath stringByAppendingPathComponent:fileName];
-    NSLog(@"Writing frame to: %@", filePath);
+//    NSLog(@"Writing frame to: %@", filePath);
 
     NSError *error = nil;
     [data writeToFile:filePath options:NSDataWritingFileProtectionNone error:&error];
@@ -142,7 +142,7 @@
 }
 
 -(UIImage*)imageForIndex:(NSUInteger)index{
-    NSString *fileName = [NSString stringWithFormat:@"%05lu.jpg", (unsigned long)index];
+    NSString *fileName = [NSString stringWithFormat:@"%05lu.png", (unsigned long)index];
     NSString *filePath = [_projectPath stringByAppendingPathComponent:@"frames"];
     filePath = [filePath stringByAppendingPathComponent:fileName];
     UIImage *image = [UIImage imageWithContentsOfFile:filePath];

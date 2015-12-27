@@ -322,55 +322,62 @@
 
 
 -(void)captureFrame:(NSTimer*)sender {
+    // This is a pretty resource intensive function so use a BG queue .
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // Get current frame from GPUImage and convert to UIImage
+        NSUInteger width = self.session.input.size.width;
+        NSUInteger height = self.session.input.size.height;
+        GLubyte *rawData = self.rawOutput.rawBytesForImage;
+        CGDataProviderRef provider = CGDataProviderCreateWithData(NULL,
+                                                                  rawData,
+                                                                  width*height*4,
+                                                                  NULL);
+        
+        CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+        CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
+        CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
+        CGImageRef imageRef = CGImageCreate(width,
+                                            height,
+                                            8,
+                                            32,
+                                            4*width,colorSpaceRef,
+                                            bitmapInfo,
+                                            provider,NULL,NO,renderingIntent);
+        //    NSLog(@"rawData: width:%lu, height:%lu",
+        //          (unsigned long)CGImageGetWidth(imageRef),
+        //          (unsigned long)CGImageGetHeight(imageRef));
+        
+        UIImage *image = [UIImage imageWithCGImage:imageRef];
+        
+        //    NSLog(@"UIImage: width:%lu, height:%lu",
+        //          (unsigned long)image.size.width,
+        //          (unsigned long)image.size.height);
+        
+        
+        
+        // Update our UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.captureImageView.image = image;
+            self.frameCountLabel.text = [NSString stringWithFormat:@"%lu frames\n%.2f seconds",
+                                         (unsigned long) self.frameCounter,
+                                         [_session timeLength]];
+            [self.shutterButton tick];
+        });
+        
+        [self.session cacheImage:image index:self.frameCounter];
+        self.frameCounter++;
+        
+        
+        
+        // Clean up
+        image = nil;
+        CGImageRelease(imageRef);
+        CGColorSpaceRelease(colorSpaceRef);
+        CGDataProviderRelease(provider);
+    });
     
-    NSUInteger width = self.session.input.size.width;
-    NSUInteger height = self.session.input.size.height;
     
-    GLubyte *rawData = self.rawOutput.rawBytesForImage;
-    
-    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL,
-                                                              rawData,
-                                                              width*height*4,
-                                                              NULL);
-    
-    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
-    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
-    CGImageRef imageRef = CGImageCreate(width,
-                                        height,
-                                        8,
-                                        32,
-                                        4*width,colorSpaceRef,
-                                        bitmapInfo,
-                                        provider,NULL,NO,renderingIntent);
-    NSLog(@"rawData: width:%lu, height:%lu",
-          (unsigned long)CGImageGetWidth(imageRef),
-          (unsigned long)CGImageGetHeight(imageRef));
-    
-    UIImage *image = [UIImage imageWithCGImage:imageRef];
-    
-    NSLog(@"UIImage: width:%lu, height:%lu",
-          (unsigned long)image.size.width,
-          (unsigned long)image.size.height);
-    
-    self.captureImageView.image = image;
-    
-    [self.session cacheImage:image index:self.frameCounter];
-    self.frameCounter++;
-    
-    // Label
-    self.frameCountLabel.text = [NSString stringWithFormat:@"%lu frames\n%.2f seconds",
-                                 (unsigned long) self.frameCounter,
-                                 [_session timeLength]];
-    
-    
-    // Clean up
-    image = nil;
-    CGImageRelease(imageRef);
-    CGColorSpaceRelease(colorSpaceRef);
-    CGDataProviderRelease(provider);
-    
-    //    [self.shutterButton addTick];
 }
 
 
@@ -516,6 +523,7 @@
         }
         
         // New session
+        [ZHFileManager deleteSession:_session];
         self.frameCounter = 0;
 //        _session = nil;
         _session = [ZHSession sessionFromSession:_session];

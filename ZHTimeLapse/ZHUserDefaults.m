@@ -19,4 +19,14 @@ static NSString *ZHApplicationMode = @"ZHApplicationMode";
     return [modes rangeOfString:submode].location != NSNotFound;
 }
 
+static NSString *ZHApplicationSimpleMode = @"ZHApplicationSimpleMode";
++(BOOL)simpleMode {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:ZHApplicationSimpleMode];
+}
+
+static NSString *ZHApplicationRenderAsGIF = @"ZHApplicationRenderAsGIF";
++(BOOL)renderAsGIF {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:ZHApplicationRenderAsGIF];
+}
+
 @end

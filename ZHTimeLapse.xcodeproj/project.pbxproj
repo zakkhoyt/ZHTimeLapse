@@ -195,6 +195,24 @@
 			name = Sessions;
 			sourceTree = "<group>";
 		};
+		C69EB1F31C3099AB004F4807 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C69EB1F41C3099B5004F4807 /* ShutterButton */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		C69EB1F41C3099B5004F4807 /* ShutterButton */ = {
+			isa = PBXGroup;
+			children = (
+				C62086B71C2F7B230026B943 /* ZHShutterButton.h */,
+				C62086B81C2F7B230026B943 /* ZHShutterButton.m */,
+				C69EB1F11C2FD274004F4807 /* ZHShutterButton.xib */,
+			);
+			name = ShutterButton;
+			sourceTree = "<group>";
+		};
 		C6BBBFD21C2CBEF000FCBC3F /* Options */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,9 +227,7 @@
 			children = (
 				C6D442E31C28A7BD00CE843E /* ZHCaptureViewController.h */,
 				C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */,
-				C62086B71C2F7B230026B943 /* ZHShutterButton.h */,
-				C62086B81C2F7B230026B943 /* ZHShutterButton.m */,
-				C69EB1F11C2FD274004F4807 /* ZHShutterButton.xib */,
+				C69EB1F31C3099AB004F4807 /* View */,
 			);
 			name = Capture;
 			sourceTree = "<group>";
