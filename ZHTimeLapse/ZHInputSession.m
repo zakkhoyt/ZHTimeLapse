@@ -19,6 +19,7 @@
 }
 
 
+
 -(void)commonInit {
     _frameRateFrames = 2;
     _frameRateSeconds = 1;
@@ -80,6 +81,17 @@
     dictionary[@"orientation"] = @(_orientation);
     
     return dictionary;
+}
+
+- (id)copyWithZone:(nullable NSZone *)zone{
+    ZHInputSession *input = [ZHInputSession new];
+    input.filter = [[ZHFilter alloc]initWithFilterType:self.filter.filterType];
+    input.size = self.size;
+    input.frameRateFrames = self.frameRateFrames;
+    input.frameRateSeconds = self.frameRateSeconds;
+    input.captureDevicePosition = self.captureDevicePosition;
+    input.orientation = self.orientation;
+    return input;
 }
 
 -(NSTimeInterval)frameRate {

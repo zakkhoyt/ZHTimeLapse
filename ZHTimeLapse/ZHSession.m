@@ -17,6 +17,12 @@
     return session;
 }
 
++(ZHSession*)sessionFromSession:(ZHSession*)oldSession{
+    ZHSession *session = [[ZHSession alloc]initWithName:nil];
+    session.input = [oldSession.input copy];
+    return session;
+}
+
 +(ZHSession*)sessionWithName:(NSString*)name{
     ZHSession *session = [[ZHSession alloc]initWithName:name];
     return session;

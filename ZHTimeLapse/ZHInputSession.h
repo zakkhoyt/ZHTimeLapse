@@ -10,7 +10,7 @@
 #import "GPUImage.h"
 #import "ZHFilter.h"
 
-@interface ZHInputSession : NSObject
+@interface ZHInputSession : NSObject <NSCopying>
 @property (nonatomic, strong) ZHFilter *filter;
 @property (nonatomic) CGSize size;
 

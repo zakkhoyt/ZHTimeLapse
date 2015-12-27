@@ -528,8 +528,8 @@
         
         // New session
         self.frameCounter = 0;
-        _session = nil;
-        _session = [ZHSession session];
+//        _session = nil;
+        _session = [ZHSession sessionFromSession:_session];
         [self setupUI];
         [self setupCaptureSession];
     }];

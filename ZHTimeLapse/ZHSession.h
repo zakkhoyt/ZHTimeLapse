@@ -24,6 +24,7 @@
 @property (nonatomic, strong) ZHOutputSession *output;
 
 +(ZHSession*)session;
++(ZHSession*)sessionFromSession:(ZHSession*)oldSession;
 +(ZHSession*)sessionWithName:(NSString*)name;
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 
