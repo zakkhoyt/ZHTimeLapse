@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 @class ZHSession;
 
+static NSString *ZHUserDefaultsModeAdvanced = @"full";
+
 @interface ZHUserDefaults : NSObject
 
+
++(BOOL)modeContains:(NSString*)submode;
 @end

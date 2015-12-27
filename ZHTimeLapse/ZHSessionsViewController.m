@@ -10,6 +10,7 @@
 #import "ZHOptionsTableViewController.h"
 #import "ZHFileManager.h"
 #import "ZHSession.h"
+#import "ZHUserDefaults.h"
 
 #import "ZHSessionTableViewCell.h"
 
@@ -32,6 +33,12 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if([ZHUserDefaults modeContains:ZHUserDefaultsModeAdvanced]) {
+        // Full mode
+    } else {
+        // Quick mode
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -53,6 +60,15 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
 
 - (IBAction)addBarButtonAction:(id)sender {
     [self performSegueWithIdentifier:SegueSessionsToOptions sender:nil];
+}
+- (IBAction)deleteBarButtonAction:(id)sender {
+    [ZHFileManager deleteAllProjects];
+    _sessions = [[ZHFileManager sessions] mutableCopy];
+    [_tableView reloadData];
+
+}
+- (IBAction)privacyBarButtonAction:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 @end

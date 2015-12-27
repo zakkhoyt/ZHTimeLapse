@@ -11,13 +11,12 @@
 
 @implementation ZHUserDefaults
 
-//+(NSArray*)sessions{
-//    
-//}
+static NSString *ZHApplicationMode = @"ZHApplicationMode";
 
++(BOOL)modeContains:(NSString*)submode{
+    NSString *modes = [[NSUserDefaults standardUserDefaults] objectForKey:ZHApplicationMode];
+    NSLog(@"Application modes: %@", modes);
+    return [modes rangeOfString:submode].location != NSNotFound;
+}
 
-//+(void)addSession:(ZHSession*)session {
-//    [[NSUserDefaults standardUserDefaults]setObject:session.dictionary forKey:session.uuid];
-//    
-//}
 @end

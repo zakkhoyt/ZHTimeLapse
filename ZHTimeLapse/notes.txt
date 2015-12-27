@@ -19,3 +19,36 @@
 // Directory will look like:
 $DocumentsDir/$UUID/Frames -> contains loose images
 $DocumentsDir/$UUID/session.json -> contains info about the project
+
+
+
+
+
+// 1.0
+* Simplify to one screen (mode switch)
+* About listing in settings.
+    * Third party
+    * Contact/email
+
+* Clean mode
+    * Exports at end of shutter
+    * Cleans up dirs
+    * Detects existing project on launch to finish (from a crash)
+* Sound for shutter
+* Animation for shutter
+* Scaling problem with gifs
+* selection controls
+    * drop menus
+    * filter CV
+* Simplify filter class
+
+* Tap to focus
+* Tap to hide controls
+* Torch
+
+
+
+* ------- ITC
+* Send to Kady, Cory, etc...
+* Get/update logo
+* Get/update marketing content

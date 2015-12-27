@@ -56,14 +56,36 @@
             _gpuFilter = [GPUImageSketchFilter new];
         }
             break;
-        case ZHSessionInputFilterSmoothToon:{
-            self.filterLabel.text = @"Toon";
-            _gpuFilter = [GPUImageSmoothToonFilter new];
-        }
-            break;
         case ZHSessionInputFilterAdaptiveThreshold:{
             self.filterLabel.text = @"Adaptive";
             _gpuFilter = [GPUImageAdaptiveThresholdFilter new];
+        }
+            break;
+        case ZHSessionInputFilterThresholdSketch:{
+            self.filterLabel.text = @"T-Sketch";
+            _gpuFilter = [GPUImageThresholdSketchFilter new];
+        }
+            break;
+        case ZHSessionInputFilterHalftone:{
+            self.filterLabel.text = @"Halftone";
+            _gpuFilter = [GPUImageHalftoneFilter new];
+        }
+            break;
+        case ZHSessionInputFilterMosaic:{
+            self.filterLabel.text = @"Mosaic";
+            _gpuFilter = [GPUImageMosaicFilter new];
+            [((GPUImageMosaicFilter*)_gpuFilter) setTileSet:@"squares.png"];
+            [((GPUImageMosaicFilter*)_gpuFilter) setColorOn:NO];
+            [(GPUImageMosaicFilter *)_gpuFilter setDisplayTileSize:CGSizeMake(0.025, 0.025)];
+        }
+            break;
+            
+            
+            
+            
+        case ZHSessionInputFilterSmoothToon:{
+            self.filterLabel.text = @"Toon";
+            _gpuFilter = [GPUImageSmoothToonFilter new];
         }
             break;
         case ZHSessionInputFilterPolkaDot:{
@@ -82,6 +104,7 @@
             break;
     }
     
+    NSAssert(_gpuFilter, @"No gpuFilter set");
     [videoCamera addTarget:_gpuFilter];
     [_gpuFilter addTarget:self.filterView];
 }

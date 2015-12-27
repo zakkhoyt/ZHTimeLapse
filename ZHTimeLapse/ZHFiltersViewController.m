@@ -58,19 +58,28 @@
                 case 3:
                     [filterView setFilter:ZHSessionInputFilterSobelEdgeDetection videoCamera:self.videoCamera];
                     break;
-                case 4:
-                    [filterView setFilter:ZHSessionInputFilterNone videoCamera:self.videoCamera];
-                    break;
+//                case 4:
+//                    [filterView setFilter:ZHSessionInputFilterNone videoCamera:self.videoCamera];
+//                    break;
                 case 5:
                     [filterView setFilter:ZHSessionInputFilterSketch videoCamera:self.videoCamera];
                     break;
                 case 6:
-                    [filterView setFilter:ZHSessionInputFilterSmoothToon videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterThresholdSketch videoCamera:self.videoCamera];
                     break;
                 case 7:
-                    [filterView setFilter:ZHSessionInputFilterAdaptiveThreshold videoCamera:self.videoCamera];
+                    [filterView setFilter:ZHSessionInputFilterHalftone videoCamera:self.videoCamera];
                     break;
                 case 8:
+                    [filterView setFilter:ZHSessionInputFilterMosaic videoCamera:self.videoCamera];
+                    break;
+                    
+                    
+                    
+                case 4:
+                    [filterView setFilter:ZHSessionInputFilterSmoothToon videoCamera:self.videoCamera];
+                    break;
+                case 10:
                     [filterView setFilter:ZHSessionInputFilterPolkaDot videoCamera:self.videoCamera];
                     break;
                 default:

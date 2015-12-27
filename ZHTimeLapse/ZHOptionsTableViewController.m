@@ -115,12 +115,26 @@ typedef enum {
             self.filterLabel.text = @"Sketch";
         }
             break;
-        case ZHSessionInputFilterSmoothToon:{
-            self.filterLabel.text = @"Smooth Toon";
-        }
-            break;
         case ZHSessionInputFilterAdaptiveThreshold:{
             self.filterLabel.text = @"Adaptive Threshold";
+        }
+            break;
+        case ZHSessionInputFilterThresholdSketch:{
+            self.filterLabel.text = @"Threshold Sketch";
+        }
+            break;
+        case ZHSessionInputFilterHalftone:{
+            self.filterLabel.text = @"Halftone";
+        }
+            break;
+        case ZHSessionInputFilterMosaic:{
+            self.filterLabel.text = @"Mosaic";
+        }
+            break;
+            
+            
+        case ZHSessionInputFilterSmoothToon:{
+            self.filterLabel.text = @"Smooth Toon";
         }
             break;
         case ZHSessionInputFilterPolkaDot:{
@@ -236,53 +250,7 @@ typedef enum {
     [self presentViewController:ac animated:YES completion:nil];
 }
 
-- (IBAction)changeFilterButtonTouchUpInside:(id)sender {
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Filter" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"None" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterNone;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Canny Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterCannyEdgeDetection;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Prewitt Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterPrewittEdgeDetection;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Threshold Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterThresholdEdgeDetection;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Sobel Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterSobelEdgeDetection;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Sketch" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterSketch;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Smooth Toon" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterSmoothToon;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Adaptive Threshold" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterAdaptiveThreshold;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Polka Dot" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionInputFilterPolkaDot;
-        [self updateUI];
-    }]];
 
-    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }]];
-
-   
-    
-    [self presentViewController:ac animated:YES completion:nil];
-}
 
 - (IBAction)captureFramesButtonTouchUpInside:(UIButton*)sender {
     sender.enabled = NO;
@@ -375,6 +343,7 @@ typedef enum {
         }
         
         sender.enabled = YES;
+        
     }];
     
 }

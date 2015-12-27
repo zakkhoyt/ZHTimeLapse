@@ -13,6 +13,7 @@
 #import "ZHSession.h"
 #import "UIViewController+AlertController.h"
 #import "ZHFiltersViewController.h"
+#import "ZHShutterButton.h"
 
 @interface ZHCaptureViewController ()
 @property (weak, nonatomic) IBOutlet GPUImageView *filterView;
@@ -39,7 +40,7 @@
 
 @property (weak, nonatomic) IBOutlet UISlider *paramSlider;
 
-
+@property (nonatomic, strong) ZHShutterButton *shutterButton;
 @end
 
 @implementation ZHCaptureViewController
@@ -79,8 +80,26 @@
 
 
     [self setupCaptureSession];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
+    [self.filterView addGestureRecognizer:tapGesture];
+    
+//    ZHShutterButton *shutterButton = [[[NSBundle mainBundle] loadNibNamed:@"ZHShutterButton" owner:self options:nil] firstObject];
+//    _shutterButton = shutterButton;
+//    _shutterButton.frame = CGRectMake(self.bottomToolbarView.bounds.size.width - 68,
+//                                      self.bottomToolbarView.bounds.size.height - 68,
+//                                      60,
+//                                      60);
+//    [_shutterButton setTitle:@"Test" forState:UIControlStateNormal];
+//    [_shutterButton setBackgroundColor:[UIColor orangeColor]];
+//    [self.shutterButton addTarget:self action:@selector(shutterButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bottomToolbarView addSubview:_shutterButton];
+    
 }
 
+-(void)shutterButtonAction:(ZHShutterButton*)sender {
+    NSLog(@"");
+}
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -98,6 +117,29 @@
 }
 
 
+-(void)singleTap:(UITapGestureRecognizer*)sender {
+    if(sender.state == UIGestureRecognizerStateEnded) {
+        CGPoint touchPoint = [sender locationInView:sender.view];
+        NSLog(@"Tap to Focus");
+        
+        if([_videoCamera.inputCamera isFocusPointOfInterestSupported]&&[_videoCamera.inputCamera isFocusModeSupported:AVCaptureFocusModeAutoFocus])
+        {
+            
+            if([_videoCamera.inputCamera lockForConfiguration :nil])
+            {
+                [_videoCamera.inputCamera setFocusPointOfInterest :touchPoint];
+                [_videoCamera.inputCamera setFocusMode :AVCaptureFocusModeLocked];
+                
+                if([_videoCamera.inputCamera isExposurePointOfInterestSupported])
+                {
+                    [_videoCamera.inputCamera setExposurePointOfInterest:touchPoint];
+                    [_videoCamera.inputCamera setExposureMode:AVCaptureExposureModeLocked];
+                }
+                [_videoCamera.inputCamera unlockForConfiguration];
+            }
+        }
+    }
+}
 
 #pragma mark Private methods
 
@@ -213,6 +255,55 @@
             self.filter = filter;
         }
             break;
+        case ZHSessionInputFilterAdaptiveThreshold:{
+            [self.paramSlider setMinimumValue:1.0];
+            [self.paramSlider setMaximumValue:20.0];
+            [self.paramSlider setValue:1.0];
+            
+            GPUImageAdaptiveThresholdFilter *filter = [GPUImageAdaptiveThresholdFilter new];
+            self.filter = filter;
+        }
+            break;
+            
+            
+        case ZHSessionInputFilterThresholdSketch:{
+            [self.paramSlider setMinimumValue:0.0];
+            [self.paramSlider setMaximumValue:1.0];
+            [self.paramSlider setValue:0.25];
+            
+            GPUImageThresholdSketchFilter *filter = [[GPUImageThresholdSketchFilter alloc] init];
+            self.filter = filter;
+        }
+            break;
+            
+        case ZHSessionInputFilterHalftone:{
+            [self.paramSlider setValue:0.01];
+            [self.paramSlider setMinimumValue:0.0];
+            [self.paramSlider setMaximumValue:0.05];
+            
+            GPUImageHalftoneFilter *filter = [[GPUImageHalftoneFilter alloc] init];
+            self.filter = filter;
+        }
+            break;
+            
+        case ZHSessionInputFilterMosaic:{
+            [self.paramSlider setMinimumValue:0.002];
+            [self.paramSlider setMaximumValue:0.05];
+            [self.paramSlider setValue:0.025];
+            
+            GPUImageMosaicFilter *filter = [[GPUImageMosaicFilter alloc] init];
+            [filter setTileSet:@"squares.png"];
+            [filter setColorOn:NO];
+            self.filter = filter;
+        }
+            break;
+            
+            
+
+            
+            
+            
+            
 
         case ZHSessionInputFilterSmoothToon:{
             [self.paramSlider setMinimumValue:1.0];
@@ -220,15 +311,6 @@
             [self.paramSlider setValue:1.0];
             
             GPUImageSmoothToonFilter *filter = [GPUImageSmoothToonFilter new];
-            self.filter = filter;
-        }
-            break;
-        case ZHSessionInputFilterAdaptiveThreshold:{
-            [self.paramSlider setMinimumValue:1.0];
-            [self.paramSlider setMaximumValue:20.0];
-            [self.paramSlider setValue:1.0];
-
-            GPUImageAdaptiveThresholdFilter *filter = [GPUImageAdaptiveThresholdFilter new];
             self.filter = filter;
         }
             break;
@@ -296,12 +378,31 @@
             [(GPUImageSketchFilter*)_filter setEdgeStrength:sender.value];
         }
             break;
-        case ZHSessionInputFilterSmoothToon:{
-            [(GPUImageSmoothToonFilter*)_filter setBlurRadiusInPixels:sender.value];
-        }
-            break;
         case ZHSessionInputFilterAdaptiveThreshold:{
             [(GPUImageAdaptiveThresholdFilter*)_filter setBlurRadiusInPixels:sender.value];
+        }
+            break;
+            
+        case ZHSessionInputFilterThresholdSketch:{
+            [(GPUImageThresholdSketchFilter*)_filter setThreshold:sender.value];
+        }
+            break;
+            
+        case ZHSessionInputFilterHalftone:{
+            [(GPUImageHalftoneFilter *)_filter setFractionalWidthOfAPixel:sender.value];
+        }
+            break;
+            
+        case ZHSessionInputFilterMosaic:{
+            [(GPUImageMosaicFilter *)_filter setDisplayTileSize:CGSizeMake(sender.value, sender.value)];
+        }
+            break;
+            
+            
+            
+            
+        case ZHSessionInputFilterSmoothToon:{
+            [(GPUImageSmoothToonFilter*)_filter setBlurRadiusInPixels:sender.value];
         }
             break;
         case ZHSessionInputFilterPolkaDot:{

@@ -12,6 +12,9 @@
 		C62086A31C2DE3F40026B943 /* ZHFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086A21C2DE3F40026B943 /* ZHFilterView.m */; };
 		C62086A51C2DE3FC0026B943 /* ZHFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C62086A41C2DE3FC0026B943 /* ZHFilterView.xib */; };
 		C62086AD1C2E896D0026B943 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086AC1C2E896C0026B943 /* UIImage+animatedGIF.m */; };
+		C62086B51C2F779F0026B943 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C62086B41C2F779F0026B943 /* Settings.bundle */; };
+		C62086B91C2F7B230026B943 /* ZHShutterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086B81C2F7B230026B943 /* ZHShutterButton.m */; };
+		C62086BB1C2F7BE60026B943 /* ZHShutterButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C62086BA1C2F7BE60026B943 /* ZHShutterButton.xib */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
 		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
@@ -65,6 +68,10 @@
 		C62086A41C2DE3FC0026B943 /* ZHFilterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZHFilterView.xib; sourceTree = "<group>"; };
 		C62086AB1C2E896C0026B943 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		C62086AC1C2E896C0026B943 /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
+		C62086B41C2F779F0026B943 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		C62086B71C2F7B230026B943 /* ZHShutterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHShutterButton.h; sourceTree = "<group>"; };
+		C62086B81C2F7B230026B943 /* ZHShutterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHShutterButton.m; sourceTree = "<group>"; };
+		C62086BA1C2F7BE60026B943 /* ZHShutterButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZHShutterButton.xib; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
 		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
 		C69ADCA21C2BB1E300612146 /* ZHOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -159,6 +166,14 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		C62086B61C2F77A50026B943 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C62086B41C2F779F0026B943 /* Settings.bundle */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		C69ADCA61C2BC91600612146 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +206,9 @@
 			children = (
 				C6D442E31C28A7BD00CE843E /* ZHCaptureViewController.h */,
 				C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */,
+				C62086B71C2F7B230026B943 /* ZHShutterButton.h */,
+				C62086B81C2F7B230026B943 /* ZHShutterButton.m */,
+				C62086BA1C2F7BE60026B943 /* ZHShutterButton.xib */,
 			);
 			name = Capture;
 			sourceTree = "<group>";
@@ -239,8 +257,9 @@
 			isa = PBXGroup;
 			children = (
 				C6D442E91C28E35600CE843E /* Categories */,
-				C6D442ED1C28E37C00CE843E /* Model */,
 				C69ADCA61C2BC91600612146 /* Documents */,
+				C6D442ED1C28E37C00CE843E /* Model */,
+				C62086B61C2F77A50026B943 /* Settings */,
 				C6D442D21C289E2E00CE843E /* SupportingFiles */,
 				C6D442D51C289E4300CE843E /* UserInterface */,
 				C6D442D31C289E3800CE843E /* Utils */,
@@ -431,6 +450,7 @@
 				TargetAttributes = {
 					C6D442961C2756D700CE843E = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = J7U74N85YF;
 					};
 					C6D442AA1C2756D700CE843E = {
 						CreatedOnToolsVersion = 7.2;
@@ -471,6 +491,8 @@
 				C6D442A21C2756D700CE843E /* Assets.xcassets in Resources */,
 				C62086A51C2DE3FC0026B943 /* ZHFilterView.xib in Resources */,
 				C6D442A01C2756D700CE843E /* Main.storyboard in Resources */,
+				C62086BB1C2F7BE60026B943 /* ZHShutterButton.xib in Resources */,
+				C62086B51C2F779F0026B943 /* Settings.bundle in Resources */,
 				C6D442DF1C28A64200CE843E /* notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -541,6 +563,7 @@
 				C62086A31C2DE3F40026B943 /* ZHFilterView.m in Sources */,
 				C6D4429B1C2756D700CE843E /* AppDelegate.swift in Sources */,
 				C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */,
+				C62086B91C2F7B230026B943 /* ZHShutterButton.m in Sources */,
 				C6D442F61C28E49900CE843E /* ZHFileManager.m in Sources */,
 				C62086AD1C2E896D0026B943 /* UIImage+animatedGIF.m in Sources */,
 				C6BBBFD11C2CBE3000FCBC3F /* ZHNavigationController.m in Sources */,
@@ -620,6 +643,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -639,7 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -665,6 +689,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -678,7 +703,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -692,7 +717,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ZHTimeLapse/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -707,7 +734,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ZHTimeLapse/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
