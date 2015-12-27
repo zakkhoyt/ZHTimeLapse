@@ -75,37 +75,32 @@ static NSString *ZHShutterButtonStartedString = @"";
 -(void)startAnimation{
     NSAssert(_session, @"No session set for shutter button");
     
-    // A view to rotate around the button
-    self.orbitView = [[UIView alloc]initWithFrame:self.bounds];
-    self.orbitView.userInteractionEnabled = NO;
-    self.orbitView.layer.masksToBounds = NO;
-
-    // A tick line on the rotating view
-    const CGFloat w = 2;
-    const CGFloat h = 8;
-    CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, 0, w, h);
-    UIView *b = [[UIView alloc]initWithFrame:f];
-    b.layer.cornerRadius = w/2.0;
-    b.layer.masksToBounds = YES;
-    b.backgroundColor = [UIColor whiteColor];
-    [self.orbitView addSubview:b];
-    [self.shutterButton addSubview:self.orbitView];
+//    // A view to rotate around the button
+//    self.orbitView = [[UIView alloc]initWithFrame:self.bounds];
+//    self.orbitView.userInteractionEnabled = NO;
+//    self.orbitView.layer.masksToBounds = NO;
+//
+//    // A tick line on the rotating view
+//    const CGFloat w = 2;
+//    const CGFloat h = 8;
+//    CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, 0, w, h);
+//    UIView *b = [[UIView alloc]initWithFrame:f];
+//    b.layer.cornerRadius = w/2.0;
+//    b.layer.masksToBounds = YES;
+//    b.backgroundColor = [UIColor whiteColor];
+//    [self.orbitView addSubview:b];
+//    [self.shutterButton addSubview:self.orbitView];
+//    
+//    {
+//        CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+//        rotateAnimation.toValue = @(2*M_PI); // The angle we are rotating to
+//        rotateAnimation.duration = 1.0;
+//        rotateAnimation.repeatCount = 10000;
+//        [self.orbitView.layer addAnimation:rotateAnimation forKey:@"rotate"];
+//    }
     
     
-    void (^orbit)() = ^(){
-        _lastOrbitStartDate = [NSDate date];
-        [self.orbitView.layer removeAnimationForKey:@"rotate"];
-        CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-        rotateAnimation.toValue = @(2*M_PI); // The angle we are rotating to
-        rotateAnimation.duration = 1.0;
-        rotateAnimation.repeatCount = 1;
-        [self.orbitView.layer addAnimation:rotateAnimation forKey:@"rotate"];
-    };
-    
-    _orbitTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 block:^{
-        orbit();
-    } repeats:YES];
-    
+    __block NSUInteger counter = 0;
     
     void (^tick)() = ^(){
         // A view to rotate around the button
@@ -113,31 +108,31 @@ static NSString *ZHShutterButtonStartedString = @"";
         bgView.userInteractionEnabled = NO;
         bgView.layer.masksToBounds = NO;
         // Calculate rotation angle
-        NSTimeInterval diff = fabs([[NSDate date] timeIntervalSinceDate:_lastOrbitStartDate]);
-        CGFloat angle = diff * 2*M_PI;
+        CGFloat angle = counter * 2*M_PI/_session.input.frameRate;
         bgView.transform = CGAffineTransformMakeRotation(angle);
         
         // A tick line on the rotating view
         const CGFloat w = 8;
         const CGFloat h = 8;
-        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, -h / 2.0, w, h);
+        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, 0, w, h);
         UIView *b = [[UIView alloc]initWithFrame:f];
         b.layer.cornerRadius = w/2.0;
         b.layer.masksToBounds = YES;
-        b.backgroundColor = _shutterButton.tintColor;
+        b.backgroundColor = [UIColor whiteColor];
         [bgView addSubview:b];
         [self.shutterButton addSubview:bgView];
+        counter++;
         
         [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             bgView.alpha = 0;
-            b.transform = CGAffineTransformMakeTranslation(0, (_shutterButton.bounds.size.height - h) / 2.0);
+            b.transform = CGAffineTransformMakeTranslation(0, _shutterButton.bounds.size.height / 2.0 - h);
             b.transform = CGAffineTransformScale(b.transform, 0.2, 0.2);
         } completion:^(BOOL finished) {
             [bgView removeFromSuperview];
         }];
     };
-    
-//    tick();
+
+    tick();
     _tickTimer = [NSTimer scheduledTimerWithTimeInterval:1/_session.input.frameRate block:^{
         tick();
     } repeats:YES];
