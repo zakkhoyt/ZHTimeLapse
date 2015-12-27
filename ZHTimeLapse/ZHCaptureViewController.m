@@ -30,8 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *startBarButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel *frameCountLabel;
-@property (weak, nonatomic) IBOutlet UIButton *startButton;
-@property (weak, nonatomic) IBOutlet UIButton *stopButton;
 @property (weak, nonatomic) IBOutlet UIView *bottomToolbarView;
 @property (weak, nonatomic) IBOutlet UIView *topToolbarView;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rotatableViews;
@@ -39,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *frameRateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *exportButton;
 @property (weak, nonatomic) IBOutlet ZHShutterButton *shutterButton;
+@property (weak, nonatomic) IBOutlet UIButton *resolutionButton;
+@property (weak, nonatomic) IBOutlet UILabel *resolutionLabel;
 
 @property (weak, nonatomic) IBOutlet UISlider *paramSlider;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
@@ -195,7 +195,10 @@
     UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.exportButton setImage:exportImage forState:UIControlStateNormal];
     [self.exportButton setTitle:@"" forState:UIControlStateNormal];
-    
+
+    UIImage *resolutionImage = [[UIImage imageNamed:@"resolution"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
+    [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
     
     UIImage *closeImage = [[UIImage imageNamed:@"close"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.closeButton setImage:closeImage forState:UIControlStateNormal];
@@ -214,22 +217,12 @@
     [self.cameraButton setTitle:@"" forState:UIControlStateNormal];
     
     [self.shutterButton setStartBlock:^{
-        [self startButtonTouchUpInside:self.startButton];
+        [self startRecording];
     }];
     
     [self.shutterButton setStopBlock:^{
-        [self stopButtonTouchUpInside:self.stopButton];
+        [self stopRecording];
     }];
-    
-    self.startButton.layer.cornerRadius = self.startButton.bounds.size.width / 2.0;
-    self.startButton.layer.masksToBounds = YES;
-    self.startButton.layer.borderWidth = 1.0;
-    self.startButton.layer.borderColor = self.startButton.tintColor.CGColor;
-    
-    self.stopButton.layer.cornerRadius = self.stopButton.bounds.size.width / 2.0;
-    self.stopButton.layer.masksToBounds = YES;
-    self.stopButton.layer.borderWidth = 1.0;
-    self.stopButton.layer.borderColor = self.stopButton.tintColor.CGColor;
     
     self.captureImageView.layer.borderWidth = 1.0;
     self.captureImageView.layer.borderColor = self.view.tintColor.CGColor;
@@ -240,8 +233,9 @@
     self.frameCounter = 0;
     
     [self updateFrameRateLabel];
-    
-    self.stopButton.hidden = YES;
+    self.resolutionLabel.text = [NSString stringWithFormat:@"%lu\n%lu",
+                                 (unsigned long)_session.input.size.width,
+                                  (unsigned long)_session.input.size.height];
     
     UISwipeGestureRecognizer *leftSwipeGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeAction:)];
     leftSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -276,7 +270,7 @@
     //    } else {
     //        self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/1s", (unsigned long) _session.input.frameRate];
     //    }
-    self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/%lus",
+    self.frameRateLabel.text = [NSString stringWithFormat:@"%luf\n%lus",
                                 (unsigned long) _session.input.frameRateFrames,
                                 (unsigned long) _session.input.frameRateSeconds];
 }
@@ -434,7 +428,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)startButtonTouchUpInside:(id)sender {
+- (IBAction)startRecording{
     
     self.isRecording = YES;
     
@@ -449,9 +443,6 @@
     self.captureTimer = [NSTimer scheduledTimerWithTimeInterval:1/(float)self.session.input.frameRate target:self selector:@selector(captureFrame:) userInfo:nil repeats:YES];
     [self captureFrame:self.captureTimer];
     
-    self.stopButton.hidden = NO;
-    self.startButton.hidden = YES;
-    
     // Hide top toolbar while recording
     [UIView animateWithDuration:0.3 animations:^{
         self.topToolbarView.alpha = 0;
@@ -465,7 +456,7 @@
     
 }
 
-- (IBAction)stopButtonTouchUpInside:(id)sender {
+- (IBAction)stopRecording {
     
     // Show top toolbar
     self.topToolbarView.hidden = NO;
@@ -477,8 +468,6 @@
     [self.captureTimer invalidate];
     self.captureTimer = nil;
     self.navigationItem.rightBarButtonItem = self.startBarButtonItem;
-    self.stopButton.hidden = YES;
-    self.startButton.hidden = NO;
     
     self.isRecording = NO;
     

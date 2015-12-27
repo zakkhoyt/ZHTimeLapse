@@ -25,7 +25,7 @@
     _frameRateSeconds = 1;
     
     _size = CGSizeMake(720, 1280);
-    _filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeCannyEdgeDetection];
+    _filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeNone];
 }
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary {
