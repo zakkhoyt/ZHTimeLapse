@@ -19,3 +19,48 @@
 // Directory will look like:
 $DocumentsDir/$UUID/Frames -> contains loose images
 $DocumentsDir/$UUID/session.json -> contains info about the project
+
+
+
+
+
+// 1.0
+* Simplify to one screen (mode switch)
+* About listing in settings.
+    * Third party
+    * Contact/email
+
+* Simple mode
+    * Export at end of session
+    * Cleans up dirs/temp files
+    * Detects existing project on launch to finish (from a crash)
+
+* Sound for shutter
+
+* Scaling problem with gifs
+* large res gifs crashing on render
+* selection controls
+    * drop menus
+    * filter CV
+//* Simplify filter class
+
+//* Tap to focus
+* Tap to hide controls
+//* Torch
+
+
+* -------- Media
+* swap camera
+* close
+* filter
+* fps
+* shutter
+    * Animation for shutter
+
+
+* ------- ITC
+* Send to ext testers
+* Get/update logo
+* Get/update marketing content
+
+

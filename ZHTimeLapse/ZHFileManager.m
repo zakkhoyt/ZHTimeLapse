@@ -77,6 +77,28 @@
     return sessions;
 }
 
++(void)deleteAllProjects{
+    NSError *error = nil;
+    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self pathForDocumentsDirectory] error:&error];
+    if(error != nil) {
+        NSLog(@"Handle error while getting documents dir contents");
+        return;
+    }
+    
+    [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *projectPath = [[self pathForDocumentsDirectory] stringByAppendingPathComponent:path];
+        NSLog(@"path: %@", projectPath);
+        NSError *removeError = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:projectPath error:&removeError];
+        if(removeError != nil) {
+            NSLog(@"Error deleting file at path: %@", projectPath.description);
+        }
+    }];
+    
+    return;
+}
+
+
 +(void)deleteFileAtURL:(NSURL*)url{
     NSError *error = nil;
     [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
@@ -105,10 +127,10 @@
         NSLog(@"Handle error while finding frame");
         return 0;
     }
-
-//    [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
-//        NSLog(@"path: %@", path);
-//    }];
+    
+    //    [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
+    //        NSLog(@"path: %@", path);
+    //    }];
     
     return contents.count;
 }

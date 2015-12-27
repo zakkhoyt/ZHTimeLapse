@@ -93,49 +93,7 @@ typedef enum {
                                  (unsigned long)_session.input.size.width,
                                  (unsigned long)_session.input.size.height];
 
-    switch (self.session.input.filter) {
-            
-        case ZHSessionFilterCannyEdgeDetection:{
-            self.filterLabel.text = @"Canny Edge Detection";
-        }
-            break;
-        case ZHSessionFilterPrewittEdgeDetection:{
-            self.filterLabel.text = @"Prewitt Edge Detection";
-        }
-            break;
-        case ZHSessionFilterThresholdEdgeDetection:{
-            self.filterLabel.text = @"Threshold Edge Detection";
-        }
-            break;
-        case ZHSessionFilterSobelEdgeDetection:{
-            self.filterLabel.text = @"Sobel Edge Detection";
-        }
-            break;
-        case ZHSessionFilterSketch:{
-            self.filterLabel.text = @"Sketch";
-        }
-            break;
-        case ZHSessionFilterSmoothToon:{
-            self.filterLabel.text = @"Smooth Toon";
-        }
-            break;
-        case ZHSessionFilterAdaptiveThreshold:{
-            self.filterLabel.text = @"Adaptive Threshold";
-        }
-            break;
-        case ZHSessionFilterPolkaDot:{
-            self.filterLabel.text = @"Polka Dot";
-        }
-            break;
-        case ZHSessionFilterNone:{
-            self.filterLabel.text = @"None";
-        }
-            break;
-        default:{
-            self.filterLabel.text = @"?";
-        }
-            break;
-    }
+    self.filterLabel.text = _session.input.filter.title;
 }
 
 - (IBAction)closeBarButtonAction:(id)sender {
@@ -155,36 +113,14 @@ typedef enum {
     
     [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
         if(completed){
-            [self dismissViewControllerAnimated:YES completion:NULL];
+//            [self dismissViewControllerAnimated:YES completion:NULL];
         }
     }];
     
-    
-//    activityViewController.excludedActivityTypes = @[UIActivityTypePostToTwitter,
-//                                                     UIActivityTypePostToFacebook,
-//                                                     UIActivityTypePostToWeibo,
-//                                                     UIActivityTypePrint,
-//                                                     UIActivityTypeAssignToContact,
-//                                                     UIActivityTypeSaveToCameraRoll,
-//                                                     UIActivityTypeAddToReadingList,
-//                                                     UIActivityTypePostToFlickr,
-//                                                     UIActivityTypePostToVimeo,
-//                                                     UIActivityTypePostToTencentWeibo];
+//    activityViewController.excludedActivityTypes = @[UIActivityTypePostToTwitter];
     [self presentViewController:activityViewController animated:YES completion:nil];
-    
 }
 
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section == 1) {
-        
-        [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    
-}
-
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-}
 
 - (IBAction)nameTextFieldEditingChanged:(UITextField*)sender {
     
@@ -236,58 +172,10 @@ typedef enum {
     [self presentViewController:ac animated:YES completion:nil];
 }
 
-- (IBAction)changeFilterButtonTouchUpInside:(id)sender {
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Filter" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"None" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterNone;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Canny Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterCannyEdgeDetection;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Prewitt Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterPrewittEdgeDetection;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Threshold Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterThresholdEdgeDetection;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Sobel Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterSobelEdgeDetection;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Sketch" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterSketch;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Smooth Toon" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterSmoothToon;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Adaptive Threshold" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterAdaptiveThreshold;
-        [self updateUI];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"Polka Dot" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.filter = ZHSessionFilterPolkaDot;
-        [self updateUI];
-    }]];
 
-    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }]];
-
-   
-    
-    [self presentViewController:ac animated:YES completion:nil];
-}
 
 - (IBAction)captureFramesButtonTouchUpInside:(UIButton*)sender {
     sender.enabled = NO;
-    
-
     
     [_session saveConfig];
     
@@ -301,22 +189,26 @@ typedef enum {
     
     sender.enabled = NO;
     
+    // Show hud with progress ring
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:hud];
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.labelText = @"Rendering video";
     [hud show:YES];
     
+    // A counter to update our ring
     NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
     NSLog(@"%lu frames", (unsigned long) frameCount);
     
     ZHRenderer *renderer = [[ZHRenderer alloc]init];
     [renderer renderSessionToVideo:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
+        // Update the HUD ring
         NSLog(@"rendered video frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
         hud.progress = framesRendered / (float)frameCount;
     } completionBlock:^(BOOL success, ZHSession *session) {
         NSLog(@"completed");
         if(success == YES) {
+            // Switch from progress ring to checkbox
             UIImage *image = [UIImage imageNamed:@"37x-Checkmark.png"];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
             hud.customView = imageView;
@@ -335,8 +227,52 @@ typedef enum {
         
         sender.enabled = YES;
     }];
+}
+
+- (IBAction)changeFilterButtonTouchUpInside:(id)sender {
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Filter" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-//    [self performSegueWithIdentifier:SegueOptionsToRender sender:nil];
+    [ac addAction:[UIAlertAction actionWithTitle:@"None" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeNone];
+        [self updateUI];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"Canny Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeCannyEdgeDetection];
+        [self updateUI];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"Prewitt Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypePrewittEdgeDetection];
+        [self updateUI];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"Threshold Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeThresholdEdgeDetection];
+        [self updateUI];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"Sobel Edge Detection" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeSobelEdgeDetection];
+        [self updateUI];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"Sketch" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeSketch];
+        [self updateUI];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"Smooth Toon" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeSmoothToon];
+        [self updateUI];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"Adaptive Threshold" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeAdaptiveThreshold];
+        [self updateUI];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"Polka Dot" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypePolkaDot];
+        [self updateUI];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    
+    [self presentViewController:ac animated:YES completion:nil];
 }
 
 - (IBAction)renderGifButtonTouchUpInside:(UIButton*)sender {
@@ -375,6 +311,7 @@ typedef enum {
         }
         
         sender.enabled = YES;
+        
     }];
     
 }

@@ -10,7 +10,6 @@
 
 @implementation ZHOutputSession
 
-
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -18,6 +17,7 @@
     }
     return self;
 }
+
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary {
     self = [super init];
     if(self) {

@@ -12,8 +12,7 @@
 
 @interface ZHFilterView ()
 
-@property (nonatomic, strong) GPUImageOutput<GPUImageInput>* gpuFilter;
-@property (nonatomic) ZHSessionFilter filter;
+@property (nonatomic, strong) ZHFilter *filter;
 @property (nonatomic, strong) GPUImageVideoCamera* videoCamera;
 @property (weak, nonatomic) IBOutlet GPUImageView *filterView;
 @property (weak, nonatomic) IBOutlet UILabel *filterLabel;
@@ -21,77 +20,25 @@
 
 @implementation ZHFilterView
 
--(void)setFilter:(ZHSessionFilter)filter
+-(void)setFilter:(ZHFilter*)filter
      videoCamera:(GPUImageVideoCamera*)videoCamera {
 
     _filter = filter;
     _videoCamera = videoCamera;
     
+    self.filterLabel.text = _filter.title;
     
-    switch (_filter) {
-            
-        case ZHSessionFilterCannyEdgeDetection:{
-            self.filterLabel.text = @"Canny";
-            _gpuFilter = [GPUImageCannyEdgeDetectionFilter new];
-        }
-            break;
-        case ZHSessionFilterPrewittEdgeDetection:{
-            
-            self.filterLabel.text = @"Prewitt";
-            _gpuFilter = [GPUImagePrewittEdgeDetectionFilter new];
-        }
-            break;
-        case ZHSessionFilterThresholdEdgeDetection:{
-            self.filterLabel.text = @"Threshold";
-            _gpuFilter = [GPUImageThresholdEdgeDetectionFilter new];
-        }
-            break;
-        case ZHSessionFilterSobelEdgeDetection:{
-            self.filterLabel.text = @"Sobel";
-            _gpuFilter = [GPUImageSobelEdgeDetectionFilter new];
-        }
-            break;
-        case ZHSessionFilterSketch:{
-            self.filterLabel.text = @"Sketch";
-            _gpuFilter = [GPUImageSketchFilter new];
-        }
-            break;
-        case ZHSessionFilterSmoothToon:{
-            self.filterLabel.text = @"Toon";
-            _gpuFilter = [GPUImageSmoothToonFilter new];
-        }
-            break;
-        case ZHSessionFilterAdaptiveThreshold:{
-            self.filterLabel.text = @"Adaptive";
-            _gpuFilter = [GPUImageAdaptiveThresholdFilter new];
-        }
-            break;
-        case ZHSessionFilterPolkaDot:{
-            self.filterLabel.text = @"Polka Dot";
-            _gpuFilter = [GPUImagePolkaDotFilter new];
-        }
-            break;
-        case ZHSessionFilterNone:{
-            self.filterLabel.text = @"None";
-            _gpuFilter = [GPUImageFilter new];
-        }
-            break;
-        default:{
-            self.filterLabel.text = @"?";
-        }
-            break;
-    }
-    
-    [videoCamera addTarget:_gpuFilter];
-    [_gpuFilter addTarget:self.filterView];
+    NSAssert(_filter.gpuFilter, @"No gpuFilter set");
+    [videoCamera addTarget:_filter.gpuFilter];
+    [_filter.gpuFilter addTarget:self.filterView];
 }
 
 -(void)dealloc {
-    [_videoCamera removeTarget:_gpuFilter];
-    [_gpuFilter removeAllTargets];
+    [_videoCamera removeTarget:_filter.gpuFilter];
+    [_filter.gpuFilter removeAllTargets];
 }
 
--(ZHSessionFilter)filter{
+-(ZHFilter*)filter{
     return  _filter;
 }
 @end

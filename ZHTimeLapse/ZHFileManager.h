@@ -15,6 +15,7 @@
 +(void)ensureDirectoryExistsAtPath:(NSString*)path;
 +(BOOL)projectFolderExists:(NSString*)path;
 
++(void)deleteAllProjects;
 +(void)deleteFileAtURL:(NSURL*)url;
 +(NSArray <ZHSession*> *)sessions;
 +(BOOL)deleteSession:(ZHSession*)session;

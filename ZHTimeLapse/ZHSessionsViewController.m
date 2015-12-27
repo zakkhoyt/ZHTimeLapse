@@ -10,6 +10,7 @@
 #import "ZHOptionsTableViewController.h"
 #import "ZHFileManager.h"
 #import "ZHSession.h"
+#import "ZHUserDefaults.h"
 
 #import "ZHSessionTableViewCell.h"
 
@@ -32,7 +33,17 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if([ZHUserDefaults modeContains:ZHUserDefaultsModeAdvanced]) {
+        // TODO: Full mode
+    } else {
+        // TODO: Quick mode
+    }
 }
+
+
+
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -49,10 +60,33 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
     }
 }
 
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    
+    //The device has already rotated, that's why this method is being called.
+    UIDeviceOrientation orientation   = [[UIDevice currentDevice] orientation];
+    
+    NSLog(@"rotate query");
+    if(orientation == UIDeviceOrientationPortrait){
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 #pragma mark IBActions
 
 - (IBAction)addBarButtonAction:(id)sender {
     [self performSegueWithIdentifier:SegueSessionsToOptions sender:nil];
+}
+- (IBAction)deleteBarButtonAction:(id)sender {
+    [ZHFileManager deleteAllProjects];
+    _sessions = [[ZHFileManager sessions] mutableCopy];
+    [_tableView reloadData];
+
+}
+- (IBAction)privacyBarButtonAction:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 @end

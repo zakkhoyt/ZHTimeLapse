@@ -13,6 +13,9 @@ typedef void (^ZHRendererCompletionBlock)(BOOL success, ZHSession* session);
 typedef void (^ZHRendererProgressBlock)(NSUInteger framesRendered, NSUInteger totalFrames);
 
 @interface ZHRenderer : NSObject
+// Renders a the frames into a video inside the app's bundle at $/documents/{uuid}/output.mov then exports to the camera roll
 -(void)renderSessionToVideo:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock;
+
+// Renders a the frames into a gif inside the app's bundle at $/documents/{uuid}/output.gif
 -(void)renderSessionToGIF:(ZHSession*)session progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock;
 @end
