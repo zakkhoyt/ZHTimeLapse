@@ -367,6 +367,8 @@
     CGImageRelease(imageRef);
     CGColorSpaceRelease(colorSpaceRef);
     CGDataProviderRelease(provider);
+    
+    [self.shutterButton addTick];
 }
 
 

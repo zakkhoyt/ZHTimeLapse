@@ -312,11 +312,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHShutterButton.m"
-            timestampString = "472898568.293922"
+            timestampString = "472899349.831486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "-initWithCoder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -344,11 +344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHShutterButton.m"
-            timestampString = "472898568.293922"
+            timestampString = "472899349.831486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "-touchUpInside:"
             landmarkType = "5">
          </BreakpointContent>
@@ -360,11 +360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHShutterButton.m"
-            timestampString = "472898568.293922"
+            timestampString = "472899349.831486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "-touchUpInside:"
             landmarkType = "5">
          </BreakpointContent>

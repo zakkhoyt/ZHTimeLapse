@@ -14,5 +14,5 @@ typedef void (^ZHShutterButtonEmptyBlock)();
 
 -(void)setStartBlock:(ZHShutterButtonEmptyBlock)startBlock;
 -(void)setStopBlock:(ZHShutterButtonEmptyBlock)stopBlock;
-
+-(void)addTick;
 @end
