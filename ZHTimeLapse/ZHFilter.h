@@ -24,11 +24,14 @@ typedef enum {
     ZHFilterTypeThresholdSketch,
     ZHFilterTypeHalftone,
     ZHFilterTypeMosaic,
+    ZHFilterTypeInvertedCannyEdgeDetection,
     
     // Color
     ZHFilterTypeSmoothToon,
     ZHFilterTypePolkaDot,
     ZHFilterTypeErosion,
+    
+    ZHFilterTypeCustom,
     ZHFilterTypeMask = 255,
 } ZHFilterType;
 

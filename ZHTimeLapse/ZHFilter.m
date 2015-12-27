@@ -44,6 +44,28 @@
             _gpuFilter = [GPUImageCannyEdgeDetectionFilter new];
         }
             break;
+        case ZHFilterTypeInvertedCannyEdgeDetection: {
+            self.title = @"I-Canny";
+            
+            self.paramMin = 0.0;
+            self.paramMax = 1.0;
+            self.paramValue = 1.0;
+            
+            _gpuFilter = [[GPUImageFilterGroup alloc] init];
+            
+            GPUImageColorInvertFilter *sepiaFilter = [[GPUImageColorInvertFilter alloc] init];
+            [(GPUImageFilterGroup *)_gpuFilter addFilter:sepiaFilter];
+            
+            GPUImageCannyEdgeDetectionFilter *cannyFilter = [GPUImageCannyEdgeDetectionFilter new];
+            [(GPUImageFilterGroup *)_gpuFilter addFilter:cannyFilter];
+            
+            [cannyFilter addTarget:sepiaFilter];
+            [(GPUImageFilterGroup *)_gpuFilter setInitialFilters:[NSArray arrayWithObject:cannyFilter]];
+            [(GPUImageFilterGroup *)_gpuFilter setTerminalFilter:sepiaFilter];
+            
+        }
+            break;
+
         case ZHFilterTypePrewittEdgeDetection:{
             self.title = @"Prewitt";
             self.paramMin = 0.0;
@@ -111,7 +133,7 @@
             [(GPUImageMosaicFilter*)_gpuFilter setColorOn:NO];
         }
             break;
-
+            
             // ********************** Color filters
         case ZHFilterTypeSmoothToon:{
             self.title = @"Toon";
@@ -137,6 +159,24 @@
         }
             break;
             
+            
+        case ZHFilterTypeCustom: {
+            self.title = @"Custom";
+            
+            _gpuFilter = [[GPUImageFilterGroup alloc] init];
+            
+            GPUImageSepiaFilter *sepiaFilter = [[GPUImageSepiaFilter alloc] init];
+            [(GPUImageFilterGroup *)_gpuFilter addFilter:sepiaFilter];
+            
+            GPUImageCannyEdgeDetectionFilter *cannyFilter = [GPUImageCannyEdgeDetectionFilter new];
+            [(GPUImageFilterGroup *)_gpuFilter addFilter:cannyFilter];
+            
+            [cannyFilter addTarget:sepiaFilter];
+            [(GPUImageFilterGroup *)_gpuFilter setInitialFilters:[NSArray arrayWithObject:cannyFilter]];
+            [(GPUImageFilterGroup *)_gpuFilter setTerminalFilter:sepiaFilter];
+        }
+            break;
+            
             // ********************** Default filters
         case ZHFilterTypeNone:
         default:{
@@ -154,6 +194,12 @@
             // ** B&W filters
         case ZHFilterTypeCannyEdgeDetection:{
             [(GPUImageCannyEdgeDetectionFilter*)_gpuFilter setBlurTexelSpacingMultiplier:value];
+        }
+            break;
+        case ZHFilterTypeInvertedCannyEdgeDetection: {
+            GPUImageFilterGroup *group = (GPUImageFilterGroup*)_gpuFilter;
+             GPUImageCannyEdgeDetectionFilter *cannyFilter = [group.initialFilters firstObject];
+            [cannyFilter setBlurTexelSpacingMultiplier:value];
         }
             break;
         case ZHFilterTypePrewittEdgeDetection:{

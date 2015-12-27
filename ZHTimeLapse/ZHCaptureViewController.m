@@ -69,7 +69,7 @@
     [NSTimer scheduledTimerWithTimeInterval:0.1 block:^{
         
         if(_isRecording) {
-            NSLog(@"Ignoring rotate because we are recording");
+//            NSLog(@"Ignoring rotate because we are recording");
             return;
         }
         
@@ -158,19 +158,21 @@
     
     if(sender.state == UIGestureRecognizerStateEnded) {
         if(sender.direction == UISwipeGestureRecognizerDirectionRight) {
+            // Increase
+        
+            // 1/3
             if(_session.input.frameRate < 1){
-                _session.input.frameRate += 0.1;
-            } else {
-                _session.input.frameRate += 1;
+                _session.input.frameRateSeconds -= 1;
+            }
+            // 1/1
+            else {
+                _session.input.frameRateFrames += 1;
             }
         } else if(sender.direction == UISwipeGestureRecognizerDirectionLeft) {
             if(_session.input.frameRate <= 1){
-                
-                if(_session.input.frameRate >= 0.1){
-                    _session.input.frameRate -= 0.05;
-                }
+                _session.input.frameRateSeconds += 1;
             } else {
-                _session.input.frameRate -= 1;
+                _session.input.frameRateFrames -= 1;
             }
         }
         [self updateFrameRateLabel];
@@ -244,12 +246,15 @@
 }
 
 -(void)updateFrameRateLabel {
-    if(_session.input.frameRate < 1) {
-        double f = 1.0 / _session.input.frameRate;
-        self.frameRateLabel.text = [NSString stringWithFormat:@"1f/%.1fs", f];
-    } else {
-        self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/1s", (unsigned long) _session.input.frameRate];
-    }
+//    if(_session.input.frameRate < 1) {
+//        double f = 1.0 / _session.input.frameRate;
+//        self.frameRateLabel.text = [NSString stringWithFormat:@"1f/%.1fs", f];
+//    } else {
+//        self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/1s", (unsigned long) _session.input.frameRate];
+//    }
+    self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/%lus",
+                                (unsigned long) _session.input.frameRateFrames,
+                                (unsigned long) _session.input.frameRateSeconds];
 }
 
 
@@ -363,8 +368,10 @@
             [vc removeFromParentViewController];
             
             // TODO (watch): We used to have to add a small delay here because of filter preview cleanup happening after the completion block is fired.
-            _session.input.filter = filter;
-            [self setupCaptureSession];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                _session.input.filter = filter;
+                [self setupCaptureSession];
+            });
         }];
     }];
     

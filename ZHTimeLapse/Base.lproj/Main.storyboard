@@ -451,6 +451,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="bZA-oM-2yG"/>
                                                     <constraint firstAttribute="width" constant="60" id="fcG-DY-6V3"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Start"/>
                                                 <connections>
@@ -464,6 +465,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="1aF-62-fqI"/>
                                                     <constraint firstAttribute="width" constant="60" id="dyT-Ik-26r"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Stop"/>
                                                 <connections>

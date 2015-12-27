@@ -14,7 +14,6 @@
 		C62086AD1C2E896D0026B943 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086AC1C2E896C0026B943 /* UIImage+animatedGIF.m */; };
 		C62086B51C2F779F0026B943 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C62086B41C2F779F0026B943 /* Settings.bundle */; };
 		C62086B91C2F7B230026B943 /* ZHShutterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086B81C2F7B230026B943 /* ZHShutterButton.m */; };
-		C62086BB1C2F7BE60026B943 /* ZHShutterButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C62086BA1C2F7BE60026B943 /* ZHShutterButton.xib */; };
 		C62086BE1C2F84DD0026B943 /* ZHFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086BD1C2F84DD0026B943 /* ZHFilter.m */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
@@ -72,7 +71,6 @@
 		C62086B41C2F779F0026B943 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C62086B71C2F7B230026B943 /* ZHShutterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHShutterButton.h; sourceTree = "<group>"; };
 		C62086B81C2F7B230026B943 /* ZHShutterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHShutterButton.m; sourceTree = "<group>"; };
-		C62086BA1C2F7BE60026B943 /* ZHShutterButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZHShutterButton.xib; sourceTree = "<group>"; };
 		C62086BC1C2F84DD0026B943 /* ZHFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFilter.h; sourceTree = "<group>"; };
 		C62086BD1C2F84DD0026B943 /* ZHFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFilter.m; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
@@ -211,7 +209,6 @@
 				C6D442E41C28A7BD00CE843E /* ZHCaptureViewController.m */,
 				C62086B71C2F7B230026B943 /* ZHShutterButton.h */,
 				C62086B81C2F7B230026B943 /* ZHShutterButton.m */,
-				C62086BA1C2F7BE60026B943 /* ZHShutterButton.xib */,
 			);
 			name = Capture;
 			sourceTree = "<group>";
@@ -496,7 +493,6 @@
 				C6D442A21C2756D700CE843E /* Assets.xcassets in Resources */,
 				C62086A51C2DE3FC0026B943 /* ZHFilterView.xib in Resources */,
 				C6D442A01C2756D700CE843E /* Main.storyboard in Resources */,
-				C62086BB1C2F7BE60026B943 /* ZHShutterButton.xib in Resources */,
 				C62086B51C2F779F0026B943 /* Settings.bundle in Resources */,
 				C6D442DF1C28A64200CE843E /* notes.txt in Resources */,
 			);

@@ -13,7 +13,13 @@
 @interface ZHInputSession : NSObject
 @property (nonatomic, strong) ZHFilter *filter;
 @property (nonatomic) CGSize size;
-@property (nonatomic) NSTimeInterval frameRate;
+
+-(NSTimeInterval)frameRate;
+
+@property (nonatomic) NSUInteger frameRateFrames;
+@property (nonatomic) NSUInteger frameRateSeconds;
+
+
 @property (nonatomic, strong) NSMutableArray *frames;
 @property (nonatomic) AVCaptureDevicePosition captureDevicePosition;
 @property (nonatomic) UIDeviceOrientation orientation;

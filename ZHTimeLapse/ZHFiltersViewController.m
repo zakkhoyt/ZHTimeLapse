@@ -50,28 +50,28 @@
                     [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeCannyEdgeDetection] videoCamera:_videoCamera];
                     break;
                 case 1:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypePrewittEdgeDetection] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeInvertedCannyEdgeDetection] videoCamera:_videoCamera];
                     break;
                 case 2:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeThresholdEdgeDetection] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypePrewittEdgeDetection] videoCamera:_videoCamera];
                     break;
                 case 3:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeSobelEdgeDetection] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeThresholdEdgeDetection] videoCamera:_videoCamera];
                     break;
                 case 4:
                     [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeNone] videoCamera:_videoCamera];
                     break;
                 case 5:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeSketch] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeSobelEdgeDetection] videoCamera:_videoCamera];
                     break;
                 case 6:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeThresholdSketch] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeSketch] videoCamera:_videoCamera];
                     break;
                 case 7:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeHalftone] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeThresholdSketch] videoCamera:_videoCamera];
                     break;
                 case 8:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeErosion] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeHalftone] videoCamera:_videoCamera];
                     break;
                 default:
                     NSLog(@"invalid x/y index");

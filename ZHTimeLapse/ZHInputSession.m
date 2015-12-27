@@ -14,14 +14,15 @@
     self = [super init];
     if (self) {
         [self commonInit];
-        
     }
     return self;
 }
 
 
 -(void)commonInit {
-    _frameRate = 2;
+    _frameRateFrames = 2;
+    _frameRateSeconds = 1;
+    
     _size = CGSizeMake(720, 1280);
     _filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeCannyEdgeDetection];
 }
@@ -36,10 +37,16 @@
             _size = CGSizeFromString(sizeString);
         }
         
-        NSNumber *frameRateNumber = dictionary[@"frameRate"];
-        if(frameRateNumber) {
-            _frameRate = frameRateNumber.doubleValue;
+        NSNumber *frameRateFramesNumber = dictionary[@"frameRateFrames"];
+        if(frameRateFramesNumber) {
+            _frameRateFrames = frameRateFramesNumber.doubleValue;
         }
+        
+        NSNumber *frameRateSecondsNumber = dictionary[@"frameRateSeconds"];
+        if(frameRateSecondsNumber) {
+            _frameRateSeconds = frameRateSecondsNumber.doubleValue;
+        }
+
         
         NSNumber *filterNumber = dictionary[@"filter"];
         if(filterNumber) {
@@ -66,7 +73,8 @@
 
     NSMutableDictionary *dictionary = [@{}mutableCopy];
     dictionary[@"size"] = NSStringFromCGSize(_size);
-    dictionary[@"frameRate"] = @(_frameRate);
+    dictionary[@"frameRateFrames"] = @(_frameRateFrames);
+    dictionary[@"frameRateSeconds"] = @(_frameRateSeconds);
     dictionary[@"filter"] = @(_filter.filterType);
     dictionary[@"captureDevicePosition"] = @(_captureDevicePosition);
     dictionary[@"orientation"] = @(_orientation);
@@ -74,5 +82,8 @@
     return dictionary;
 }
 
+-(NSTimeInterval)frameRate {
+    return (NSTimeInterval)(_frameRateFrames / (NSTimeInterval)_frameRateSeconds);
+}
 
 @end
