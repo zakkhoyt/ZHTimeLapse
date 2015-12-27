@@ -279,6 +279,7 @@
 -(void)setupCaptureSession{
 
     self.filterView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
+    self.shutterButton.session = _session;
     
     // Clean up
     if(self.videoCamera) {
@@ -368,7 +369,7 @@
     CGColorSpaceRelease(colorSpaceRef);
     CGDataProviderRelease(provider);
     
-    [self.shutterButton addTick];
+//    [self.shutterButton addTick];
 }
 
 
@@ -429,6 +430,7 @@
 - (IBAction)startButtonTouchUpInside:(id)sender {
 
     self.isRecording = YES;
+    
     
     // Save our config
     self.session.input.captureDevicePosition = self.videoCamera.cameraPosition;

@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZHSession.h"
 typedef void (^ZHShutterButtonEmptyBlock)();
 
 @interface ZHShutterButton : UIButton
-
+@property (nonatomic, strong) ZHSession *session;
 -(void)setStartBlock:(ZHShutterButtonEmptyBlock)startBlock;
 -(void)setStopBlock:(ZHShutterButtonEmptyBlock)stopBlock;
--(void)addTick;
 @end
