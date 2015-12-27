@@ -149,10 +149,6 @@
     
 }
 
--(void)renderVideoFromFrames{
-    
-}
-
 
 -(BOOL)isEqual:(id)object {
     if([object isKindOfClass:[ZHSession class]] == NO) {

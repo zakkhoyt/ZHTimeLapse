@@ -106,7 +106,8 @@ static NSString *ZHShutterButtonStartedString = @"";
         // A view to rotate around the button
         UIView *bgView = [[UIView alloc]initWithFrame:self.bounds];
         bgView.userInteractionEnabled = NO;
-        bgView.layer.masksToBounds = NO;
+        bgView.layer.masksToBounds = YES;
+        bgView.layer.cornerRadius = bgView.bounds.size.width / 2.0;
         // Calculate rotation angle
         CGFloat angle = counter * 2*M_PI/_session.input.frameRate;
         bgView.transform = CGAffineTransformMakeRotation(angle);
@@ -114,7 +115,7 @@ static NSString *ZHShutterButtonStartedString = @"";
         // A tick line on the rotating view
         const CGFloat w = 8;
         const CGFloat h = 8;
-        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, 0, w, h);
+        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, -h / 2.0, w, h);
         UIView *b = [[UIView alloc]initWithFrame:f];
         b.layer.cornerRadius = w/2.0;
         b.layer.masksToBounds = YES;
@@ -123,9 +124,9 @@ static NSString *ZHShutterButtonStartedString = @"";
         [self.shutterButton addSubview:bgView];
         counter++;
         
-        [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             bgView.alpha = 0;
-            b.transform = CGAffineTransformMakeTranslation(0, _shutterButton.bounds.size.height / 2.0 - h);
+            b.transform = CGAffineTransformMakeTranslation(0, (_shutterButton.bounds.size.height) / 2.0);
             b.transform = CGAffineTransformScale(b.transform, 0.2, 0.2);
         } completion:^(BOOL finished) {
             [bgView removeFromSuperview];
