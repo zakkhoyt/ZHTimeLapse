@@ -504,26 +504,19 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tWv-Nv-rMa">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHf-Pk-9T3">
-                                                <rect key="frame" x="554" y="7" width="38" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHf-Pk-9T3">
+                                                <rect key="frame" x="560" y="6" width="32" height="32"/>
                                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Swap"/>
+                                                <state key="normal" image="camera"/>
                                                 <connections>
                                                     <action selector="swapButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="QfK-ft-Le6"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voP-E0-Ioc">
-                                                <rect key="frame" x="283" y="7" width="35" height="30"/>
-                                                <state key="normal" title="Filter"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voP-E0-Ioc">
+                                                <rect key="frame" x="284" y="8" width="32" height="32"/>
+                                                <state key="normal" image="filter"/>
                                                 <connections>
                                                     <action selector="filterButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="MeC-El-e7P"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wse-gm-dhy">
-                                                <rect key="frame" x="8" y="7" width="35" height="30"/>
-                                                <state key="normal" title="2 fps"/>
-                                                <connections>
-                                                    <action selector="frameRateButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="z8h-ay-vYF"/>
                                                 </connections>
                                             </button>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GLs-ja-Y6T">
@@ -532,29 +525,46 @@
                                                     <action selector="paramSliderValueChanged:" destination="fGH-Mm-j49" eventType="valueChanged" id="gDA-3X-RBK"/>
                                                 </connections>
                                             </slider>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPZ-yZ-hF6">
-                                                <rect key="frame" x="507" y="7" width="39" height="30"/>
-                                                <state key="normal" title="Close"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPZ-yZ-hF6">
+                                                <rect key="frame" x="520" y="6" width="32" height="32"/>
+                                                <state key="normal" image="close"/>
                                                 <connections>
                                                     <action selector="closeButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="qDh-i5-dIc"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2/1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZnT-Th-6Jw">
+                                                <rect key="frame" x="48" y="17" width="17.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wse-gm-dhy">
+                                                <rect key="frame" x="8" y="8" width="32" height="32"/>
+                                                <state key="normal" image="framerate">
+                                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="frameRateButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="z8h-ay-vYF"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.74509698275862069" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="GLs-ja-Y6T" firstAttribute="top" secondItem="wse-gm-dhy" secondAttribute="bottom" constant="8" id="3hk-RL-FJb"/>
-                                            <constraint firstAttribute="trailing" secondItem="AHf-Pk-9T3" secondAttribute="trailing" constant="8" id="8Ip-Kj-aXn"/>
+                                            <constraint firstItem="AHf-Pk-9T3" firstAttribute="leading" secondItem="pPZ-yZ-hF6" secondAttribute="trailing" constant="8" id="0dr-Tg-GbG"/>
+                                            <constraint firstItem="wse-gm-dhy" firstAttribute="leading" secondItem="tWv-Nv-rMa" secondAttribute="leading" constant="8" id="2TX-nW-WUE"/>
                                             <constraint firstAttribute="trailing" secondItem="GLs-ja-Y6T" secondAttribute="trailing" constant="20" id="Hb5-cQ-hqw"/>
-                                            <constraint firstItem="voP-E0-Ioc" firstAttribute="top" secondItem="tWv-Nv-rMa" secondAttribute="top" constant="7" id="KfP-ht-uZo"/>
-                                            <constraint firstItem="voP-E0-Ioc" firstAttribute="centerX" secondItem="tWv-Nv-rMa" secondAttribute="centerX" id="LiT-ck-l5Z"/>
-                                            <constraint firstItem="pPZ-yZ-hF6" firstAttribute="top" secondItem="tWv-Nv-rMa" secondAttribute="top" constant="7" id="SA8-2P-w3H"/>
-                                            <constraint firstItem="wse-gm-dhy" firstAttribute="top" secondItem="tWv-Nv-rMa" secondAttribute="top" constant="7" id="ZU8-f1-IC5"/>
-                                            <constraint firstItem="AHf-Pk-9T3" firstAttribute="top" secondItem="tWv-Nv-rMa" secondAttribute="top" constant="7" id="cun-H7-HXS"/>
+                                            <constraint firstItem="voP-E0-Ioc" firstAttribute="top" secondItem="tWv-Nv-rMa" secondAttribute="top" constant="8" id="JJq-0f-Vro"/>
+                                            <constraint firstItem="voP-E0-Ioc" firstAttribute="centerX" secondItem="tWv-Nv-rMa" secondAttribute="centerX" id="L24-Ny-cau"/>
+                                            <constraint firstAttribute="trailing" secondItem="AHf-Pk-9T3" secondAttribute="trailing" constant="8" id="cYe-zC-Cfs"/>
                                             <constraint firstItem="GLs-ja-Y6T" firstAttribute="leading" secondItem="tWv-Nv-rMa" secondAttribute="leading" constant="20" id="dAI-1x-yPQ"/>
+                                            <constraint firstItem="AHf-Pk-9T3" firstAttribute="top" secondItem="tWv-Nv-rMa" secondAttribute="top" constant="6" id="diI-xk-vtJ"/>
+                                            <constraint firstItem="wse-gm-dhy" firstAttribute="top" secondItem="tWv-Nv-rMa" secondAttribute="top" constant="8" id="glu-KS-Y50"/>
                                             <constraint firstAttribute="bottom" secondItem="GLs-ja-Y6T" secondAttribute="bottom" constant="8" id="jKB-Dd-ejW"/>
+                                            <constraint firstItem="pPZ-yZ-hF6" firstAttribute="top" secondItem="tWv-Nv-rMa" secondAttribute="top" constant="6" id="kdW-X2-r2y"/>
                                             <constraint firstAttribute="height" constant="83" id="n9t-EQ-x5t"/>
-                                            <constraint firstItem="wse-gm-dhy" firstAttribute="leading" secondItem="tWv-Nv-rMa" secondAttribute="leading" constant="8" id="wX2-IC-Uta"/>
-                                            <constraint firstItem="AHf-Pk-9T3" firstAttribute="leading" secondItem="pPZ-yZ-hF6" secondAttribute="trailing" constant="8" id="zbO-hB-er7"/>
+                                            <constraint firstItem="ZnT-Th-6Jw" firstAttribute="centerY" secondItem="wse-gm-dhy" secondAttribute="centerY" id="o9G-Pn-ZFE"/>
+                                            <constraint firstItem="ZnT-Th-6Jw" firstAttribute="leading" secondItem="wse-gm-dhy" secondAttribute="trailing" constant="8" id="oXj-l6-LF6"/>
+                                            <constraint firstItem="GLs-ja-Y6T" firstAttribute="top" secondItem="wse-gm-dhy" secondAttribute="bottom" constant="5" id="pmA-x5-jm6"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -588,10 +598,14 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="bottomToolbarView" destination="0eV-X0-9tK" id="MqG-nS-86C"/>
+                        <outlet property="cameraButton" destination="AHf-Pk-9T3" id="ysD-yV-Xyi"/>
                         <outlet property="captureImageView" destination="25s-Dw-j1M" id="1Ap-WX-KpP"/>
+                        <outlet property="closeButton" destination="pPZ-yZ-hF6" id="yj4-KT-UE1"/>
+                        <outlet property="filterButton" destination="voP-E0-Ioc" id="ZRV-yF-fV9"/>
                         <outlet property="filterView" destination="KRy-Ay-wEB" id="LzQ-qQ-8xF"/>
                         <outlet property="frameCountLabel" destination="N4L-Qq-cJF" id="7CO-HY-KZQ"/>
                         <outlet property="frameRateButton" destination="wse-gm-dhy" id="URF-0f-Hx7"/>
+                        <outlet property="frameRateLabel" destination="ZnT-Th-6Jw" id="hg5-Qw-JGc"/>
                         <outlet property="paramSlider" destination="GLs-ja-Y6T" id="LCj-aM-DTl"/>
                         <outlet property="startBarButtonItem" destination="aAW-bG-4AB" id="U8V-GZ-ccn"/>
                         <outlet property="startButton" destination="n64-qf-NPg" id="cBW-m2-cjK"/>
@@ -604,6 +618,7 @@
                         <outletCollection property="rotatableViews" destination="pPZ-yZ-hF6" id="fDc-sR-OAx"/>
                         <outletCollection property="rotatableViews" destination="voP-E0-Ioc" id="vwG-6j-GvV"/>
                         <outletCollection property="rotatableViews" destination="wse-gm-dhy" id="T33-u8-yqW"/>
+                        <outletCollection property="rotatableViews" destination="ZnT-Th-6Jw" id="4ae-Tb-WAD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWa-j0-zgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -652,5 +667,11 @@
             <point key="canvasLocation" x="685" y="1305"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="camera" width="32" height="32"/>
+        <image name="close" width="32" height="32"/>
+        <image name="filter" width="32" height="32"/>
+        <image name="framerate" width="32" height="32"/>
+    </resources>
     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

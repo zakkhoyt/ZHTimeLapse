@@ -30,25 +30,37 @@ $DocumentsDir/$UUID/session.json -> contains info about the project
     * Third party
     * Contact/email
 
-* Clean mode
-    * Exports at end of shutter
-    * Cleans up dirs
+* Simple mode
+    * Export at end of session
+    * Cleans up dirs/temp files
     * Detects existing project on launch to finish (from a crash)
+
 * Sound for shutter
-* Animation for shutter
+
 * Scaling problem with gifs
+* large res gifs crashing on render
 * selection controls
     * drop menus
     * filter CV
-* Simplify filter class
+//* Simplify filter class
 
-* Tap to focus
+//* Tap to focus
 * Tap to hide controls
-* Torch
+//* Torch
 
+
+* -------- Media
+* swap camera
+* close
+* filter
+* fps
+* shutter
+    * Animation for shutter
 
 
 * ------- ITC
-* Send to Kady, Cory, etc...
+* Send to ext testers
 * Get/update logo
 * Get/update marketing content
+
+

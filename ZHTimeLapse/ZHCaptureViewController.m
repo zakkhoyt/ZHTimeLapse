@@ -33,7 +33,12 @@
 @property (weak, nonatomic) IBOutlet UIView *topToolbarView;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rotatableViews;
 @property (weak, nonatomic) IBOutlet UIButton *frameRateButton;
+@property (weak, nonatomic) IBOutlet UILabel *frameRateLabel;
+
 @property (weak, nonatomic) IBOutlet UISlider *paramSlider;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet UIButton *filterButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 // i-vars
 @property (nonatomic) NSUInteger frameCounter;
@@ -97,6 +102,7 @@
             }
         }];
     }];
+    
 }
 
 
@@ -159,17 +165,36 @@
             }
         } else if(sender.direction == UISwipeGestureRecognizerDirectionLeft) {
             if(_session.input.frameRate <= 1){
-                _session.input.frameRate -= 0.1;
+                
+                if(_session.input.frameRate >= 0.1){
+                    _session.input.frameRate -= 0.05;
+                }
             } else {
                 _session.input.frameRate -= 1;
             }
         }
-        
-        [self.frameRateButton setTitle:[NSString stringWithFormat:@"%.2f fps", _session.input.frameRate] forState:UIControlStateNormal];
+        [self updateFrameRateLabel];
     }
 }
 
 -(void)setupUI {
+    
+    UIImage *closeImage = [[UIImage imageNamed:@"close"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.closeButton setImage:closeImage forState:UIControlStateNormal];
+    [self.closeButton setTitle:@"" forState:UIControlStateNormal];
+
+    UIImage *filterImage = [[UIImage imageNamed:@"filter"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.filterButton setImage:filterImage forState:UIControlStateNormal];
+    [self.filterButton setTitle:@"" forState:UIControlStateNormal];
+
+    UIImage *frameRateImage = [[UIImage imageNamed:@"framerate"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.frameRateButton setImage:frameRateImage forState:UIControlStateNormal];
+    [self.frameRateButton setTitle:@"" forState:UIControlStateNormal];
+    
+    UIImage *cameraImage = [[UIImage imageNamed:@"camera"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.cameraButton setImage:cameraImage forState:UIControlStateNormal];
+    [self.cameraButton setTitle:@"" forState:UIControlStateNormal];
+    
     self.startButton.layer.cornerRadius = self.startButton.bounds.size.width / 2.0;
     self.startButton.layer.masksToBounds = YES;
     self.startButton.layer.borderWidth = 1.0;
@@ -188,7 +213,7 @@
     self.frameCountLabel.text = @"";
     self.frameCounter = 0;
     
-    [self.frameRateButton setTitle:[NSString stringWithFormat:@"%.2f fps", _session.input.frameRate] forState:UIControlStateNormal];
+    [self updateFrameRateLabel];
     
     self.stopButton.hidden = YES;
     
@@ -217,6 +242,16 @@
 
 
 }
+
+-(void)updateFrameRateLabel {
+    if(_session.input.frameRate < 1) {
+        double f = 1.0 / _session.input.frameRate;
+        self.frameRateLabel.text = [NSString stringWithFormat:@"1f/%.1fs", f];
+    } else {
+        self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/1s", (unsigned long) _session.input.frameRate];
+    }
+}
+
 
 -(void)setupCaptureSession{
 
