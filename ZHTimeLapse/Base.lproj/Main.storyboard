@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Cds-ph-uOw">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -11,7 +10,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jNo-bU-Isg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cds-ph-uOw" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cds-ph-uOw" customClass="ZHNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XHk-Zc-tw5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -24,7 +23,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2Y-Sb-8qu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-30" y="493"/>
+            <point key="canvasLocation" x="-1122" y="517"/>
         </scene>
         <!--Sessions-->
         <scene sceneID="tOy-pA-HQn">
@@ -139,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7Z-QT-HDu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="693" y="493"/>
+            <point key="canvasLocation" x="-247" y="517"/>
         </scene>
         <!--Options-->
         <scene sceneID="QlF-rj-e7G">
@@ -602,6 +601,9 @@
                         <outletCollection property="rotatableViews" destination="CnB-Kh-Yus" id="qEZ-US-vNV"/>
                         <outletCollection property="rotatableViews" destination="n64-qf-NPg" id="Fv9-bv-Y54"/>
                         <outletCollection property="rotatableViews" destination="N4L-Qq-cJF" id="Uau-1g-OOD"/>
+                        <outletCollection property="rotatableViews" destination="pPZ-yZ-hF6" id="fDc-sR-OAx"/>
+                        <outletCollection property="rotatableViews" destination="voP-E0-Ioc" id="vwG-6j-GvV"/>
+                        <outletCollection property="rotatableViews" destination="wse-gm-dhy" id="T33-u8-yqW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWa-j0-zgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -647,7 +649,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jk6-ue-uTh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="693" y="1323"/>
+            <point key="canvasLocation" x="685" y="1305"/>
         </scene>
     </scenes>
     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

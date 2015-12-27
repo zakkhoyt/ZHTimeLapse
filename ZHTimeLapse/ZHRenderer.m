@@ -297,6 +297,9 @@
         // Cleanup
         CFRelease(destination);
 
+        // *********** Saving to Camera Roll results in a static image. Photos doesnt' support gifs.
+        // *********** HOwever the gif can be shared via UIActivity (messages, email, etc...)
+        
 ////        UIImage *image = [UIImage imageWithContentsOfFile:session.output.outputGIF.path];
 ////        [PHAsset saveImageToCameraRoll:image location:nil completionBlock:^(PHAsset *asset, BOOL success) {
 //        [PHAsset saveGIFImageToCameraRoll:session.output.outputGIF location:nil completionBlock:^(PHAsset *asset, BOOL success) {

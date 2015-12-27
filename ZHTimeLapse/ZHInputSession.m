@@ -23,7 +23,7 @@
 -(void)commonInit {
     _frameRate = 2;
     _size = CGSizeMake(720, 1280);
-    _filter = ZHSessionInputFilterNone;// CannyEdgeDetection;
+    _filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeCannyEdgeDetection];
 }
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary {
@@ -43,7 +43,8 @@
         
         NSNumber *filterNumber = dictionary[@"filter"];
         if(filterNumber) {
-            _filter = (ZHSessionInputFilter)filterNumber.unsignedIntegerValue;
+            ZHFilterType filterType = (ZHFilterType)filterNumber.unsignedIntegerValue;
+            _filter = [[ZHFilter alloc]initWithFilterType:filterType];
         }
         
         NSNumber *captureDevicePositionNumber = dictionary[@"captureDevicePosition"];
@@ -66,7 +67,7 @@
     NSMutableDictionary *dictionary = [@{}mutableCopy];
     dictionary[@"size"] = NSStringFromCGSize(_size);
     dictionary[@"frameRate"] = @(_frameRate);
-    dictionary[@"filter"] = @(_filter);
+    dictionary[@"filter"] = @(_filter.filterType);
     dictionary[@"captureDevicePosition"] = @(_captureDevicePosition);
     dictionary[@"orientation"] = @(_orientation);
     

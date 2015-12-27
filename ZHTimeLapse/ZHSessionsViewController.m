@@ -35,11 +35,15 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
     [super viewDidLoad];
     
     if([ZHUserDefaults modeContains:ZHUserDefaultsModeAdvanced]) {
-        // Full mode
+        // TODO: Full mode
     } else {
-        // Quick mode
+        // TODO: Quick mode
     }
 }
+
+
+
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -53,6 +57,20 @@ static NSString *SegueSessionsToOptions = @"SegueSessionsToOptions";
         UINavigationController *nc = segue.destinationViewController;
         ZHOptionsTableViewController *vc = [nc.viewControllers firstObject];
         vc.session = sender;
+    }
+}
+
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    
+    //The device has already rotated, that's why this method is being called.
+    UIDeviceOrientation orientation   = [[UIDevice currentDevice] orientation];
+    
+    NSLog(@"rotate query");
+    if(orientation == UIDeviceOrientationPortrait){
+        return YES;
+    } else {
+        return NO;
     }
 }
 

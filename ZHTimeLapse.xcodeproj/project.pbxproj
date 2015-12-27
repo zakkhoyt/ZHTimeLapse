@@ -15,6 +15,7 @@
 		C62086B51C2F779F0026B943 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C62086B41C2F779F0026B943 /* Settings.bundle */; };
 		C62086B91C2F7B230026B943 /* ZHShutterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086B81C2F7B230026B943 /* ZHShutterButton.m */; };
 		C62086BB1C2F7BE60026B943 /* ZHShutterButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C62086BA1C2F7BE60026B943 /* ZHShutterButton.xib */; };
+		C62086BE1C2F84DD0026B943 /* ZHFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086BD1C2F84DD0026B943 /* ZHFilter.m */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
 		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
@@ -72,6 +73,8 @@
 		C62086B71C2F7B230026B943 /* ZHShutterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHShutterButton.h; sourceTree = "<group>"; };
 		C62086B81C2F7B230026B943 /* ZHShutterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHShutterButton.m; sourceTree = "<group>"; };
 		C62086BA1C2F7BE60026B943 /* ZHShutterButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZHShutterButton.xib; sourceTree = "<group>"; };
+		C62086BC1C2F84DD0026B943 /* ZHFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFilter.h; sourceTree = "<group>"; };
+		C62086BD1C2F84DD0026B943 /* ZHFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFilter.m; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
 		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
 		C69ADCA21C2BB1E300612146 /* ZHOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -359,6 +362,8 @@
 				C6D442EF1C28E39000CE843E /* ZHInputSession.m */,
 				C6D442F11C28E39B00CE843E /* ZHOutputSession.h */,
 				C6D442F21C28E39B00CE843E /* ZHOutputSession.m */,
+				C62086BC1C2F84DD0026B943 /* ZHFilter.h */,
+				C62086BD1C2F84DD0026B943 /* ZHFilter.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -552,6 +557,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */,
+				C62086BE1C2F84DD0026B943 /* ZHFilter.m in Sources */,
 				C69ADCB11C2BD1D300612146 /* UIColor+ZH.m in Sources */,
 				C69ADCB21C2BD1D300612146 /* UIViewController+AlertController.m in Sources */,
 				C6D442D81C28A34D00CE843E /* PHAsset+Utility.m in Sources */,
