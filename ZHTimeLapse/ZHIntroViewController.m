@@ -19,24 +19,25 @@ static NSString *SegueIntroToCapture = @"SegueIntroToCapture";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
     VWWCameraPermission *camera = [VWWCameraPermission permissionWithLabelText:@"We need to access your camera so you can record videos."];
-    VWWPhotosPermission *photos = [VWWPhotosPermission permissionWithLabelText:@"Videos are saved to the Photos app."];
+    VWWPhotosPermission *photos = [VWWPhotosPermission permissionWithLabelText:@"Timelapse videos are saved to your Camera Roll."];
 
     NSArray *permissions = @[camera, photos];
     
     [VWWPermissionsManager requirePermissions:permissions
-                                       title:@"Welcome to the ZHTimeLapse app. This app is a timelapse camera with variable parameters and filters. We'll need you permission to access your device before we get started."
+                                       title:@"Welcome to the ZHTimeLapse, a timelapse camera with adjustable parameters and filters. In order for this app to work, it is essential that you allow access to the following."
                           fromViewController:self
                                 resultsBlock:^(NSArray *permissions) {
                                     [permissions enumerateObjectsUsingBlock:^(VWWPermission *permission, NSUInteger idx, BOOL *stop) {
-                                        [self performSegueWithIdentifier:SegueIntroToCapture sender:nil];
+
                                     }];
+                                    [self performSegueWithIdentifier:SegueIntroToCapture sender:nil];
                                 }];
 }
 
@@ -45,6 +46,13 @@ static NSString *SegueIntroToCapture = @"SegueIntroToCapture";
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+//-(UIStatusBarStyle)preferredStatusBarStyle {
+//    return UIStatusBarStyleLightContent;
+//}
 
 -(IBAction)okayButtonTouchUpInside:(UIButton*)sender {
     [self performSegueWithIdentifier:SegueIntroToCapture sender:nil];

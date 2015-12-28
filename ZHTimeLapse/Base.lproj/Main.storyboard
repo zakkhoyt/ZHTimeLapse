@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fGH-Mm-j49">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="goT-f2-Hm2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -438,15 +438,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNn-pg-aVn">
-                                <rect key="frame" x="283" y="550" width="35" height="30"/>
-                                <state key="normal" title="Okay"/>
-                                <connections>
-                                    <action selector="okayButtonTouchUpInside:" destination="goT-f2-Hm2" eventType="touchUpInside" id="okn-E5-O2c"/>
-                                </connections>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ZHTimeLapse_512" translatesAutoresizingMaskIntoConstraints="NO" id="pXq-Yh-iV3">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZHTimeLapse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V00-sc-2EO">
+                                <rect key="frame" x="246" y="289.5" width="107.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pyB-Y2-c2b" firstAttribute="top" secondItem="pXq-Yh-iV3" secondAttribute="bottom" id="5D8-fN-n3x"/>
+                            <constraint firstAttribute="trailing" secondItem="pXq-Yh-iV3" secondAttribute="trailing" id="KQf-qW-0p7"/>
+                            <constraint firstItem="pXq-Yh-iV3" firstAttribute="top" secondItem="fun-Vo-EPK" secondAttribute="top" id="KWE-7u-sQR"/>
+                            <constraint firstItem="pXq-Yh-iV3" firstAttribute="leading" secondItem="fun-Vo-EPK" secondAttribute="leading" id="PN9-Qf-lgD"/>
+                            <constraint firstItem="V00-sc-2EO" firstAttribute="centerX" secondItem="fun-Vo-EPK" secondAttribute="centerX" id="aHz-Am-Z5V"/>
+                            <constraint firstItem="V00-sc-2EO" firstAttribute="centerY" secondItem="fun-Vo-EPK" secondAttribute="centerY" id="pdn-MF-uU4"/>
+                        </constraints>
                     </view>
                     <connections>
                         <segue destination="fGH-Mm-j49" kind="presentation" identifier="SegueIntroToCapture" modalTransitionStyle="crossDissolve" id="Krz-vq-9d6"/>
@@ -762,6 +772,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ZHTimeLapse_512" width="512" height="512"/>
         <image name="camera" width="32" height="32"/>
         <image name="close" width="32" height="32"/>
         <image name="export" width="32" height="32"/>
