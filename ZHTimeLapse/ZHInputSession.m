@@ -23,7 +23,7 @@
 -(void)commonInit {
     _frameRateFrames = 2;
     _frameRateSeconds = 1;
-    
+    _captureDevicePosition = AVCaptureDevicePositionFront;
     _size = CGSizeMake(720, 1280);
     _filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeNone];
 }

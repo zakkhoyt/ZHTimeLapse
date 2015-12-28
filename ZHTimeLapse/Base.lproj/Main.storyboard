@@ -459,6 +459,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="titleLabel" destination="V00-sc-2EO" id="m15-nM-YPt"/>
                         <segue destination="fGH-Mm-j49" kind="presentation" identifier="SegueIntroToCapture" modalTransitionStyle="crossDissolve" id="Krz-vq-9d6"/>
                     </connections>
                 </viewController>

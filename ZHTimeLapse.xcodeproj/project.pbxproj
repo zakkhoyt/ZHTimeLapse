@@ -96,6 +96,7 @@
 		C69EB1FC1C30B3E4004F4807 /* ZHIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHIntroViewController.m; sourceTree = "<group>"; };
 		C6BBBFCF1C2CBE3000FCBC3F /* ZHNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHNavigationController.h; sourceTree = "<group>"; };
 		C6BBBFD01C2CBE3000FCBC3F /* ZHNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHNavigationController.m; sourceTree = "<group>"; };
+		C6D1D3A11C31FD660040BCF7 /* ZHDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHDefines.h; sourceTree = "<group>"; };
 		C6D442971C2756D700CE843E /* ZHTimeLapse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZHTimeLapse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D4429A1C2756D700CE843E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6D4429F1C2756D700CE843E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -262,6 +263,14 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		C6D1D3A21C31FD6A0040BCF7 /* Include */ = {
+			isa = PBXGroup;
+			children = (
+				C6D1D3A11C31FD660040BCF7 /* ZHDefines.h */,
+			);
+			name = Include;
+			sourceTree = "<group>";
+		};
 		C6D4428E1C2756D700CE843E = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +298,7 @@
 			children = (
 				C6D442E91C28E35600CE843E /* Categories */,
 				C69ADCA61C2BC91600612146 /* Documents */,
+				C6D1D3A21C31FD6A0040BCF7 /* Include */,
 				C6D442ED1C28E37C00CE843E /* Model */,
 				C62086B61C2F77A50026B943 /* Settings */,
 				C6D442D21C289E2E00CE843E /* SupportingFiles */,

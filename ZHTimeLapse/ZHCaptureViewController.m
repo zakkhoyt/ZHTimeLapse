@@ -51,8 +51,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 // i-vars
-
-@property (nonatomic) AVCaptureDevicePosition cameraPosition;
 @property (nonatomic, strong) UIView *filterSelectionView;
 
 @property (nonatomic) UIDeviceOrientation lastOrientation;
@@ -261,8 +259,6 @@
     self.captureImageView.layer.borderWidth = 1.0;
     self.captureImageView.layer.borderColor = self.view.tintColor.CGColor;
     
-    self.cameraPosition = AVCaptureDevicePositionBack;
-    
     self.frameCountLabel.text = @"";
     
     [self updateFrameRateLabel];
@@ -318,7 +314,7 @@
         preset = AVCaptureSessionPreset1920x1080;
     }
     
-    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:preset cameraPosition:self.cameraPosition];
+    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:preset cameraPosition:_session.input.captureDevicePosition];
     self.videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     self.videoCamera.horizontallyMirrorFrontFacingCamera = YES;
     
@@ -485,7 +481,6 @@
     
     
     // Save our config
-    self.session.input.captureDevicePosition = self.videoCamera.cameraPosition;
     self.session.input.orientation = [UIDevice currentDevice].orientation;
     [self.session saveConfig];
     
@@ -536,13 +531,11 @@
 #pragma mark IBActions
 
 - (IBAction)swapButtonTouchUpInside:(id)sender {
-    
-    if(self.cameraPosition == AVCaptureDevicePositionBack) {
-        self.cameraPosition = AVCaptureDevicePositionFront;
+    if(_session.input.captureDevicePosition == AVCaptureDevicePositionBack) {
+        _session.input.captureDevicePosition = AVCaptureDevicePositionFront;
     } else {
-        self.cameraPosition = AVCaptureDevicePositionBack;
+        _session.input.captureDevicePosition = AVCaptureDevicePositionBack;
     }
-    
     [self setupCaptureSession];
 }
 

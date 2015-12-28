@@ -8,10 +8,12 @@
 
 #import "ZHIntroViewController.h"
 #import "VWWPermissionKit.h"
+#import "ZHDefines.h"
 
 static NSString *SegueIntroToCapture = @"SegueIntroToCapture";
 
 @interface ZHIntroViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -20,6 +22,8 @@ static NSString *SegueIntroToCapture = @"SegueIntroToCapture";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+    _titleLabel.text = ZH_BUNDLE_NAME;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
