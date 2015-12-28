@@ -14,6 +14,9 @@
 #import "UIViewController+AlertController.h"
 #import "ZHFiltersViewController.h"
 #import "ZHShutterButton.h"
+#import "ZHRenderer.h"
+#import "MBProgressHUD.h"
+#import "ZHFileManager.h"
 
 @interface ZHCaptureViewController ()
 
@@ -27,8 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *startBarButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel *frameCountLabel;
-@property (weak, nonatomic) IBOutlet UIButton *startButton;
-@property (weak, nonatomic) IBOutlet UIButton *stopButton;
 @property (weak, nonatomic) IBOutlet UIView *bottomToolbarView;
 @property (weak, nonatomic) IBOutlet UIView *topToolbarView;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rotatableViews;
@@ -36,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *frameRateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *exportButton;
 @property (weak, nonatomic) IBOutlet ZHShutterButton *shutterButton;
+@property (weak, nonatomic) IBOutlet UIButton *resolutionButton;
+@property (weak, nonatomic) IBOutlet UILabel *resolutionLabel;
 
 @property (weak, nonatomic) IBOutlet UISlider *paramSlider;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
@@ -56,11 +59,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if(_session == nil) {
+        _session = [ZHSession session];
+    }
+
+    
     [self addOrientationMonitor];
     [self setupUI];
     [self setupCaptureSession];
-    
-    
     
 }
 
@@ -71,7 +77,7 @@
     [NSTimer scheduledTimerWithTimeInterval:0.1 block:^{
         
         if(_isRecording) {
-//            NSLog(@"Ignoring rotate because we are recording");
+            //            NSLog(@"Ignoring rotate because we are recording");
             return;
         }
         
@@ -164,7 +170,7 @@
     if(sender.state == UIGestureRecognizerStateEnded) {
         if(sender.direction == UISwipeGestureRecognizerDirectionRight) {
             // Increase
-        
+            
             // 1/3
             if(_session.input.frameRate < 1){
                 _session.input.frameRateSeconds -= 1;
@@ -185,20 +191,23 @@
 }
 
 -(void)setupUI {
-
+    
     UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.exportButton setImage:exportImage forState:UIControlStateNormal];
     [self.exportButton setTitle:@"" forState:UIControlStateNormal];
 
+    UIImage *resolutionImage = [[UIImage imageNamed:@"resolution"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
+    [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
     
     UIImage *closeImage = [[UIImage imageNamed:@"close"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.closeButton setImage:closeImage forState:UIControlStateNormal];
     [self.closeButton setTitle:@"" forState:UIControlStateNormal];
-
+    
     UIImage *filterImage = [[UIImage imageNamed:@"filter"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.filterButton setImage:filterImage forState:UIControlStateNormal];
     [self.filterButton setTitle:@"" forState:UIControlStateNormal];
-
+    
     UIImage *frameRateImage = [[UIImage imageNamed:@"framerate"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.frameRateButton setImage:frameRateImage forState:UIControlStateNormal];
     [self.frameRateButton setTitle:@"" forState:UIControlStateNormal];
@@ -208,22 +217,12 @@
     [self.cameraButton setTitle:@"" forState:UIControlStateNormal];
     
     [self.shutterButton setStartBlock:^{
-        [self startButtonTouchUpInside:self.startButton];
+        [self startRecording];
     }];
     
     [self.shutterButton setStopBlock:^{
-        [self stopButtonTouchUpInside:self.stopButton];
+        [self stopRecording];
     }];
-    
-    self.startButton.layer.cornerRadius = self.startButton.bounds.size.width / 2.0;
-    self.startButton.layer.masksToBounds = YES;
-    self.startButton.layer.borderWidth = 1.0;
-    self.startButton.layer.borderColor = self.startButton.tintColor.CGColor;
-    
-    self.stopButton.layer.cornerRadius = self.stopButton.bounds.size.width / 2.0;
-    self.stopButton.layer.masksToBounds = YES;
-    self.stopButton.layer.borderWidth = 1.0;
-    self.stopButton.layer.borderColor = self.stopButton.tintColor.CGColor;
     
     self.captureImageView.layer.borderWidth = 1.0;
     self.captureImageView.layer.borderColor = self.view.tintColor.CGColor;
@@ -234,8 +233,9 @@
     self.frameCounter = 0;
     
     [self updateFrameRateLabel];
-    
-    self.stopButton.hidden = YES;
+    self.resolutionLabel.text = [NSString stringWithFormat:@"%lu\n%lu",
+                                 (unsigned long)_session.input.size.width,
+                                  (unsigned long)_session.input.size.height];
     
     UISwipeGestureRecognizer *leftSwipeGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeAction:)];
     leftSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -245,8 +245,8 @@
     rightSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.topToolbarView addGestureRecognizer:rightSwipeGesture];
     
-//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
-//    [self.filterView addGestureRecognizer:tapGesture];
+    //    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
+    //    [self.filterView addGestureRecognizer:tapGesture];
     
     // ************ TODO: Work on a custom shutter button w/animations
     //    ZHShutterButton *shutterButton = [[[NSBundle mainBundle] loadNibNamed:@"ZHShutterButton" owner:self options:nil] firstObject];
@@ -259,26 +259,28 @@
     //    [_shutterButton setBackgroundColor:[UIColor orangeColor]];
     //    [self.shutterButton addTarget:self action:@selector(shutterButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     //    [self.bottomToolbarView addSubview:_shutterButton];
-
-
+    
+    
 }
 
 -(void)updateFrameRateLabel {
-//    if(_session.input.frameRate < 1) {
-//        double f = 1.0 / _session.input.frameRate;
-//        self.frameRateLabel.text = [NSString stringWithFormat:@"1f/%.1fs", f];
-//    } else {
-//        self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/1s", (unsigned long) _session.input.frameRate];
-//    }
-    self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/%lus",
+    //    if(_session.input.frameRate < 1) {
+    //        double f = 1.0 / _session.input.frameRate;
+    //        self.frameRateLabel.text = [NSString stringWithFormat:@"1f/%.1fs", f];
+    //    } else {
+    //        self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/1s", (unsigned long) _session.input.frameRate];
+    //    }
+    self.frameRateLabel.text = [NSString stringWithFormat:@"%luf\n%lus",
                                 (unsigned long) _session.input.frameRateFrames,
                                 (unsigned long) _session.input.frameRateSeconds];
 }
 
 
 -(void)setupCaptureSession{
-
+    
+    
     self.filterView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
+    self.shutterButton.session = _session;
     
     // Clean up
     if(self.videoCamera) {
@@ -315,60 +317,67 @@
     
     [self.videoCamera addTarget:self.session.input.filter.gpuFilter];
     [self.videoCamera startCameraCapture];
-
+    
 }
 
 
 -(void)captureFrame:(NSTimer*)sender {
+    // This is a pretty resource intensive function so use a BG queue .
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // Get current frame from GPUImage and convert to UIImage
+        NSUInteger width = self.session.input.size.width;
+        NSUInteger height = self.session.input.size.height;
+        GLubyte *rawData = self.rawOutput.rawBytesForImage;
+        CGDataProviderRef provider = CGDataProviderCreateWithData(NULL,
+                                                                  rawData,
+                                                                  width*height*4,
+                                                                  NULL);
+        
+        CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+        CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
+        CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
+        CGImageRef imageRef = CGImageCreate(width,
+                                            height,
+                                            8,
+                                            32,
+                                            4*width,colorSpaceRef,
+                                            bitmapInfo,
+                                            provider,NULL,NO,renderingIntent);
+        //    NSLog(@"rawData: width:%lu, height:%lu",
+        //          (unsigned long)CGImageGetWidth(imageRef),
+        //          (unsigned long)CGImageGetHeight(imageRef));
+        
+        UIImage *image = [UIImage imageWithCGImage:imageRef];
+        
+        //    NSLog(@"UIImage: width:%lu, height:%lu",
+        //          (unsigned long)image.size.width,
+        //          (unsigned long)image.size.height);
+        
+        
+        
+        // Update our UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.captureImageView.image = image;
+            self.frameCountLabel.text = [NSString stringWithFormat:@"%lu frames\n%.2f seconds",
+                                         (unsigned long) self.frameCounter,
+                                         [_session timeLength]];
+            [self.shutterButton tick];
+        });
+        
+        [self.session cacheImage:image index:self.frameCounter];
+        self.frameCounter++;
+        
+        
+        
+        // Clean up
+        image = nil;
+        CGImageRelease(imageRef);
+        CGColorSpaceRelease(colorSpaceRef);
+        CGDataProviderRelease(provider);
+    });
     
-    NSUInteger width = self.session.input.size.width;
-    NSUInteger height = self.session.input.size.height;
     
-    GLubyte *rawData = self.rawOutput.rawBytesForImage;
-    
-    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL,
-                                                              rawData,
-                                                              width*height*4,
-                                                              NULL);
-    
-    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
-    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
-    CGImageRef imageRef = CGImageCreate(width,
-                                        height,
-                                        8,
-                                        32,
-                                        4*width,colorSpaceRef,
-                                        bitmapInfo,
-                                        provider,NULL,NO,renderingIntent);
-    NSLog(@"rawData: width:%lu, height:%lu",
-          (unsigned long)CGImageGetWidth(imageRef),
-          (unsigned long)CGImageGetHeight(imageRef));
-    
-    UIImage *image = [UIImage imageWithCGImage:imageRef];
-    
-    NSLog(@"UIImage: width:%lu, height:%lu",
-          (unsigned long)image.size.width,
-          (unsigned long)image.size.height);
-    
-    self.captureImageView.image = image;
-    
-    [self.session cacheImage:image index:self.frameCounter];
-    self.frameCounter++;
-    
-    // Label
-    self.frameCountLabel.text = [NSString stringWithFormat:@"%lu frames\n%.2f seconds",
-                                 (unsigned long) self.frameCounter,
-                                 [_session timeLength]];
-    
-    
-    // Clean up
-    image = nil;
-    CGImageRelease(imageRef);
-    CGColorSpaceRelease(colorSpaceRef);
-    CGDataProviderRelease(provider);
-    
-    [self.shutterButton addTick];
 }
 
 
@@ -426,9 +435,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)startButtonTouchUpInside:(id)sender {
-
+- (IBAction)startRecording{
+    
     self.isRecording = YES;
+    
     
     // Save our config
     self.session.input.captureDevicePosition = self.videoCamera.cameraPosition;
@@ -440,9 +450,6 @@
     self.captureTimer = [NSTimer scheduledTimerWithTimeInterval:1/(float)self.session.input.frameRate target:self selector:@selector(captureFrame:) userInfo:nil repeats:YES];
     [self captureFrame:self.captureTimer];
     
-    self.stopButton.hidden = NO;
-    self.startButton.hidden = YES;
-    
     // Hide top toolbar while recording
     [UIView animateWithDuration:0.3 animations:^{
         self.topToolbarView.alpha = 0;
@@ -452,27 +459,77 @@
     
     // Disable screensaver
     [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
+    
 }
 
-- (IBAction)stopButtonTouchUpInside:(id)sender {
+- (IBAction)stopRecording {
     
     // Show top toolbar
     self.topToolbarView.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
         self.topToolbarView.alpha = 1.0;
     }];
-
+    
     
     [self.captureTimer invalidate];
     self.captureTimer = nil;
     self.navigationItem.rightBarButtonItem = self.startBarButtonItem;
-    self.stopButton.hidden = YES;
-    self.startButton.hidden = NO;
     
     self.isRecording = NO;
     
     // Enable screensaver
     [UIApplication sharedApplication].idleTimerDisabled = NO;
+    
+    [self renderVideo];
+}
+
+-(void)renderVideo{
+    
+    // Show hud with progress ring
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Rendering video";
+    [hud show:YES];
+    
+    // A counter to update our ring
+    NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
+    NSLog(@"%lu frames", (unsigned long) frameCount);
+    
+    ZHRenderer *renderer = [[ZHRenderer alloc]init];
+    [renderer renderSessionToVideo:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
+        // Update the HUD ring
+        NSLog(@"rendered video frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
+        hud.progress = framesRendered / (float)frameCount;
+    } completionBlock:^(BOOL success, ZHSession *session) {
+        NSLog(@"completed");
+        if(success == YES) {
+            // Switch from progress ring to checkbox
+            UIImage *image = [UIImage imageNamed:@"37x-Checkmark.png"];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            hud.customView = imageView;
+            hud.mode = MBProgressHUDModeCustomView;
+            hud.labelText = @"Exported to Camera Roll";
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [hud hide:YES];
+            });
+            
+            NSLog(@"TODO: Cleanup");
+        } else {
+            [hud hide:YES];
+            [self presentAlertDialogWithMessage:@"Failed"];
+        }
+        
+        // New session
+        [ZHFileManager deleteSession:_session];
+        self.frameCounter = 0;
+//        _session = nil;
+        _session = [ZHSession sessionFromSession:_session];
+        [self setupUI];
+        [self setupCaptureSession];
+    }];
 }
 
 - (IBAction)swapButtonTouchUpInside:(id)sender {

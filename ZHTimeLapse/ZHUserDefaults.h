@@ -15,4 +15,6 @@ static NSString *ZHUserDefaultsModeAdvanced = @"full";
 
 
 +(BOOL)modeContains:(NSString*)submode;
++(BOOL)simpleMode;
++(BOOL)renderAsGIF;
 @end

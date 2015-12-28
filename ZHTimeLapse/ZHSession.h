@@ -24,6 +24,7 @@
 @property (nonatomic, strong) ZHOutputSession *output;
 
 +(ZHSession*)session;
++(ZHSession*)sessionFromSession:(ZHSession*)oldSession;
 +(ZHSession*)sessionWithName:(NSString*)name;
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 
@@ -33,9 +34,7 @@
 -(NSUInteger)frameCount;
 -(UIImage*)imageForIndex:(NSUInteger)index;
 
-
 -(void)listFrames;
--(void)renderVideoFromFrames;
 
 -(NSTimeInterval)timeLength;
 @end
