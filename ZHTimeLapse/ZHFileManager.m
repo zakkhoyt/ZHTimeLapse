@@ -118,7 +118,7 @@
     return YES;
 }
 
-
+// TODO: This is an ugly and instense way to get frame count. Instead let's keep a counter in the session.
 +(NSUInteger)frameCountForSession:(ZHSession*)session {
     NSString *framesDir = [session.projectPath stringByAppendingPathComponent:@"frames"];
     NSError *error = nil;

@@ -29,7 +29,7 @@
     _uuidLabel.text = session.uuid;
     _dateLabel.text = [session.date stringFromDate];
     _frameCountLabel.text = [NSString stringWithFormat:@"%lu frames | %.2f sec",
-                             (unsigned long)[session frameCount],
+                             (unsigned long)[session.input frameCount],
                              [session timeLength]];
     
     

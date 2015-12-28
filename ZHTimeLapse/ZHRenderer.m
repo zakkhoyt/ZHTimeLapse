@@ -79,7 +79,7 @@
     [adaptor.assetWriterInput requestMediaDataWhenReadyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0) usingBlock:^{
         
         // Iterate over each frame we have until one isn't found or we've rendered them all.
-        for(NSUInteger index = 0; index < session.frameCount; index++) {
+        for(NSUInteger index = 0; index < session.input.frameCount; index++) {
             do {
                 [NSThread sleepForTimeInterval:0.01]; // 10 ms
             } while ([adaptor.assetWriterInput isReadyForMoreMediaData] == NO);
@@ -116,7 +116,7 @@
                 // Update our caller
                 if(progressBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        progressBlock(index+1, session.frameCount);
+                        progressBlock(index+1, session.input.frameCount);
                     });
                 }
             }
@@ -124,7 +124,7 @@
         
         // Finished writing frames. Finish up.
         [videoWriterInput markAsFinished];
-        [self.videoWriter endSessionAtSourceTime:CMTimeMake(session.frameCount, session.output.frameRate)];
+        [self.videoWriter endSessionAtSourceTime:CMTimeMake(session.input.frameCount, session.output.frameRate)];
         
         // Add a small delay to make sure the session is finished.
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -228,7 +228,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         
-        NSUInteger frameCount = session.frameCount;
+        NSUInteger frameCount = session.input.frameCount;
         
         NSDictionary *fileProperties = @{
                                          (__bridge id)kCGImagePropertyGIFDictionary: @{
@@ -241,9 +241,6 @@
                                                   (__bridge id)kCGImagePropertyGIFDelayTime: @0.033f, // a float (not double!) in seconds, rounded to centiseconds in the GIF data
                                                   }
                                           };
-        
-        //    NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
-        //    NSURL *fileURL = [documentsDirectoryURL URLByAppendingPathComponent:@"animated.gif"];
         
         
         CGImageDestinationRef destination = CGImageDestinationCreateWithURL((__bridge CFURLRef)session.output.outputGIF, kUTTypeGIF, frameCount, NULL);
@@ -280,11 +277,10 @@
                 // Update our caller
                 if(progressBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        progressBlock(index+1, session.frameCount);
+                        progressBlock(index+1, session.input.frameCount);
                     });
                 }
             }
-            
         }
         
         BOOL success = YES;
@@ -296,32 +292,6 @@
         
         // Cleanup
         CFRelease(destination);
-
-        // *********** Saving to Camera Roll results in a static image. Photos doesnt' support gifs.
-        // *********** HOwever the gif can be shared via UIActivity (messages, email, etc...)
-        
-////        UIImage *image = [UIImage imageWithContentsOfFile:session.output.outputGIF.path];
-////        [PHAsset saveImageToCameraRoll:image location:nil completionBlock:^(PHAsset *asset, BOOL success) {
-//        [PHAsset saveGIFImageToCameraRoll:session.output.outputGIF location:nil completionBlock:^(PHAsset *asset, BOOL success) {
-//            NSLog(@"Exported giv to camera roll");
-//            
-//            if (success == YES) {
-//                [asset saveToAlbum:@"ZHTimeLapse" completionBlock:^(BOOL success) {
-//                    NSLog(@"Saved time lapse video to album folder");
-//                }];
-//            }
-//            
-//            if(completionBlock) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    if(success == YES) {
-//                        completionBlock(YES, session);
-//                    } else {
-//                        completionBlock(NO, nil);
-//                    }
-//                });
-//            }
-//
-//        }];
         
         // Completion
         if(completionBlock) {

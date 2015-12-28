@@ -51,7 +51,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 // i-vars
-@property (nonatomic) NSUInteger frameCounter;
+
 @property (nonatomic) AVCaptureDevicePosition cameraPosition;
 @property (nonatomic, strong) UIView *filterSelectionView;
 
@@ -306,7 +306,6 @@
     self.cameraPosition = AVCaptureDevicePositionBack;
     
     self.frameCountLabel.text = @"";
-    self.frameCounter = 0;
     
     [self updateFrameRateLabel];
     [self updateResolutionLabel];
@@ -423,13 +422,13 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.captureImageView.image = image;
             self.frameCountLabel.text = [NSString stringWithFormat:@"%lu frames\n%.2f seconds",
-                                         (unsigned long) self.frameCounter,
+                                         (unsigned long) _session.input.frameCount,
                                          [_session timeLength]];
             [self.shutterButton tick];
         });
         
-        [self.session cacheImage:image index:self.frameCounter];
-        self.frameCounter++;
+        [self.session cacheImage:image index:_session.input.frameCount];
+        _session.input.frameCount++;
         
         
         
@@ -602,50 +601,15 @@
 
 -(void)renderVideo{
     
-    // Show hud with progress ring
-    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
-    hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.labelText = @"Rendering video";
-    [hud show:YES];
-    
-    // A counter to update our ring
-    NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
-    NSLog(@"%lu frames", (unsigned long) frameCount);
-    
-    ZHRenderer *renderer = [[ZHRenderer alloc]init];
-    [renderer renderSessionToVideo:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
-        // Update the HUD ring
-        NSLog(@"rendered video frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
-        hud.progress = framesRendered / (float)frameCount;
-    } completionBlock:^(BOOL success, ZHSession *session) {
-        NSLog(@"completed");
-        if(success == YES) {
-            // Switch from progress ring to checkbox
-            UIImage *image = [UIImage imageNamed:@"37x-Checkmark.png"];
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-            hud.customView = imageView;
-            hud.mode = MBProgressHUDModeCustomView;
-            hud.labelText = @"Exported to Camera Roll";
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [hud hide:YES];
-            });
-            
-            NSLog(@"TODO: Cleanup");
-        } else {
-            [hud hide:YES];
-            [self presentAlertDialogWithMessage:@"Failed"];
-        }
-        
+    [_session renderVideoFromViewController:self completionBlock:^(BOOL success) {
         // New session
         [ZHFileManager deleteSession:_session];
-        self.frameCounter = 0;
-//        _session = nil;
+        
         _session = [ZHSession sessionFromSession:_session];
         [self setupUI];
         [self setupCaptureSession];
     }];
+    
 }
 
 - (IBAction)swapButtonTouchUpInside:(id)sender {

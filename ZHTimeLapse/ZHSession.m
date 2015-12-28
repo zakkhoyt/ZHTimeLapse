@@ -9,6 +9,9 @@
 #import "ZHSession.h"
 #import "ZHFileManager.h"
 #import "NSDate+ZH.h"
+#import "MBProgressHUD.h"
+#import "ZHRenderer.h"
+#import "UIViewController+AlertController.h"
 
 @implementation ZHSession
 
@@ -137,10 +140,6 @@
 }
 
 
--(NSUInteger)frameCount{
-    return [ZHFileManager frameCountForSession:self];
-}
-
 -(UIImage*)imageForIndex:(NSUInteger)index{
     NSString *fileName = [NSString stringWithFormat:@"%05lu.png", (unsigned long)index];
     NSString *filePath = [_projectPath stringByAppendingPathComponent:@"frames"];
@@ -171,8 +170,62 @@
 
 -(NSTimeInterval)timeLength{
     NSTimeInterval length = 1/(double)self.output.frameRate;
-    length *= [self frameCount];
+    length *= self.input.frameCount;
     return length;
 }
+
+
+
+
+-(void)renderVideoFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolBlock)completionBlock {
+    // Show hud with progress ring
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:viewController.view];
+    [viewController.view addSubview:hud];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Rendering video";
+    [hud show:YES];
+    
+    // A counter to update our ring
+    NSUInteger frameCount = [ZHFileManager frameCountForSession:self];
+    NSLog(@"%lu frames", (unsigned long) frameCount);
+    
+    ZHRenderer *renderer = [[ZHRenderer alloc]init];
+    [renderer renderSessionToVideo:self progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
+        // Update the HUD ring
+        NSLog(@"rendered video frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
+        hud.progress = framesRendered / (float)frameCount;
+    } completionBlock:^(BOOL success, ZHSession *session) {
+        NSLog(@"rendering finished");
+        if(success == YES) {
+            // Switch from progress ring to checkbox
+            UIImage *image = [UIImage imageNamed:@"37x-Checkmark.png"];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            hud.customView = imageView;
+            hud.mode = MBProgressHUDModeCustomView;
+            hud.labelText = @"Exported to Camera Roll";
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [hud hide:YES];
+                if(completionBlock) {
+                    completionBlock(YES);
+                }
+            });
+            NSLog(@"TODO: Cleanup");
+        } else {
+            [hud hide:YES];
+            [viewController presentAlertDialogWithMessage:@"Failed"];
+            completionBlock(NO);
+        }
+    }];
+}
+
+-(void)renderGIFFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolBlock)completionBlock{
+    
+}
+
+-(void)deleteSessionCache {
+    
+}
+
 
 @end

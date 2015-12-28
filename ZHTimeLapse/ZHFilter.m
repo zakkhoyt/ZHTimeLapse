@@ -15,7 +15,8 @@
 @property (nonatomic, readwrite) CGFloat paramMin;
 @property (nonatomic, readwrite) CGFloat paramMax;
 @property (nonatomic, readwrite) CGFloat paramValue;
-
+@property (nonatomic, strong) GPUImageUIElement *uiElementInput;
+@property (nonatomic, strong) GPUImageSepiaFilter *sepiaFilter;
 @end
 
 @implementation ZHFilter
@@ -159,7 +160,44 @@
         }
             break;
             
+        case ZHFilterTypeUIElement: {
             
+            self.title = @"UIElement";
+            
+            _sepiaFilter = [GPUImageSepiaFilter new];
+
+            GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+            blendFilter.mix = 1.0;
+            
+            
+            NSDate *startTime = [NSDate date];
+            
+            UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100, 100)];
+            timeLabel.font = [UIFont systemFontOfSize:17.0f];
+            timeLabel.text = @"Time: 0.0 s";
+            timeLabel.textAlignment = NSTextAlignmentCenter;
+            timeLabel.backgroundColor = [UIColor clearColor];
+            timeLabel.textColor = [UIColor whiteColor];
+            timeLabel.backgroundColor = [UIColor blueColor];
+            
+            _uiElementInput = [[GPUImageUIElement alloc] initWithView:timeLabel];
+            
+            [_sepiaFilter addTarget:blendFilter];
+            [_uiElementInput addTarget:blendFilter];
+            
+//            [blendFilter addTarget:filterView];
+            
+            __unsafe_unretained GPUImageUIElement *weakUIElementInput = _uiElementInput;
+            
+            [_sepiaFilter setFrameProcessingCompletionBlock:^(GPUImageOutput * filter, CMTime frameTime){
+                timeLabel.text = [NSString stringWithFormat:@"Time: %f s", -[startTime timeIntervalSinceNow]];
+                [weakUIElementInput update];
+            }];
+            
+            _gpuFilter = blendFilter;
+            
+        }
+            break;
         case ZHFilterTypeCustom: {
             self.title = @"Custom";
             

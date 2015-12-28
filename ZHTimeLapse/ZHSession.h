@@ -11,6 +11,7 @@
 #import "ZHInputSession.h"
 #import "ZHOutputSession.h"
 
+typedef void (^ZHSessionBoolBlock)(BOOL success);
 
 @interface ZHSession : NSObject
 
@@ -31,10 +32,13 @@
 -(void)saveConfig;
 -(void)cacheImage:(UIImage*)image index:(NSUInteger)index;
 
--(NSUInteger)frameCount;
 -(UIImage*)imageForIndex:(NSUInteger)index;
 
 -(void)listFrames;
 
 -(NSTimeInterval)timeLength;
+
+-(void)renderVideoFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolBlock)completionBlock;
+-(void)renderGIFFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolBlock)completionBlock;
+-(void)deleteSessionCache;
 @end

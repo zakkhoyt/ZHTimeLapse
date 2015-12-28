@@ -31,6 +31,7 @@ typedef enum {
     ZHFilterTypePolkaDot,
     ZHFilterTypeErosion,
     
+    ZHFilterTypeUIElement,
     ZHFilterTypeCustom,
     ZHFilterTypeMask = 255,
 } ZHFilterType;

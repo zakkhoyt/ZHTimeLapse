@@ -71,7 +71,7 @@
                     [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeThresholdSketch] videoCamera:_videoCamera];
                     break;
                 case 8:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeHalftone] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeUIElement] videoCamera:_videoCamera];
                     break;
                 default:
                     NSLog(@"invalid x/y index");

@@ -18,6 +18,7 @@
 
 @property (nonatomic) NSUInteger frameRateFrames;
 @property (nonatomic) NSUInteger frameRateSeconds;
+@property (nonatomic) NSUInteger frameCount;
 
 
 @property (nonatomic, strong) NSMutableArray *frames;
