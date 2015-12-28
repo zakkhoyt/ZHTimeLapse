@@ -426,6 +426,36 @@
             </objects>
             <point key="canvasLocation" x="1505" y="1323"/>
         </scene>
+        <!--Intro View Controller-->
+        <scene sceneID="70s-IP-jjc">
+            <objects>
+                <viewController id="goT-f2-Hm2" customClass="ZHIntroViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AeO-tV-G2I"/>
+                        <viewControllerLayoutGuide type="bottom" id="pyB-Y2-c2b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fun-Vo-EPK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNn-pg-aVn">
+                                <rect key="frame" x="283" y="550" width="35" height="30"/>
+                                <state key="normal" title="Okay"/>
+                                <connections>
+                                    <action selector="okayButtonTouchUpInside:" destination="goT-f2-Hm2" eventType="touchUpInside" id="okn-E5-O2c"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="fGH-Mm-j49" kind="presentation" identifier="SegueIntroToCapture" modalTransitionStyle="crossDissolve" id="Krz-vq-9d6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H47-VK-3gF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2250" y="634"/>
+        </scene>
         <!--Capture View Controller-->
         <scene sceneID="02U-Gp-u3C">
             <objects>
@@ -739,5 +769,8 @@
         <image name="framerate" width="32" height="32"/>
         <image name="resolution" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Krz-vq-9d6"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
