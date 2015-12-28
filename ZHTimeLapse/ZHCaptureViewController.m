@@ -17,6 +17,7 @@
 #import "ZHRenderer.h"
 #import "MBProgressHUD.h"
 #import "ZHFileManager.h"
+#import "ZHUserDefaults.h"
 
 @interface ZHCaptureViewController ()
 
@@ -543,8 +544,61 @@
     // Enable screensaver
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     
-    [self renderVideo];
+    if([ZHUserDefaults renderAsGIF]) {
+        [self renderGIF];
+    } else {
+        [self renderVideo];
+    }
 }
+
+
+-(void)shareItems:(NSArray*)items{
+    NSMutableArray *activities = [@[]mutableCopy];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:items
+                                                                                        applicationActivities:activities];
+    
+    [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
+        if(completed){
+            //            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
+    }];
+    
+    //    activityViewController.excludedActivityTypes = @[UIActivityTypePostToTwitter];
+    [self presentViewController:activityViewController animated:YES completion:nil];
+}
+
+
+-(void)renderGIF {
+
+    
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Rendering gif";
+    [hud show:YES];
+    
+    NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
+    NSLog(@"%lu frames", (unsigned long) frameCount);
+    
+    ZHRenderer *renderer = [[ZHRenderer alloc]init];
+    [renderer renderSessionToGIF:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
+        NSLog(@"rendered gif frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
+        hud.progress = framesRendered / (float)frameCount;
+    } completionBlock:^(BOOL success, ZHSession *session) {
+        NSLog(@"completed");
+        if(success == YES) {
+            [hud hide:YES];
+            NSData *data = [NSData dataWithContentsOfFile:_session.output.outputGIF.path];
+            [self shareItems:@[data]];
+        } else {
+            [hud hide:YES];
+            [self presentAlertDialogWithMessage:@"Failed"];
+        }
+    }];
+}
+
+
+
 
 -(void)renderVideo{
     
