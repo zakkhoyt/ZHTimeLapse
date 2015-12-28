@@ -25,25 +25,13 @@ $DocumentsDir/$UUID/session.json -> contains info about the project
 
 
 // 1.0
-//* Simplify to one screen (mode switch)
-* About listing in settings.
-    * Third party
-    * Contact/email
-
-//* Simple mode
-//    * Export at end of session
-//    * Cleans up dirs/temp files
-    * Detects existing project on launch to finish (from a crash)
-
+* Simple / advanced mode
+* Detects existing project on launch to finish (from a crash)
 * Sound for shutter
-
 * Scaling problem with gifs
 * large res gifs crashing on render
-
 * selection controls
     * drop menus
-
-
 * Tap to focus
 * Pinch to zoom
 * Tap to hide controls

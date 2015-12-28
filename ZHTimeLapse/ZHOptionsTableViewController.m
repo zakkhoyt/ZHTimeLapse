@@ -136,30 +136,28 @@ typedef enum {
 - (IBAction)changeResolutionButtonTouchUpInside:(id)sender {
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Resolution" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
+    // 1.222
     [ac addAction:[UIAlertAction actionWithTitle:@"288x352" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.size = CGSizeMake(288, 352);
         _session.output.size = _session.input.size;
         [self updateUI];
     }]];
 
+    // 1.3333
     [ac addAction:[UIAlertAction actionWithTitle:@"480x640" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.size = CGSizeMake(480, 640);
         _session.output.size = _session.input.size;
         [self updateUI];
     }]];
 
-    [ac addAction:[UIAlertAction actionWithTitle:@"540x960" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(540, 960);
-        _session.output.size = _session.input.size;
-        [self updateUI];
-    }]];
-
+    // 1.77777
     [ac addAction:[UIAlertAction actionWithTitle:@"720x1280" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.size = CGSizeMake(720, 1280);
         _session.output.size = _session.input.size;
         [self updateUI];
     }]];
 
+    // 1.77777
     [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.size = CGSizeMake(1080, 1920);
         _session.output.size = _session.input.size;

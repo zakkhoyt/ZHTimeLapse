@@ -584,6 +584,9 @@
                                                                     <constraint firstAttribute="height" constant="32" id="XfR-Us-vec"/>
                                                                 </constraints>
                                                                 <state key="normal" image="resolution"/>
+                                                                <connections>
+                                                                    <action selector="resolutionButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="S6Y-Xi-mxY"/>
+                                                                </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2/1" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fut-Lj-ccg">
                                                                 <rect key="frame" x="99" y="17" width="17.5" height="14.5"/>
@@ -707,9 +710,11 @@
                         <outlet property="frameCountLabel" destination="N4L-Qq-cJF" id="7CO-HY-KZQ"/>
                         <outlet property="frameRateButton" destination="wse-gm-dhy" id="URF-0f-Hx7"/>
                         <outlet property="frameRateLabel" destination="ZnT-Th-6Jw" id="hg5-Qw-JGc"/>
+                        <outlet property="frameRateView" destination="sqC-JH-SC5" id="hN7-64-q1p"/>
                         <outlet property="paramSlider" destination="GLs-ja-Y6T" id="LCj-aM-DTl"/>
                         <outlet property="resolutionButton" destination="DxN-xk-Jbi" id="XoB-hm-zOA"/>
                         <outlet property="resolutionLabel" destination="Fut-Lj-ccg" id="lqK-RX-mg3"/>
+                        <outlet property="resolutionView" destination="NEP-8H-SNm" id="NEG-wB-MN8"/>
                         <outlet property="shutterButton" destination="cyO-7N-etY" id="uJu-0L-kfy"/>
                         <outlet property="startBarButtonItem" destination="aAW-bG-4AB" id="U8V-GZ-ccn"/>
                         <outlet property="topToolbarView" destination="tWv-Nv-rMa" id="eqX-6x-TTa"/>

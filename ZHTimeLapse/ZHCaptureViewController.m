@@ -35,10 +35,14 @@
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rotatableViews;
 @property (weak, nonatomic) IBOutlet UIButton *frameRateButton;
 @property (weak, nonatomic) IBOutlet UILabel *frameRateLabel;
+@property (weak, nonatomic) IBOutlet UIView *frameRateView;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *exportButton;
 @property (weak, nonatomic) IBOutlet ZHShutterButton *shutterButton;
 @property (weak, nonatomic) IBOutlet UIButton *resolutionButton;
 @property (weak, nonatomic) IBOutlet UILabel *resolutionLabel;
+@property (weak, nonatomic) IBOutlet UIView *resolutionView;
 
 @property (weak, nonatomic) IBOutlet UISlider *paramSlider;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
@@ -161,11 +165,57 @@
 }
 
 #pragma mark Private methods
+
+-(void)updateResolutionLabel {
+    self.resolutionLabel.text = [NSString stringWithFormat:@"%lu\n%lu",
+                                 (unsigned long)_session.input.size.width,
+                                 (unsigned long)_session.input.size.height];
+
+}
+
+- (IBAction)resolutionButtonTouchUpInside:(id)sender {
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Resolution" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"288x352" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(288, 352);
+        _session.output.size = _session.input.size;
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"480x640" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(480, 640);
+        _session.output.size = _session.input.size;
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"720x1280" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(720, 1280);
+        _session.output.size = _session.input.size;
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(1080, 1920);
+        _session.output.size = _session.input.size;
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    
+    [self presentViewController:ac animated:YES completion:nil];
+}
+
+
 - (IBAction)shutterButtonTouchUpInside:(id)sender {
     NSLog(@"%s", __FUNCTION__);
 }
 
--(void)swipeAction:(UISwipeGestureRecognizer*)sender {
+-(void)swipeFramerateAction:(UISwipeGestureRecognizer*)sender {
     
     if(sender.state == UIGestureRecognizerStateEnded) {
         if(sender.direction == UISwipeGestureRecognizerDirectionRight) {
@@ -189,6 +239,31 @@
         [self updateFrameRateLabel];
     }
 }
+
+//-(void)swipeResolutionAction:(UISwipeGestureRecognizer*)sender {
+//    if(sender.state == UIGestureRecognizerStateEnded) {
+//        if(sender.direction == UISwipeGestureRecognizerDirectionRight) {
+//            // Increase
+//            
+//            // 1/3
+//            if(_session.input.frameRate < 1){
+//                _session.input.frameRateSeconds -= 1;
+//            }
+//            // 1/1
+//            else {
+//                _session.input.frameRateFrames += 1;
+//            }
+//        } else if(sender.direction == UISwipeGestureRecognizerDirectionLeft) {
+//            if(_session.input.frameRate <= 1){
+//                _session.input.frameRateSeconds += 1;
+//            } else {
+//                _session.input.frameRateFrames -= 1;
+//            }
+//        }
+//        [self updateFrameRateLabel];
+//    }
+//    
+//}
 
 -(void)setupUI {
     
@@ -233,43 +308,18 @@
     self.frameCounter = 0;
     
     [self updateFrameRateLabel];
-    self.resolutionLabel.text = [NSString stringWithFormat:@"%lu\n%lu",
-                                 (unsigned long)_session.input.size.width,
-                                  (unsigned long)_session.input.size.height];
+    [self updateResolutionLabel];
     
-    UISwipeGestureRecognizer *leftSwipeGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeAction:)];
-    leftSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.topToolbarView addGestureRecognizer:leftSwipeGesture];
+    UISwipeGestureRecognizer *leftSwipeFramerateGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeFramerateAction:)];
+    leftSwipeFramerateGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.frameRateView addGestureRecognizer:leftSwipeFramerateGesture];
     
-    UISwipeGestureRecognizer *rightSwipeGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeAction:)];
-    rightSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.topToolbarView addGestureRecognizer:rightSwipeGesture];
-    
-    //    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
-    //    [self.filterView addGestureRecognizer:tapGesture];
-    
-    // ************ TODO: Work on a custom shutter button w/animations
-    //    ZHShutterButton *shutterButton = [[[NSBundle mainBundle] loadNibNamed:@"ZHShutterButton" owner:self options:nil] firstObject];
-    //    _shutterButton = shutterButton;
-    //    _shutterButton.frame = CGRectMake(self.bottomToolbarView.bounds.size.width - 68,
-    //                                      self.bottomToolbarView.bounds.size.height - 68,
-    //                                      60,
-    //                                      60);
-    //    [_shutterButton setTitle:@"Test" forState:UIControlStateNormal];
-    //    [_shutterButton setBackgroundColor:[UIColor orangeColor]];
-    //    [self.shutterButton addTarget:self action:@selector(shutterButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.bottomToolbarView addSubview:_shutterButton];
-    
-    
+    UISwipeGestureRecognizer *rightSwipeFramerateGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeFramerateAction:)];
+    rightSwipeFramerateGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.frameRateView addGestureRecognizer:rightSwipeFramerateGesture];
 }
 
 -(void)updateFrameRateLabel {
-    //    if(_session.input.frameRate < 1) {
-    //        double f = 1.0 / _session.input.frameRate;
-    //        self.frameRateLabel.text = [NSString stringWithFormat:@"1f/%.1fs", f];
-    //    } else {
-    //        self.frameRateLabel.text = [NSString stringWithFormat:@"%luf/1s", (unsigned long) _session.input.frameRate];
-    //    }
     self.frameRateLabel.text = [NSString stringWithFormat:@"%luf\n%lus",
                                 (unsigned long) _session.input.frameRateFrames,
                                 (unsigned long) _session.input.frameRateSeconds];
@@ -298,7 +348,19 @@
                               self.captureImageView.frame.size.height);
     self.captureImageView.frame = frame;
     
-    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:self.cameraPosition];
+    
+    NSString *preset = nil;
+    if(_session.input.size.width == 288) {
+        preset = AVCaptureSessionPreset352x288;
+    } else if(_session.input.size.width == 480) {
+        preset = AVCaptureSessionPreset640x480;
+    } else if(_session.input.size.width == 720) {
+        preset = AVCaptureSessionPreset1280x720;
+    } else if(_session.input.size.width == 1080) {
+        preset = AVCaptureSessionPreset1920x1080;
+    }
+    
+    self.videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:preset cameraPosition:self.cameraPosition];
     self.videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     self.videoCamera.horizontallyMirrorFrontFacingCamera = YES;
     
