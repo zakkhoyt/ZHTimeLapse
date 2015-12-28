@@ -49,4 +49,13 @@
     return dictionary;
 
 }
+
+
+- (id)copyWithZone:(nullable NSZone *)zone{
+    ZHOutputSession *output = [ZHOutputSession new];
+    output.frameRate = _frameRate;
+    output.size = _size;
+    return output;
+}
+
 @end

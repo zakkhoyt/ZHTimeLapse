@@ -23,6 +23,8 @@
 +(ZHSession*)sessionFromSession:(ZHSession*)oldSession{
     ZHSession *session = [[ZHSession alloc]initWithName:nil];
     session.input = [oldSession.input copy];
+    session.output = [oldSession.output copy];
+    [session setProjectPath];
     return session;
 }
 
@@ -37,8 +39,6 @@
         _name = name;
         _uuid = [[NSUUID UUID] UUIDString];
         _date = [NSDate date];
-        
-        
         
         _input = [ZHInputSession new];
         _output = [ZHOutputSession new];
@@ -124,11 +124,14 @@
     filePath = [filePath stringByAppendingPathComponent:fileName];
 //    NSLog(@"Writing frame to: %@", filePath);
 
-    NSError *error = nil;
-    [data writeToFile:filePath options:NSDataWritingFileProtectionNone error:&error];
-    if(error != nil) {
-        NSLog(@"Error writing file %@", error.localizedDescription);
+//    NSError *error = nil;
+    if([data writeToFile:filePath atomically:NO] == NO){
+        NSLog(@"Error writing frame: %@", filePath);
     }
+//    [data writeToFile:filePath options:NSDataWritingFileProtectionNone error:&error];
+//    if(error != nil) {
+//        NSLog(@"Error writing file %@", error.localizedDescription);
+//    }
     
 //    NSError *error = nil;
 //    NSURL *url = [NSURL URLWithString:filePath];
@@ -186,7 +189,7 @@
     [hud show:YES];
     
     // A counter to update our ring
-    NSUInteger frameCount = [ZHFileManager frameCountForSession:self];
+    NSUInteger frameCount = self.input.frameCount;
     NSLog(@"%lu frames", (unsigned long) frameCount);
     
     ZHRenderer *renderer = [[ZHRenderer alloc]init];
@@ -214,13 +217,43 @@
         } else {
             [hud hide:YES];
             [viewController presentAlertDialogWithMessage:@"Failed"];
-            completionBlock(NO);
+            if(completionBlock) {
+                completionBlock(NO);
+            }
         }
     }];
 }
 
--(void)renderGIFFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolBlock)completionBlock{
+-(void)renderGIFFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolDataBlock)completionBlock{
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:viewController.view];
+    [viewController.view addSubview:hud];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Rendering gif";
+    [hud show:YES];
     
+    NSUInteger frameCount = self.input.frameCount;
+    NSLog(@"%lu frames", (unsigned long) frameCount);
+    
+    ZHRenderer *renderer = [[ZHRenderer alloc]init];
+    [renderer renderSessionToGIF:self progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
+        NSLog(@"rendered gif frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
+        hud.progress = framesRendered / (float)frameCount;
+    } completionBlock:^(BOOL success, ZHSession *session) {
+        NSLog(@"completed");
+        if(success == YES) {
+            [hud hide:YES];
+            NSData *data = [NSData dataWithContentsOfFile:self.output.outputGIF.path];
+            if(completionBlock) {
+                completionBlock(YES, data);
+            }
+        } else {
+            [hud hide:YES];
+            [viewController presentAlertDialogWithMessage:@"Failed"];
+            if(completionBlock) {
+                completionBlock(NO, nil);
+            }
+        }
+    }];
 }
 
 -(void)deleteSessionCache {

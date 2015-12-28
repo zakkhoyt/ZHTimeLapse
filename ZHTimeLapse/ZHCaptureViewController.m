@@ -174,48 +174,6 @@
 
 }
 
-- (IBAction)resolutionButtonTouchUpInside:(id)sender {
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Resolution" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"288x352" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(288, 352);
-        _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"480x640" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(480, 640);
-        _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"720x1280" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(720, 1280);
-        _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(1080, 1920);
-        _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }]];
-    
-    [self presentViewController:ac animated:YES completion:nil];
-}
-
-
-- (IBAction)shutterButtonTouchUpInside:(id)sender {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 -(void)swipeFramerateAction:(UISwipeGestureRecognizer*)sender {
     
     if(sender.state == UIGestureRecognizerStateEnded) {
@@ -477,27 +435,51 @@
         vc.view.transform = CGAffineTransformIdentity;
         vc.view.alpha = 1.0;
     } completion:NULL];
+}
+
+
+-(void)shareItems:(NSArray*)items{
+    NSMutableArray *activities = [@[]mutableCopy];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:items
+                                                                                        applicationActivities:activities];
+    
+    [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
+        if(completed){
+            //            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
+    }];
+    
+    //    activityViewController.excludedActivityTypes = @[UIActivityTypePostToTwitter];
+    [self presentViewController:activityViewController animated:YES completion:nil];
+}
+
+
+-(void)renderGIF {
+    [_session renderGIFFromViewController:self completionBlock:^(BOOL success, NSData *data) {
+        if(success) {
+            [self shareItems:@[data]];
+        }
+    }];
+}
+
+
+
+
+-(void)renderVideo{
+    
+    [_session renderVideoFromViewController:self completionBlock:^(BOOL success) {
+        // New session
+        [ZHFileManager deleteSession:_session];
+        
+        _session = [ZHSession sessionFromSession:_session];
+        [self setupUI];
+        [self setupCaptureSession];
+    }];
     
 }
 
-#pragma mark IBActions
-- (IBAction)paramSliderValueChanged:(UISlider*)sender {
-    [_session.input.filter updateParamValue:sender.value];
-}
 
-- (IBAction)frameRateButtonTouchUpInside:(id)sender {
-    [self presentAlertDialogWithMessage:@"Swipe left/right to change frame rate."];
-}
-
-- (IBAction)filterButtonTouchUpInside:(id)sender {
-    [self showFilterView];
-}
-
-- (IBAction)closeButtonTouchUpInside:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)startRecording{
+- (void)startRecording{
     
     self.isRecording = YES;
     
@@ -525,7 +507,7 @@
     
 }
 
-- (IBAction)stopRecording {
+- (void)stopRecording {
     
     // Show top toolbar
     self.topToolbarView.hidden = NO;
@@ -551,66 +533,7 @@
 }
 
 
--(void)shareItems:(NSArray*)items{
-    NSMutableArray *activities = [@[]mutableCopy];
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:items
-                                                                                        applicationActivities:activities];
-    
-    [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
-        if(completed){
-            //            [self dismissViewControllerAnimated:YES completion:NULL];
-        }
-    }];
-    
-    //    activityViewController.excludedActivityTypes = @[UIActivityTypePostToTwitter];
-    [self presentViewController:activityViewController animated:YES completion:nil];
-}
-
-
--(void)renderGIF {
-
-    
-    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
-    hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.labelText = @"Rendering gif";
-    [hud show:YES];
-    
-    NSUInteger frameCount = [ZHFileManager frameCountForSession:_session];
-    NSLog(@"%lu frames", (unsigned long) frameCount);
-    
-    ZHRenderer *renderer = [[ZHRenderer alloc]init];
-    [renderer renderSessionToGIF:_session progressBlock:^(NSUInteger framesRendered, NSUInteger totalFrames) {
-        NSLog(@"rendered gif frame %lu/%lu", (unsigned long)framesRendered, (unsigned long)frameCount);
-        hud.progress = framesRendered / (float)frameCount;
-    } completionBlock:^(BOOL success, ZHSession *session) {
-        NSLog(@"completed");
-        if(success == YES) {
-            [hud hide:YES];
-            NSData *data = [NSData dataWithContentsOfFile:_session.output.outputGIF.path];
-            [self shareItems:@[data]];
-        } else {
-            [hud hide:YES];
-            [self presentAlertDialogWithMessage:@"Failed"];
-        }
-    }];
-}
-
-
-
-
--(void)renderVideo{
-    
-    [_session renderVideoFromViewController:self completionBlock:^(BOOL success) {
-        // New session
-        [ZHFileManager deleteSession:_session];
-        
-        _session = [ZHSession sessionFromSession:_session];
-        [self setupUI];
-        [self setupCaptureSession];
-    }];
-    
-}
+#pragma mark IBActions
 
 - (IBAction)swapButtonTouchUpInside:(id)sender {
     
@@ -622,6 +545,70 @@
     
     [self setupCaptureSession];
 }
+
+
+- (IBAction)resolutionButtonTouchUpInside:(id)sender {
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Resolution" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"288x352" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(288, 352);
+        _session.output.size = _session.input.size;
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"480x640" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(480, 640);
+        _session.output.size = _session.input.size;
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"720x1280" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(720, 1280);
+        _session.output.size = _session.input.size;
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(1080, 1920);
+        _session.output.size = _session.input.size;
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    
+    [self presentViewController:ac animated:YES completion:nil];
+}
+
+
+- (IBAction)shutterButtonTouchUpInside:(id)sender {
+    NSLog(@"%s", __FUNCTION__);
+}
+
+
+
+- (IBAction)paramSliderValueChanged:(UISlider*)sender {
+    [_session.input.filter updateParamValue:sender.value];
+}
+
+- (IBAction)frameRateButtonTouchUpInside:(id)sender {
+    [self presentAlertDialogWithMessage:@"Swipe left/right to change frame rate."];
+}
+
+- (IBAction)filterButtonTouchUpInside:(id)sender {
+    [self showFilterView];
+}
+
+- (IBAction)closeButtonTouchUpInside:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+
 
 
 @end

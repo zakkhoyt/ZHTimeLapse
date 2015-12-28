@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZHOutputSession : NSObject
+@interface ZHOutputSession : NSObject <NSCopying>
 @property (nonatomic) CGSize size;
 @property (nonatomic) NSTimeInterval frameRate;
 @property (nonatomic, strong) NSURL *outputURL;

@@ -138,7 +138,7 @@
                         
                         if (success == YES) {
                             [asset saveToAlbum:@"ZHTimeLapse" completionBlock:^(BOOL success) {
-                                NSLog(@"Saved time lapse video to album folder");
+                                NSLog(@"Linking video to photo album");
                             }];
                         }
                         

@@ -12,6 +12,7 @@
 #import "ZHOutputSession.h"
 
 typedef void (^ZHSessionBoolBlock)(BOOL success);
+typedef void (^ZHSessionBoolDataBlock)(BOOL success, NSData *data);
 
 @interface ZHSession : NSObject
 
@@ -39,6 +40,6 @@ typedef void (^ZHSessionBoolBlock)(BOOL success);
 -(NSTimeInterval)timeLength;
 
 -(void)renderVideoFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolBlock)completionBlock;
--(void)renderGIFFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolBlock)completionBlock;
+-(void)renderGIFFromViewController:(UIViewController*)viewController completionBlock:(ZHSessionBoolDataBlock)completionBlock;
 -(void)deleteSessionCache;
 @end
