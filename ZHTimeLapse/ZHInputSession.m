@@ -86,12 +86,12 @@
 
 - (id)copyWithZone:(nullable NSZone *)zone{
     ZHInputSession *input = [ZHInputSession new];
-    input.filter = [[ZHFilter alloc]initWithFilterType:self.filter.filterType];
-    input.size = self.size;
-    input.frameRateFrames = self.frameRateFrames;
-    input.frameRateSeconds = self.frameRateSeconds;
-    input.captureDevicePosition = self.captureDevicePosition;
-    input.orientation = self.orientation;
+    input.filter = [_filter copy];
+    input.size = _size;
+    input.frameRateFrames = _frameRateFrames;
+    input.frameRateSeconds = _frameRateSeconds;
+    input.captureDevicePosition = _captureDevicePosition;
+    input.orientation = _orientation;
     return input;
 }
 

@@ -37,9 +37,10 @@ typedef enum {
 } ZHFilterType;
 
 
-@interface ZHFilter : NSObject
+@interface ZHFilter : NSObject <NSCopying>
 
 - (instancetype)initWithFilterType:(ZHFilterType)filterType;
+
 -(void)updateParamValue:(CGFloat)value;
 
 @property (nonatomic, readonly) ZHFilterType filterType;

@@ -297,4 +297,13 @@
     }
 }
 
+
+- (id)copyWithZone:(nullable NSZone *)zone{
+    ZHFilter *filter = [[ZHFilter alloc]initWithFilterType:self.filterType];
+    filter.paramMax = _paramMax;
+    filter.paramMin = _paramMin;
+    filter.paramValue = _paramValue;
+    return filter;
+}
+
 @end
