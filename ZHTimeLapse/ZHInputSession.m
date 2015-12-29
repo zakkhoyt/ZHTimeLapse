@@ -7,6 +7,7 @@
 //
 
 #import "ZHInputSession.h"
+#import "ZHDefines.h"
 
 @implementation ZHInputSession
 

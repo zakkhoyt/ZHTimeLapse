@@ -7,6 +7,7 @@
 //
 
 #import "ZHSessionTableViewCell.h"
+#import "ZHDefines.h"
 #import "ZHSession.h"
 #import "NSDate+ZH.h"
 

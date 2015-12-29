@@ -9,6 +9,7 @@
 //
 
 #import "ZHFiltersViewController.h"
+#import "ZHDefines.h"
 #import "ZHFilterView.h"
 #import "ZHFilter.h"
 

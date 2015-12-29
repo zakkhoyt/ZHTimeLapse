@@ -7,6 +7,7 @@
 //
 
 #import "ZHSession.h"
+#import "ZHDefines.h"
 #import "ZHFileManager.h"
 #import "NSDate+ZH.h"
 #import "MBProgressHUD.h"

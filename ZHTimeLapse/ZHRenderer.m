@@ -14,6 +14,7 @@
 @import ImageIO;
 @import  MobileCoreServices;
 
+#import "ZHDefines.h"
 #import "ZHSession.h"
 #import "PHAsset+Utility.h"
 #import "ZHFileManager.h"

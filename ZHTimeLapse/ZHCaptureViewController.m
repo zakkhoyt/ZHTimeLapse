@@ -8,6 +8,7 @@
 //  https://github.com/rehatkathuria/SnappingSlider
 
 #import "ZHCaptureViewController.h"
+#import "ZHDefines.h"
 #import "GPUImage.h"
 #import "NSTimer+Blocks.h"
 #import "ZHSession.h"
@@ -18,6 +19,7 @@
 #import "MBProgressHUD.h"
 #import "ZHFileManager.h"
 #import "ZHUserDefaults.h"
+#import "ZHDefines.h"
 
 @interface ZHCaptureViewController ()
 
@@ -29,6 +31,7 @@
 
 // UI Stuff
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *captureImageViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *startBarButtonItem;
 @property (weak, nonatomic) IBOutlet UILabel *frameCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *bottomToolbarView;
@@ -224,9 +227,9 @@
 
 -(void)setupUI {
     
-    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
-    [self.exportButton setTitle:@"" forState:UIControlStateNormal];
+//    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
+//    [self.exportButton setTitle:@"" forState:UIControlStateNormal];
 
     UIImage *resolutionImage = [[UIImage imageNamed:@"resolution"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
@@ -296,11 +299,11 @@
     }
     
     
-    CGRect frame = CGRectMake(self.captureImageView.frame.origin.x,
-                              self.captureImageView.frame.origin.y,
-                              self.captureImageView.frame.size.height * 720 / 1280.0,
-                              self.captureImageView.frame.size.height);
-    self.captureImageView.frame = frame;
+    CGFloat height = _captureImageView.bounds.size.width * _session.input.size.height / _session.input.size.width;
+    _captureImageViewHeightConstraint.constant = height;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.bottomToolbarView layoutIfNeeded];
+    }];
     
     
     NSString *preset = nil;
@@ -530,6 +533,21 @@
 
 #pragma mark IBActions
 
+- (IBAction)exportButtonTouchUpInside:(id)sender {
+    if ([[UIApplication sharedApplication]
+         canOpenURL:[NSURL URLWithString:@"photos://"]]) {
+        
+        // Waze is installed. Launch Waze and start navigation
+        NSString *urlStr = [NSString stringWithFormat:@"photos://"];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+        
+    } else {
+        ZH_LOG_DEBUG(@"Cannot open Photos app");
+    }
+}
+
+
 - (IBAction)swapButtonTouchUpInside:(id)sender {
     if(_session.input.captureDevicePosition == AVCaptureDevicePositionBack) {
         _session.input.captureDevicePosition = AVCaptureDevicePositionFront;
@@ -564,12 +582,12 @@
         [self setupCaptureSession];
     }]];
     
-    [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(1080, 1920);
-        _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
-    }]];
+//    [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.size = CGSizeMake(1080, 1920);
+//        _session.output.size = _session.input.size;
+//        [self updateResolutionLabel];
+//        [self setupCaptureSession];
+//    }]];
     
     [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }]];

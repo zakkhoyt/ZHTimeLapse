@@ -7,6 +7,7 @@
 //
 
 #import "ZHUserDefaults.h"
+#import "ZHDefines.h"
 #import "ZHSession.h"
 
 @implementation ZHUserDefaults

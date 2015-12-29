@@ -7,6 +7,7 @@
 //
 
 #import "ZHIntroViewController.h"
+#import "ZHDefines.h"
 #import "VWWPermissionKit.h"
 #import "ZHDefines.h"
 

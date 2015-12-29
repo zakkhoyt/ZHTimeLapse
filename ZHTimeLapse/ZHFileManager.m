@@ -7,6 +7,7 @@
 //
 
 #import "ZHFileManager.h"
+#import "ZHDefines.h"
 #import "ZHSession.h"
 
 @implementation ZHFileManager

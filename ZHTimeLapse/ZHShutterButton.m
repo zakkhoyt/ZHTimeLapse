@@ -7,6 +7,7 @@
 //
 
 #import "ZHShutterButton.h"
+#import "ZHDefines.h"
 #import "NSTimer+Blocks.h"
 
 static NSString *ZHShutterButtonStoppedString = @"Capture";

@@ -7,6 +7,7 @@
 //
 
 #import "ZHOptionsTableViewController.h"
+#import "ZHDefines.h"
 #import "ZHSession.h"
 #import "ZHCaptureViewController.h"
 #import "ZHFileManager.h"

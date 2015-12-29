@@ -7,6 +7,7 @@
 //
 
 #import "ZHNavigationController.h"
+#import "ZHDefines.h"
 
 @interface ZHNavigationController ()
 

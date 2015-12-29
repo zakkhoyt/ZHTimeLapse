@@ -7,6 +7,7 @@
 //
 
 #import "ZHFilterView.h"
+#import "ZHDefines.h"
 
 #import "GPUImage.h"
 

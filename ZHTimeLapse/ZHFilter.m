@@ -7,6 +7,7 @@
 //
 
 #import "ZHFilter.h"
+#import "ZHDefines.h"
 
 @interface ZHFilter ()
 @property (nonatomic, readwrite) ZHFilterType filterType;
