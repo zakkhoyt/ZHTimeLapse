@@ -20,6 +20,10 @@
 #import "ZHFileManager.h"
 #import "ZHUserDefaults.h"
 #import "ZHDefines.h"
+#import "ZHMenuViewController.h"
+
+static NSString *SegueCaptureToFrameRateMenu = @"SegueCaptureToFrameRateMenu";
+static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 
 @interface ZHCaptureViewController ()
 
@@ -27,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet GPUImageView *filterView;
 @property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
 @property (nonatomic, strong) GPUImageRawDataOutput *rawOutput;
-@property (nonatomic, strong) NSTimer *captureTimer;
 
 // UI Stuff
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
@@ -68,12 +71,28 @@
     if(_session == nil) {
         _session = [ZHSession session];
     }
-
+    
     
     [self addOrientationMonitor];
     [self setupUI];
     [self setupCaptureSession];
     
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:SegueCaptureToFrameRateMenu]){
+        ZHMenuViewController *vc = segue.destinationViewController;
+        vc.type = ZHMenuViewControllerTypeFrameRate;
+        [vc setFrameRateBlock:^(NSUInteger seconds, NSUInteger frames){
+         
+        }];
+    } else  if([segue.identifier isEqualToString:SegueCaptureToResolutionMenu]){
+        ZHMenuViewController *vc = segue.destinationViewController;
+        vc.type = ZHMenuViewControllerTypeResolution;
+        [vc setResolutionBlock:^(CGSize resolution){
+         
+        }];
+    }
 }
 
 
@@ -89,18 +108,20 @@
         
         UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
         if(orientation != _lastOrientation) {
-            [self updateUIForOrientation:orientation];
             _lastOrientation = [UIDevice currentDevice].orientation;
+            [self updateUIForOrientation];
         }
     } repeats:YES];
-    [self updateUIForOrientation:_lastOrientation];
+    [self updateUIForOrientation];
 }
 
--(void)updateUIForOrientation:(UIDeviceOrientation)orientation {
+-(void)updateUIForOrientation {
     NSLog(@"%s", __FUNCTION__);
+    
     [UIView animateWithDuration:0.3 animations:^{
+        [self updateResolutionLabel];
         [self.rotatableViews enumerateObjectsUsingBlock:^(UIView  * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            switch (orientation) {
+            switch (_lastOrientation) {
                 case UIDeviceOrientationLandscapeLeft:
                     obj.transform = CGAffineTransformMakeRotation(M_PI_2);
                     break;
@@ -147,16 +168,12 @@
         CGPoint touchPoint = [sender locationInView:sender.view];
         NSLog(@"Tap to Focus");
         
-        if([_videoCamera.inputCamera isFocusPointOfInterestSupported]&&[_videoCamera.inputCamera isFocusModeSupported:AVCaptureFocusModeAutoFocus])
-        {
-            
-            if([_videoCamera.inputCamera lockForConfiguration :nil])
-            {
+        if([_videoCamera.inputCamera isFocusPointOfInterestSupported]&&[_videoCamera.inputCamera isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+            if([_videoCamera.inputCamera lockForConfiguration :nil]) {
                 [_videoCamera.inputCamera setFocusPointOfInterest :touchPoint];
                 [_videoCamera.inputCamera setFocusMode :AVCaptureFocusModeLocked];
                 
-                if([_videoCamera.inputCamera isExposurePointOfInterestSupported])
-                {
+                if([_videoCamera.inputCamera isExposurePointOfInterestSupported]) {
                     [_videoCamera.inputCamera setExposurePointOfInterest:touchPoint];
                     [_videoCamera.inputCamera setExposureMode:AVCaptureExposureModeLocked];
                 }
@@ -169,10 +186,31 @@
 #pragma mark Private methods
 
 -(void)updateResolutionLabel {
-    self.resolutionLabel.text = [NSString stringWithFormat:@"%lu\n%lu",
-                                 (unsigned long)_session.input.size.width,
-                                 (unsigned long)_session.input.size.height];
-
+    
+    
+    switch (_lastOrientation) {
+        case UIDeviceOrientationLandscapeLeft:
+        case UIDeviceOrientationLandscapeRight:
+            self.resolutionLabel.text = [NSString stringWithFormat:@"%lu\n%lu",
+                                         (unsigned long)_session.input.size.height,
+                                         (unsigned long)_session.input.size.width];
+            
+            break;
+        case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationPortraitUpsideDown:
+            self.resolutionLabel.text = [NSString stringWithFormat:@"%lu\n%lu",
+                                         (unsigned long)_session.input.size.width,
+                                         (unsigned long)_session.input.size.height];
+            
+            break;
+        default:
+            
+            break;
+    }
+    
+    
+    
+    
 }
 
 -(void)swipeFramerateAction:(UISwipeGestureRecognizer*)sender {
@@ -200,37 +238,12 @@
     }
 }
 
-//-(void)swipeResolutionAction:(UISwipeGestureRecognizer*)sender {
-//    if(sender.state == UIGestureRecognizerStateEnded) {
-//        if(sender.direction == UISwipeGestureRecognizerDirectionRight) {
-//            // Increase
-//            
-//            // 1/3
-//            if(_session.input.frameRate < 1){
-//                _session.input.frameRateSeconds -= 1;
-//            }
-//            // 1/1
-//            else {
-//                _session.input.frameRateFrames += 1;
-//            }
-//        } else if(sender.direction == UISwipeGestureRecognizerDirectionLeft) {
-//            if(_session.input.frameRate <= 1){
-//                _session.input.frameRateSeconds += 1;
-//            } else {
-//                _session.input.frameRateFrames -= 1;
-//            }
-//        }
-//        [self updateFrameRateLabel];
-//    }
-//    
-//}
-
 -(void)setupUI {
     
-//    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
-//    [self.exportButton setTitle:@"" forState:UIControlStateNormal];
-
+    //    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
+    //    [self.exportButton setTitle:@"" forState:UIControlStateNormal];
+    
     UIImage *resolutionImage = [[UIImage imageNamed:@"resolution"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
     [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
@@ -487,10 +500,7 @@
     self.session.input.orientation = [UIDevice currentDevice].orientation;
     [self.session saveConfig];
     
-    NSLog(@"orientation: %lu", self.session.input.orientation);
-    
-    self.captureTimer = [NSTimer scheduledTimerWithTimeInterval:1/(float)self.session.input.frameRate target:self selector:@selector(captureFrame:) userInfo:nil repeats:YES];
-    [self captureFrame:self.captureTimer];
+    NSLog(@"orientation: %lu", (unsigned long) self.session.input.orientation);
     
     // Hide top toolbar while recording
     [UIView animateWithDuration:0.3 animations:^{
@@ -502,10 +512,29 @@
     // Disable screensaver
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
+    // Set capture block
+    __weak typeof(self) welf = self;
+    NSTimeInterval captureInterval =  (NSTimeInterval)_session.input.frameRateSeconds / (NSTimeInterval)_session.input.frameRateFrames;
+    __block NSDate *nextCaptureDate = [[NSDate date] dateByAddingTimeInterval:captureInterval];
+    
+    [self.rawOutput setNewFrameAvailableBlock:^{
+        NSDate *now = [NSDate date];
+        NSTimeInterval nowTick = [now timeIntervalSince1970];
+        NSTimeInterval nextCaptureTick = [nextCaptureDate timeIntervalSince1970];
+        NSTimeInterval diff = nowTick - nextCaptureTick;
+        if(diff > 0) {
+            nextCaptureDate = [nextCaptureDate dateByAddingTimeInterval:captureInterval];
+            [welf captureFrame:nil];
+        }
+    }];
+    
     
 }
 
 - (void)stopRecording {
+    
+    // Nil out our capture block
+    [self.rawOutput setNewFrameAvailableBlock:nil];
     
     // Show top toolbar
     self.topToolbarView.hidden = NO;
@@ -513,9 +542,6 @@
         self.topToolbarView.alpha = 1.0;
     }];
     
-    
-    [self.captureTimer invalidate];
-    self.captureTimer = nil;
     self.navigationItem.rightBarButtonItem = self.startBarButtonItem;
     
     self.isRecording = NO;
@@ -559,40 +585,43 @@
 
 
 - (IBAction)resolutionButtonTouchUpInside:(id)sender {
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Resolution" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    [ac addAction:[UIAlertAction actionWithTitle:@"288x352" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(288, 352);
-        _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
-    }]];
+    [self performSegueWithIdentifier:SegueCaptureToResolutionMenu sender:nil];
     
-    [ac addAction:[UIAlertAction actionWithTitle:@"480x640" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(480, 640);
-        _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"720x1280" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _session.input.size = CGSizeMake(720, 1280);
-        _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
-    }]];
-    
-//    [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        _session.input.size = CGSizeMake(1080, 1920);
+//    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Resolution" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//    
+//    [ac addAction:[UIAlertAction actionWithTitle:@"288x352" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.size = CGSizeMake(288, 352);
 //        _session.output.size = _session.input.size;
 //        [self updateResolutionLabel];
 //        [self setupCaptureSession];
 //    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }]];
-    
-    [self presentViewController:ac animated:YES completion:nil];
+//    
+//    [ac addAction:[UIAlertAction actionWithTitle:@"480x640" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.size = CGSizeMake(480, 640);
+//        _session.output.size = _session.input.size;
+//        [self updateResolutionLabel];
+//        [self setupCaptureSession];
+//    }]];
+//    
+//    [ac addAction:[UIAlertAction actionWithTitle:@"720x1280" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.size = CGSizeMake(720, 1280);
+//        _session.output.size = _session.input.size;
+//        [self updateResolutionLabel];
+//        [self setupCaptureSession];
+//    }]];
+//    
+//    //    [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//    //        _session.input.size = CGSizeMake(1080, 1920);
+//    //        _session.output.size = _session.input.size;
+//    //        [self updateResolutionLabel];
+//    //        [self setupCaptureSession];
+//    //    }]];
+//    
+//    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//    }]];
+//    
+//    [self presentViewController:ac animated:YES completion:nil];
 }
 
 
@@ -607,7 +636,63 @@
 }
 
 - (IBAction)frameRateButtonTouchUpInside:(id)sender {
-    [self presentAlertDialogWithMessage:@"Swipe left/right to change frame rate."];
+    
+    [self performSegueWithIdentifier:SegueCaptureToFrameRateMenu sender:nil];
+    
+//    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Capture Frame Rate" message:@"Swipe button left/right for fine control or select from the following:" preferredStyle:UIAlertControllerStyleActionSheet];
+//    
+//    [ac addAction:[UIAlertAction actionWithTitle:@"4 frames frame every 1 second" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.frameRateSeconds = 1;
+//        _session.input.frameRateFrames = 4;
+//        [self updateFrameRateLabel];
+//    }]];
+//
+//    [ac addAction:[UIAlertAction actionWithTitle:@"3 frames frame every 1 second" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.frameRateSeconds = 1;
+//        _session.input.frameRateFrames = 3;
+//        [self updateFrameRateLabel];
+//    }]];
+//
+//    [ac addAction:[UIAlertAction actionWithTitle:@"2 frames frame every 1 second" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.frameRateSeconds = 1;
+//        _session.input.frameRateFrames = 2;
+//        [self updateFrameRateLabel];
+//    }]];
+//
+//    [ac addAction:[UIAlertAction actionWithTitle:@"1 frame frame every 1 second" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.frameRateSeconds = 1;
+//        _session.input.frameRateFrames = 1;
+//        [self updateFrameRateLabel];
+//    }]];
+//    
+//    [ac addAction:[UIAlertAction actionWithTitle:@"1 frame frame every 2 seconds" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.frameRateSeconds = 2;
+//        _session.input.frameRateFrames = 1;
+//        [self updateFrameRateLabel];
+//    }]];
+//
+//    [ac addAction:[UIAlertAction actionWithTitle:@"1 frame frame every 5 seconds" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.frameRateSeconds = 5;
+//        _session.input.frameRateFrames = 1;
+//        [self updateFrameRateLabel];
+//    }]];
+//
+//    [ac addAction:[UIAlertAction actionWithTitle:@"1 frame frame every 10 seconds" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.frameRateSeconds = 10;
+//        _session.input.frameRateFrames = 1;
+//        [self updateFrameRateLabel];
+//    }]];
+//
+//    [ac addAction:[UIAlertAction actionWithTitle:@"1 frame frame every 30 seconds" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        _session.input.frameRateSeconds = 30;
+//        _session.input.frameRateFrames = 1;
+//        [self updateFrameRateLabel];
+//    }]];
+//
+//    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//    }]];
+//    
+//    [self presentViewController:ac animated:YES completion:nil];
 }
 
 - (IBAction)filterButtonTouchUpInside:(id)sender {

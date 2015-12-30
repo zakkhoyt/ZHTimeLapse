@@ -15,6 +15,7 @@
 		C62086B51C2F779F0026B943 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C62086B41C2F779F0026B943 /* Settings.bundle */; };
 		C62086B91C2F7B230026B943 /* ZHShutterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086B81C2F7B230026B943 /* ZHShutterButton.m */; };
 		C62086BE1C2F84DD0026B943 /* ZHFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086BD1C2F84DD0026B943 /* ZHFilter.m */; };
+		C627E56A1C348162001152FD /* ZHMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C627E5691C348162001152FD /* ZHMenuViewController.m */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
 		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
@@ -75,6 +76,8 @@
 		C62086B81C2F7B230026B943 /* ZHShutterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHShutterButton.m; sourceTree = "<group>"; };
 		C62086BC1C2F84DD0026B943 /* ZHFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFilter.h; sourceTree = "<group>"; };
 		C62086BD1C2F84DD0026B943 /* ZHFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFilter.m; sourceTree = "<group>"; };
+		C627E5681C348162001152FD /* ZHMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHMenuViewController.h; sourceTree = "<group>"; };
+		C627E5691C348162001152FD /* ZHMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHMenuViewController.m; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
 		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
 		C69ADCA21C2BB1E300612146 /* ZHOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -179,6 +182,15 @@
 				C62086B41C2F779F0026B943 /* Settings.bundle */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		C627E56B1C348167001152FD /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				C627E5681C348162001152FD /* ZHMenuViewController.h */,
+				C627E5691C348162001152FD /* ZHMenuViewController.m */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 		C69ADCA61C2BC91600612146 /* Documents */ = {
@@ -359,6 +371,7 @@
 				C6BBBFD21C2CBEF000FCBC3F /* Options */,
 				C62086A01C2DE3E10026B943 /* Filters */,
 				C69EB1FE1C30B3E7004F4807 /* Intro */,
+				C627E56B1C348167001152FD /* Menu */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -618,6 +631,7 @@
 				C6D442F31C28E39B00CE843E /* ZHOutputSession.m in Sources */,
 				C69ADCB01C2BD1D300612146 /* NSDate+ZH.m in Sources */,
 				C6D442E81C28A99400CE843E /* NSTimer+Blocks.m in Sources */,
+				C627E56A1C348162001152FD /* ZHMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
