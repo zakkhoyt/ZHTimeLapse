@@ -27,7 +27,7 @@ $DocumentsDir/$UUID/session.json -> contains info about the project
 // 1.0
 //* Remove simple mode
 //* Remove stop animation
-* Show/hide slider based on filter
+//* Show/hide slider based on filter
 
 
 * Test GIF output
