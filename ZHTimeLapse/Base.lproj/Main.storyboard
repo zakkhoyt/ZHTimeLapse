@@ -725,6 +725,7 @@
                         <outlet property="shutterButton" destination="cyO-7N-etY" id="uJu-0L-kfy"/>
                         <outlet property="startBarButtonItem" destination="aAW-bG-4AB" id="U8V-GZ-ccn"/>
                         <outlet property="topToolbarView" destination="tWv-Nv-rMa" id="eqX-6x-TTa"/>
+                        <outlet property="topToolbarViewHeightConstraint" destination="q9Q-Yd-ubO" id="0qq-YD-ap2"/>
                         <outletCollection property="rotatableViews" destination="N4L-Qq-cJF" id="Uau-1g-OOD"/>
                         <outletCollection property="rotatableViews" destination="pPZ-yZ-hF6" id="fDc-sR-OAx"/>
                         <outletCollection property="rotatableViews" destination="Phu-hm-Rw5" id="eXA-z2-pL3"/>

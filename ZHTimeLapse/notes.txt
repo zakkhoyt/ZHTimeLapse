@@ -25,11 +25,18 @@ $DocumentsDir/$UUID/session.json -> contains info about the project
 
 
 // 1.0
-* Simple / advanced mode
+//* Remove simple mode
+//* Remove stop animation
+* Show/hide slider based on filter
+
+
+* Test GIF output
+
 * Detects existing project on launch to finish (from a crash)
-* Sound for shutter
+
 * Scaling problem with gifs
 * large res gifs crashing on render
+
 * selection controls
     * drop menus
 * Tap to focus
@@ -39,7 +46,8 @@ $DocumentsDir/$UUID/session.json -> contains info about the project
 
 
 * ------- ITC
-* Send to ext testers
+* Device screen shots
+* Device videos
 * Get/update logo
 * Get/update marketing content
 

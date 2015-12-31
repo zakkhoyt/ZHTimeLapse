@@ -42,6 +42,8 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 @property (weak, nonatomic) IBOutlet UILabel *frameCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *bottomToolbarView;
 @property (weak, nonatomic) IBOutlet UIView *topToolbarView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topToolbarViewHeightConstraint;
+
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rotatableViews;
 @property (weak, nonatomic) IBOutlet UIButton *frameRateButton;
 @property (weak, nonatomic) IBOutlet UILabel *frameRateLabel;
@@ -343,15 +345,25 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
     self.videoCamera.horizontallyMirrorFrontFacingCamera = YES;
     
     
-    [self.paramSlider setMinimumValue:_session.input.filter.paramMin];
-    [self.paramSlider setMaximumValue:_session.input.filter.paramMax];
-    [self.paramSlider setValue:_session.input.filter.paramValue];
+    if(_session.input.filter.paramAvailable) {
+        self.paramSlider.hidden = NO;
+        [self.paramSlider setMinimumValue:_session.input.filter.paramMin];
+        [self.paramSlider setMaximumValue:_session.input.filter.paramMax];
+        [self.paramSlider setValue:_session.input.filter.paramValue];
+        self.topToolbarViewHeightConstraint.constant = 96;
+    } else {
+        self.paramSlider.hidden = YES;
+        self.topToolbarViewHeightConstraint.constant = 50;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.topToolbarView layoutIfNeeded];
+    }];
     
     // Force initial values
     [self paramSliderValueChanged:self.paramSlider];
     
     
-    if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseUnlockKey]){
+//    if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseUnlockKey]){
 
         [self.session.input.filter.gpuFilter addTarget:self.filterView];
         
@@ -359,39 +371,39 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
         [self.session.input.filter.gpuFilter addTarget:self.rawOutput];
         
         [self.videoCamera addTarget:self.session.input.filter.gpuFilter];
-    } else {
-        // If trial version we want to present a watermark. Pipe a UIView through a blend filter with our normal video feed to replace the output.
-        
-        GPUImageOutput<GPUImageInput> *zhFilter = _session.input.filter.gpuFilter;
-        
-        _blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
-        _blendFilter.mix = 1.0;
-        
-        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _session.input.size.width, _session.input.size.height)];
-        timeLabel.font = [UIFont systemFontOfSize:17.0f];
-        timeLabel.text = @"Trial Version\nPurchase on app` store now.";
-        timeLabel.textAlignment = NSTextAlignmentCenter;
-        timeLabel.backgroundColor = [UIColor clearColor];
-        timeLabel.textColor = [UIColor whiteColor];
-        
-        
-        _uiElementInput = [[GPUImageUIElement alloc] initWithView:timeLabel];
-        
-        [zhFilter addTarget:_blendFilter];
-        [_uiElementInput addTarget:_blendFilter];
-        
-        __unsafe_unretained GPUImageUIElement *weakUIElementInput = _uiElementInput;
-        [zhFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *filter, CMTime frameTime){
-//            timeLabel.text = [NSString stringWithFormat:@"Time: %f s", -[startTime timeIntervalSinceNow]];
-            [weakUIElementInput update];
-        }];
-        
-        [self.videoCamera addTarget:zhFilter];
-        [_blendFilter addTarget:_filterView];
-        
-        self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
-        [_blendFilter addTarget:self.rawOutput];
-    }
+//    } else {
+//        // If trial version we want to present a watermark. Pipe a UIView through a blend filter with our normal video feed to replace the output.
+//        
+//        GPUImageOutput<GPUImageInput> *zhFilter = _session.input.filter.gpuFilter;
+//        
+//        _blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+//        _blendFilter.mix = 1.0;
+//        
+//        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _session.input.size.width, _session.input.size.height)];
+//        timeLabel.font = [UIFont systemFontOfSize:17.0f];
+//        timeLabel.text = @"Trial Version\nPurchase on app` store now.";
+//        timeLabel.textAlignment = NSTextAlignmentCenter;
+//        timeLabel.backgroundColor = [UIColor clearColor];
+//        timeLabel.textColor = [UIColor whiteColor];
+//        
+//        
+//        _uiElementInput = [[GPUImageUIElement alloc] initWithView:timeLabel];
+//        
+//        [zhFilter addTarget:_blendFilter];
+//        [_uiElementInput addTarget:_blendFilter];
+//        
+//        __unsafe_unretained GPUImageUIElement *weakUIElementInput = _uiElementInput;
+//        [zhFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *filter, CMTime frameTime){
+////            timeLabel.text = [NSString stringWithFormat:@"Time: %f s", -[startTime timeIntervalSinceNow]];
+//            [weakUIElementInput update];
+//        }];
+//        
+//        [self.videoCamera addTarget:zhFilter];
+//        [_blendFilter addTarget:_filterView];
+//        
+//        self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
+//        [_blendFilter addTarget:self.rawOutput];
+//    }
 
     [self.videoCamera startCameraCapture];
     

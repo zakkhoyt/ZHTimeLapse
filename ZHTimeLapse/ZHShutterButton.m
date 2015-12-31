@@ -180,63 +180,63 @@ static NSString *ZHShutterButtonStartedString = @"";
 
 -(void)stopAnimation{
   
-    // Spit out a dot for each frame in a random direction and vector
-    // Turn on gravity
-    _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
-    _gravity = [[UIGravityBehavior alloc] init];
-    [_animator addBehavior:_gravity];
-    
-    // Use real gravity
-    _motion = [[CMMotionManager alloc]init];
-    [_motion startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue]  withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
-        double x = motion.gravity.x;
-        double y = motion.gravity.y;
-        _gravity.gravityDirection = CGVectorMake(x, -y);
-    }];
-
-    NSUInteger count = MIN(_session.input.frameCount, 30);
-    NSTimeInterval delay = 1 / (NSTimeInterval)count;
-    
-    for(NSUInteger index = 0; index < count; index++) {
-        // A tick line on the rotating view
-        const CGFloat w = 8;
-        const CGFloat h = 8;
-        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0,
-                              (self.bounds.size.height - h) / 2.0,
-                              w,
-                              h);
-        __block UIView *b = [[UIView alloc]initWithFrame:f];
-        b.layer.cornerRadius = w/2.0;
-        b.layer.masksToBounds = YES;
-        b.backgroundColor = [UIColor whiteColor];
-        
-        CGFloat angleRatio = arc4random() % 360 / 360.0;
-        CGFloat angle = 2*M_PI * angleRatio;
-        angle += M_PI;
-        CGFloat magnitudeRatio = arc4random() % 360 / 360.0;
-        CGFloat magnitude = 0.05 * magnitudeRatio;
-        
-        
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * index * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self addSubview:b];
-            
-            // Apply an impulse
-            UIPushBehavior *push = [[UIPushBehavior alloc]initWithItems:@[b] mode:UIPushBehaviorModeInstantaneous];
-            [push setAngle:angle magnitude:magnitude];
-            [_animator addBehavior:push];
-            [_gravity addItem:b];
-        });
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.2 animations:^{
-                b.alpha = 0;
-            } completion:^(BOOL finished) {
-                [b removeFromSuperview];
-                b = nil;
-            }];
-        });
-    }
+//    // Spit out a dot for each frame in a random direction and vector
+//    // Turn on gravity
+//    _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+//    _gravity = [[UIGravityBehavior alloc] init];
+//    [_animator addBehavior:_gravity];
+//    
+//    // Use real gravity
+//    _motion = [[CMMotionManager alloc]init];
+//    [_motion startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue]  withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
+//        double x = motion.gravity.x;
+//        double y = motion.gravity.y;
+//        _gravity.gravityDirection = CGVectorMake(x, -y);
+//    }];
+//
+//    NSUInteger count = MIN(_session.input.frameCount, 30);
+//    NSTimeInterval delay = 1 / (NSTimeInterval)count;
+//    
+//    for(NSUInteger index = 0; index < count; index++) {
+//        // A tick line on the rotating view
+//        const CGFloat w = 8;
+//        const CGFloat h = 8;
+//        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0,
+//                              (self.bounds.size.height - h) / 2.0,
+//                              w,
+//                              h);
+//        __block UIView *b = [[UIView alloc]initWithFrame:f];
+//        b.layer.cornerRadius = w/2.0;
+//        b.layer.masksToBounds = YES;
+//        b.backgroundColor = [UIColor whiteColor];
+//        
+//        CGFloat angleRatio = arc4random() % 360 / 360.0;
+//        CGFloat angle = 2*M_PI * angleRatio;
+//        angle += M_PI;
+//        CGFloat magnitudeRatio = arc4random() % 360 / 360.0;
+//        CGFloat magnitude = 0.05 * magnitudeRatio;
+//        
+//        
+//        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * index * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self addSubview:b];
+//            
+//            // Apply an impulse
+//            UIPushBehavior *push = [[UIPushBehavior alloc]initWithItems:@[b] mode:UIPushBehaviorModeInstantaneous];
+//            [push setAngle:angle magnitude:magnitude];
+//            [_animator addBehavior:push];
+//            [_gravity addItem:b];
+//        });
+//        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [UIView animateWithDuration:0.2 animations:^{
+//                b.alpha = 0;
+//            } completion:^(BOOL finished) {
+//                [b removeFromSuperview];
+//                b = nil;
+//            }];
+//        });
+//    }
     
     [_orbitTimer invalidate];
     [_tickTimer invalidate];

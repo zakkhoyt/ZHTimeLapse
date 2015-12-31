@@ -47,6 +47,7 @@ typedef enum {
 @property (nonatomic, strong, readonly) GPUImageOutput<GPUImageInput> *gpuFilter;
 @property (nonatomic, strong, readonly) NSString *title;
 
+@property (nonatomic, readonly) BOOL paramAvailable;
 @property (nonatomic, readonly) CGFloat paramMin;
 @property (nonatomic, readonly) CGFloat paramMax;
 @property (nonatomic, readonly) CGFloat paramValue;
