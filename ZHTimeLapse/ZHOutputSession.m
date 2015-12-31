@@ -34,6 +34,12 @@
         if(frameRateNumber) {
             _frameRate = frameRateNumber.doubleValue;
         }
+        
+        NSNumber *outputTypeNumber = dictionary[@"outputType"];
+        if(outputTypeNumber) {
+            _outputType = (ZHOutputSessionOutputType)outputTypeNumber.unsignedIntegerValue;
+        }
+
     }
     return self;
 }
@@ -41,12 +47,14 @@
 -(void)commonInit{
     _frameRate = 30;
     _size = CGSizeMake(720, 1280);
+    _outputType = ZHOutputSessionOutputTypeVideo;
 }
 
 -(NSDictionary*)dictionaryRepresentation {
     NSMutableDictionary *dictionary = [@{}mutableCopy];
     dictionary[@"size"] = NSStringFromCGSize(_size);
     dictionary[@"frameRate"] = @(_frameRate);
+    dictionary[@"outputType"] = @(_outputType);
     return dictionary;
 
 }
@@ -56,6 +64,7 @@
     ZHOutputSession *output = [ZHOutputSession new];
     output.frameRate = _frameRate;
     output.size = _size;
+    output.outputType = _outputType;
     return output;
 }
 

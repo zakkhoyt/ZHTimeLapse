@@ -16,8 +16,13 @@
 @property (nonatomic, readwrite) CGFloat paramMin;
 @property (nonatomic, readwrite) CGFloat paramMax;
 @property (nonatomic, readwrite) CGFloat paramValue;
+@property (nonatomic, readwrite) BOOL paramAvailable;
+
 @property (nonatomic, strong) GPUImageUIElement *uiElementInput;
 @property (nonatomic, strong) GPUImageSepiaFilter *sepiaFilter;
+//@property (nonatomic, strong) GPUImageOutput<GPUImageInput> *filter;
+
+//@property (strong, nonatomic) GPUImagePicture *sourcePicture;
 @end
 
 @implementation ZHFilter
@@ -43,6 +48,7 @@
             self.paramMin = 0.0;
             self.paramMax = 1.0;
             self.paramValue = 1.0;
+            self.paramAvailable = YES;
             _gpuFilter = [GPUImageCannyEdgeDetectionFilter new];
         }
             break;
@@ -52,6 +58,7 @@
             self.paramMin = 0.0;
             self.paramMax = 1.0;
             self.paramValue = 1.0;
+            self.paramAvailable = YES;
             
             _gpuFilter = [[GPUImageFilterGroup alloc] init];
             
@@ -73,6 +80,7 @@
             self.paramMin = 0.0;
             self.paramMax = 1.0;
             self.paramValue = 1.0;
+            self.paramAvailable = YES;
             _gpuFilter = [GPUImagePrewittEdgeDetectionFilter new];
         }
             break;
@@ -81,6 +89,7 @@
             self.paramMin = 0.0;
             self.paramMax = 1.0;
             self.paramValue = 0.25;
+            self.paramAvailable = YES;
             _gpuFilter = [GPUImageThresholdEdgeDetectionFilter new];
         }
             break;
@@ -89,6 +98,7 @@
             self.paramMin = 0.0;
             self.paramMax = 1.0;
             self.paramValue = 0.25;
+            self.paramAvailable = YES;
             _gpuFilter = [GPUImageSobelEdgeDetectionFilter new];
         }
             break;
@@ -97,6 +107,7 @@
             self.paramMin = 0.0;
             self.paramMax = 1.0;
             self.paramValue = 0.25;
+            self.paramAvailable = YES;
             _gpuFilter = [GPUImageSketchFilter new];
         }
             break;
@@ -105,6 +116,7 @@
             self.paramMin = 1.0;
             self.paramMax = 20.0;
             self.paramValue = 1.0;
+            self.paramAvailable = YES;
             _gpuFilter = [GPUImageAdaptiveThresholdFilter new];
         }
             break;
@@ -113,6 +125,7 @@
             self.paramMin = 0.0;
             self.paramMax = 1.0;
             self.paramValue = 0.25;
+            self.paramAvailable = YES;
             _gpuFilter = [[GPUImageThresholdSketchFilter alloc] init];
         }
             break;
@@ -121,6 +134,7 @@
             self.paramMin = 0.0;
             self.paramMax = 0.05;
             self.paramValue = 0.01;
+            self.paramAvailable = YES;
             _gpuFilter = [[GPUImageHalftoneFilter alloc] init];
         }
             break;
@@ -130,6 +144,7 @@
             self.paramMin = 0.002;
             self.paramMax = 0.05;
             self.paramValue = 0.025;
+            self.paramAvailable = YES;
             _gpuFilter = [[GPUImageMosaicFilter alloc] init];
             [(GPUImageMosaicFilter*)_gpuFilter setTileSet:@"squares.png"];
             [(GPUImageMosaicFilter*)_gpuFilter setColorOn:NO];
@@ -142,6 +157,7 @@
             self.paramMin = 1.0;
             self.paramMax = 6.0;
             self.paramValue = 1.0;
+            self.paramAvailable = YES;
             _gpuFilter = [GPUImageSmoothToonFilter new];
         }
             break;
@@ -151,12 +167,15 @@
             self.paramMin = 0.05;
             self.paramMax = 0.0;
             self.paramValue = 0.3;
+            self.paramAvailable = YES;
             _gpuFilter = [GPUImagePolkaDotFilter new];
         }
             break;
             
         case ZHFilterTypeErosion: {
             self.title = @"Erosion";
+            self.paramAvailable = NO;
+
             _gpuFilter = [[GPUImageRGBErosionFilter alloc] initWithRadius:4];
         }
             break;
@@ -164,6 +183,7 @@
         case ZHFilterTypeUIElement: {
             
             self.title = @"UIElement";
+            self.paramAvailable = NO;
             
             _sepiaFilter = [GPUImageSepiaFilter new];
 
@@ -201,6 +221,8 @@
             break;
         case ZHFilterTypeCustom: {
             self.title = @"Custom";
+            self.paramAvailable = NO;
+
             
             _gpuFilter = [[GPUImageFilterGroup alloc] init];
             
@@ -220,6 +242,7 @@
         case ZHFilterTypeNone:
         default:{
             self.title = @"None";
+            self.paramAvailable = NO;
             _gpuFilter = [GPUImageFilter new];
         }
             break;
@@ -295,6 +318,15 @@
         }
             break;
     }
+}
+
+
+- (id)copyWithZone:(nullable NSZone *)zone{
+    ZHFilter *filter = [[ZHFilter alloc]initWithFilterType:self.filterType];
+    filter.paramMax = _paramMax;
+    filter.paramMin = _paramMin;
+    filter.paramValue = _paramValue;
+    return filter;
 }
 
 @end

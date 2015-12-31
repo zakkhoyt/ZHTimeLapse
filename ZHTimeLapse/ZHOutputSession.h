@@ -8,11 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef enum {
+    ZHOutputSessionOutputTypeVideo = 0,
+    ZHOutputSessionOutputTypeGIF = 1,
+} ZHOutputSessionOutputType;
+
 @interface ZHOutputSession : NSObject <NSCopying>
 @property (nonatomic) CGSize size;
 @property (nonatomic) NSTimeInterval frameRate;
 @property (nonatomic, strong) NSURL *outputURL;
 @property (nonatomic, strong) NSURL *outputGIF;
+@property (nonatomic) ZHOutputSessionOutputType outputType;
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 -(NSDictionary*)dictionaryRepresentation;

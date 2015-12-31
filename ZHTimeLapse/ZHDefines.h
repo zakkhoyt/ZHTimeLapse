@@ -9,9 +9,9 @@
 #ifndef ZHDefines_h
 #define ZHDefines_h
 
-#define ZH_DEBUG 1 [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
+#define ZH_DEBUG 1
 
-#define ZH_BUNDLE_NAME @"RC Video"
+#define ZH_BUNDLE_NAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
 
 //******************************************************************************
 // Trace defines ***********************************************************

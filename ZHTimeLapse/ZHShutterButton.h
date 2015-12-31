@@ -14,5 +14,5 @@ typedef void (^ZHShutterButtonEmptyBlock)();
 @property (nonatomic, strong) ZHSession *session;
 -(void)setStartBlock:(ZHShutterButtonEmptyBlock)startBlock;
 -(void)setStopBlock:(ZHShutterButtonEmptyBlock)stopBlock;
--(void)tick;
+//-(void)tick;
 @end

@@ -37,15 +37,17 @@ typedef enum {
 } ZHFilterType;
 
 
-@interface ZHFilter : NSObject
+@interface ZHFilter : NSObject <NSCopying>
 
 - (instancetype)initWithFilterType:(ZHFilterType)filterType;
+
 -(void)updateParamValue:(CGFloat)value;
 
 @property (nonatomic, readonly) ZHFilterType filterType;
 @property (nonatomic, strong, readonly) GPUImageOutput<GPUImageInput> *gpuFilter;
 @property (nonatomic, strong, readonly) NSString *title;
 
+@property (nonatomic, readonly) BOOL paramAvailable;
 @property (nonatomic, readonly) CGFloat paramMin;
 @property (nonatomic, readonly) CGFloat paramMax;
 @property (nonatomic, readonly) CGFloat paramValue;

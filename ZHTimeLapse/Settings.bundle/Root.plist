@@ -6,29 +6,13 @@
 	<array>
 		<dict>
 			<key>Type</key>
-			<string>Settings</string>
-			<key>Title</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Export as GIF</string>
+			<string>Render as GIF</string>
 			<key>Key</key>
 			<string>ZHApplicationRenderAsGIF</string>
 			<key>DefaultValue</key>
 			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Simple Mode</string>
-			<key>Key</key>
-			<string>ZHApplicationSimpleMode</string>
-			<key>DefaultValue</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>

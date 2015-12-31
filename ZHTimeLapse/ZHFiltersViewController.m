@@ -72,7 +72,7 @@
                     [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeThresholdSketch] videoCamera:_videoCamera];
                     break;
                 case 8:
-                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeUIElement] videoCamera:_videoCamera];
+                    [filterView setFilter:[[ZHFilter alloc]initWithFilterType:ZHFilterTypeErosion] videoCamera:_videoCamera];
                     break;
                 default:
                     NSLog(@"invalid x/y index");
