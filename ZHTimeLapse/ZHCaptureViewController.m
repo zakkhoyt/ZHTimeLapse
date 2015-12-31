@@ -346,18 +346,34 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
     
     
     if(_session.input.filter.paramAvailable) {
-        self.paramSlider.hidden = NO;
         [self.paramSlider setMinimumValue:_session.input.filter.paramMin];
         [self.paramSlider setMaximumValue:_session.input.filter.paramMax];
         [self.paramSlider setValue:_session.input.filter.paramValue];
         self.topToolbarViewHeightConstraint.constant = 96;
+
+        // Grow first then show slider
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.topToolbarView layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            self.paramSlider.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                self.paramSlider.alpha = 1.0;
+            }];
+        }];
+
     } else {
         self.paramSlider.hidden = YES;
         self.topToolbarViewHeightConstraint.constant = 50;
+        // Hide slider first then shrink
+        [UIView animateWithDuration:0.3 animations:^{
+            self.paramSlider.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            self.paramSlider.hidden = YES;
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.topToolbarView layoutIfNeeded];
+            }];
+        }];
     }
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.topToolbarView layoutIfNeeded];
-    }];
     
     // Force initial values
     [self paramSliderValueChanged:self.paramSlider];
