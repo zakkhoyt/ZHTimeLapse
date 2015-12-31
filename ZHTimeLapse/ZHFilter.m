@@ -16,8 +16,13 @@
 @property (nonatomic, readwrite) CGFloat paramMin;
 @property (nonatomic, readwrite) CGFloat paramMax;
 @property (nonatomic, readwrite) CGFloat paramValue;
+
+
 @property (nonatomic, strong) GPUImageUIElement *uiElementInput;
 @property (nonatomic, strong) GPUImageSepiaFilter *sepiaFilter;
+//@property (nonatomic, strong) GPUImageOutput<GPUImageInput> *filter;
+
+//@property (strong, nonatomic) GPUImagePicture *sourcePicture;
 @end
 
 @implementation ZHFilter

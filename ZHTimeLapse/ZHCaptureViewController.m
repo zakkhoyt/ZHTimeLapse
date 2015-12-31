@@ -31,6 +31,7 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 @property (weak, nonatomic) IBOutlet GPUImageView *filterView;
 @property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
 @property (nonatomic, strong) GPUImageRawDataOutput *rawOutput;
+@property (nonatomic, strong) GPUImageUIElement *uiElementInput;
 
 // UI Stuff
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
@@ -299,8 +300,7 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 
 
 -(void)setupCaptureSession{
-    
-    
+
     self.filterView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     self.shutterButton.session = _session;
     
@@ -344,12 +344,49 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
     // Force initial values
     [self paramSliderValueChanged:self.paramSlider];
     
-    [self.session.input.filter.gpuFilter addTarget:self.filterView];
+    BOOL useWatermark = YES;
     
-    self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
-    [self.session.input.filter.gpuFilter addTarget:self.rawOutput];
+    if(useWatermark) {
+        GPUImageOutput<GPUImageInput> *zhFilter = _session.input.filter.gpuFilter;
+        
+        GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+        blendFilter.mix = 1.0;
+        
+        NSDate *startTime = [NSDate date];
+        
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 240.0f, 320.0f)];
+        timeLabel.font = [UIFont systemFontOfSize:17.0f];
+        timeLabel.text = @"Time: 0.0 s";
+        timeLabel.textAlignment = NSTextAlignmentCenter;
+        timeLabel.backgroundColor = [UIColor clearColor];
+        timeLabel.textColor = [UIColor whiteColor];
+        
+        _uiElementInput = [[GPUImageUIElement alloc] initWithView:timeLabel];
+        
+        [zhFilter addTarget:blendFilter];
+        [_uiElementInput addTarget:blendFilter];
+        
+        __unsafe_unretained GPUImageUIElement *weakUIElementInput = _uiElementInput;
+        
+        [zhFilter setFrameProcessingCompletionBlock:^(GPUImageOutput * filter, CMTime frameTime){
+            timeLabel.text = [NSString stringWithFormat:@"Time: %f s", -[startTime timeIntervalSinceNow]];
+            [weakUIElementInput update];
+        }];
+        
+        
+        
+        [self.videoCamera addTarget:zhFilter];
+        [blendFilter addTarget:_filterView];
+
+    } else {
+        [self.session.input.filter.gpuFilter addTarget:self.filterView];
+        
+        self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
+        [self.session.input.filter.gpuFilter addTarget:self.rawOutput];
+        
+        [self.videoCamera addTarget:self.session.input.filter.gpuFilter];
+    }
     
-    [self.videoCamera addTarget:self.session.input.filter.gpuFilter];
     [self.videoCamera startCameraCapture];
     
 }
