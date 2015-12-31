@@ -22,9 +22,11 @@
 #import "ZHDefines.h"
 #import "ZHMenuViewController.h"
 #import "ZHInAppPurchaseIdentifier.h"
+#import "ZHPlaybackGIFViewController.h"
 
 static NSString *SegueCaptureToFrameRateMenu = @"SegueCaptureToFrameRateMenu";
 static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
+static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
 
 @interface ZHCaptureViewController ()
 
@@ -99,6 +101,9 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
         } cancelBlock:^{
  
         }];
+    } else if([segue.identifier isEqualToString:SegueCaptureToPlaybackGIF]) {
+        ZHPlaybackGIFViewController *vc = segue.destinationViewController;
+        vc.session = _session;
     }
 }
 
@@ -215,9 +220,26 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
             break;
     }
     
-    
-    
-    
+    switch (_session.output.outputType) {
+        case ZHOutputSessionOutputTypeVideo:{
+            UIImage *resolutionImage = [[UIImage imageNamed:@"video"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
+            [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
+        }
+            break;
+        case ZHOutputSessionOutputTypeGIF: {
+            UIImage *resolutionImage = [[UIImage imageNamed:@"gif"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
+            [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
+        }
+            break;
+        default:
+            ZH_LOG_ERROR(@"Invalid session output type");
+            UIImage *resolutionImage = [[UIImage imageNamed:@"resolution"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
+            [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
+            break;
+    }
 }
 
 -(void)swipeFramerateAction:(UISwipeGestureRecognizer*)sender {
@@ -247,13 +269,13 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 
 -(void)setupUI {
     
-    //    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    //    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
-    //    [self.exportButton setTitle:@"" forState:UIControlStateNormal];
+//    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
+//    [self.exportButton setTitle:@"" forState:UIControlStateNormal];
     
-    UIImage *resolutionImage = [[UIImage imageNamed:@"resolution"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
-    [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
+//    UIImage *resolutionImage = [[UIImage imageNamed:@"gif"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
+//    [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
     
     UIImage *closeImage = [[UIImage imageNamed:@"close"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.closeButton setImage:closeImage forState:UIControlStateNormal];
@@ -531,7 +553,11 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 -(void)renderGIF {
     [_session renderGIFFromViewController:self completionBlock:^(BOOL success, NSData *data) {
         if(success) {
-            [self shareItems:@[data]];
+            if(data) {
+                [self shareItems:@[data]];
+            } else {
+                [self presentAlertDialogWithMessage:@"Weird errro"];
+            }
         }
     }];
 }
@@ -541,17 +567,21 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 
 -(void)renderVideo{
     [_session renderVideoFromViewController:self completionBlock:^(BOOL success) {
-        // New session
-        [ZHFileManager deleteSession:_session];
-        
-        _session = [ZHSession sessionFromSession:_session];
-        [self setupUI];
-        [self setupCaptureSession];
     }];
 }
 
 
 - (void)startRecording{
+    
+    
+    // New session
+    [ZHFileManager deleteSession:_session];
+    _session = [ZHSession sessionFromSession:_session];
+    [self setupUI];
+    [self setupCaptureSession];
+
+    
+    
     
     self.isRecording = YES;
     
@@ -608,10 +638,15 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
     // Enable screensaver
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     
-    if([ZHUserDefaults renderAsGIF]) {
-        [self renderGIF];
-    } else {
-        [self renderVideo];
+    switch (_session.output.outputType) {
+        case ZHOutputSessionOutputTypeGIF:
+            [self renderGIF];
+            break;
+
+        case ZHOutputSessionOutputTypeVideo:
+        default:
+            [self renderVideo];
+            break;
     }
 }
 
@@ -619,17 +654,7 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 #pragma mark IBActions
 
 - (IBAction)exportButtonTouchUpInside:(id)sender {
-    if ([[UIApplication sharedApplication]
-         canOpenURL:[NSURL URLWithString:@"photos://"]]) {
-        
-        // Waze is installed. Launch Waze and start navigation
-        NSString *urlStr = [NSString stringWithFormat:@"photos://"];
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-        
-    } else {
-        ZH_LOG_DEBUG(@"Cannot open Photos app");
-    }
+//    [self performSegueWithIdentifier:SegueCaptureToPlaybackGIF sender:nil];
 }
 
 
@@ -647,30 +672,59 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
     
 //    [self performSegueWithIdentifier:SegueCaptureToResolutionMenu sender:nil];
     
+    void (^update)() = ^(){
+        [self updateResolutionLabel];
+        [self setupCaptureSession];
+    };
+    
+    
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Resolution" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     ac.popoverPresentationController.sourceRect = sender.bounds;
     ac.popoverPresentationController.sourceView = sender;
     
-    [ac addAction:[UIAlertAction actionWithTitle:@"288x352" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [ac addAction:[UIAlertAction actionWithTitle:@"288x352 as Video" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.size = CGSizeMake(288, 352);
         _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
+        _session.output.outputType = ZHOutputSessionOutputTypeVideo;
+        update();
     }]];
     
-    [ac addAction:[UIAlertAction actionWithTitle:@"480x640" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [ac addAction:[UIAlertAction actionWithTitle:@"480x640 as Video" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.size = CGSizeMake(480, 640);
         _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
+        _session.output.outputType = ZHOutputSessionOutputTypeVideo;
+        update();
     }]];
     
-    [ac addAction:[UIAlertAction actionWithTitle:@"720x1280" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [ac addAction:[UIAlertAction actionWithTitle:@"720x1280 as Video" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.size = CGSizeMake(720, 1280);
         _session.output.size = _session.input.size;
-        [self updateResolutionLabel];
-        [self setupCaptureSession];
+        _session.output.outputType = ZHOutputSessionOutputTypeVideo;
+        update();
     }]];
+    
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"288x352 as GIF" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(288, 352);
+        _session.output.size = _session.input.size;
+        _session.output.outputType = ZHOutputSessionOutputTypeGIF;
+        update();
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"480x640 as GIF" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(480, 640);
+        _session.output.size = _session.input.size;
+        _session.output.outputType = ZHOutputSessionOutputTypeGIF;
+        update();
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"720x1280 as GIF" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _session.input.size = CGSizeMake(720, 1280);
+        _session.output.size = _session.input.size;
+        _session.output.outputType = ZHOutputSessionOutputTypeGIF;
+        update();
+    }]];
+
     
     //    [ac addAction:[UIAlertAction actionWithTitle:@"1080x1920" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     //        _session.input.size = CGSizeMake(1080, 1920);

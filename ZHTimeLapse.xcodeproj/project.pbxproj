@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0154DB02A626499788686998 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 893447F9A9D2FCD841C56B50 /* libPods.a */; };
+		C614854D1C35D5890084F736 /* ZHPlaybackVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C614854C1C35D5890084F736 /* ZHPlaybackVideoViewController.m */; };
+		C61485501C35D59B0084F736 /* ZHPlaybackGIFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C614854F1C35D59B0084F736 /* ZHPlaybackGIFViewController.m */; };
 		C620869F1C2D0B3E0026B943 /* ZHFiltersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C620869E1C2D0B3E0026B943 /* ZHFiltersViewController.m */; };
 		C62086A31C2DE3F40026B943 /* ZHFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086A21C2DE3F40026B943 /* ZHFilterView.m */; };
 		C62086A51C2DE3FC0026B943 /* ZHFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C62086A41C2DE3FC0026B943 /* ZHFilterView.xib */; };
@@ -66,6 +68,10 @@
 		457310F4E255CAF4B358112E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		893447F9A9D2FCD841C56B50 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA33167DB87EF6FE7D9B9A70 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C614854B1C35D5890084F736 /* ZHPlaybackVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPlaybackVideoViewController.h; sourceTree = "<group>"; };
+		C614854C1C35D5890084F736 /* ZHPlaybackVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPlaybackVideoViewController.m; sourceTree = "<group>"; };
+		C614854E1C35D59B0084F736 /* ZHPlaybackGIFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPlaybackGIFViewController.h; sourceTree = "<group>"; };
+		C614854F1C35D59B0084F736 /* ZHPlaybackGIFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPlaybackGIFViewController.m; sourceTree = "<group>"; };
 		C620869D1C2D0B3E0026B943 /* ZHFiltersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFiltersViewController.h; sourceTree = "<group>"; };
 		C620869E1C2D0B3E0026B943 /* ZHFiltersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFiltersViewController.m; sourceTree = "<group>"; };
 		C62086A11C2DE3F40026B943 /* ZHFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFilterView.h; sourceTree = "<group>"; };
@@ -391,6 +397,10 @@
 				C62086A01C2DE3E10026B943 /* Filters */,
 				C69EB1FE1C30B3E7004F4807 /* Intro */,
 				C627E56B1C348167001152FD /* Menu */,
+				C614854B1C35D5890084F736 /* ZHPlaybackVideoViewController.h */,
+				C614854C1C35D5890084F736 /* ZHPlaybackVideoViewController.m */,
+				C614854E1C35D59B0084F736 /* ZHPlaybackGIFViewController.h */,
+				C614854F1C35D59B0084F736 /* ZHPlaybackGIFViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -629,6 +639,7 @@
 			files = (
 				C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */,
 				C62086BE1C2F84DD0026B943 /* ZHFilter.m in Sources */,
+				C61485501C35D59B0084F736 /* ZHPlaybackGIFViewController.m in Sources */,
 				C69ADCB11C2BD1D300612146 /* UIColor+ZH.m in Sources */,
 				C69EB1FD1C30B3E4004F4807 /* ZHIntroViewController.m in Sources */,
 				C69ADCB21C2BD1D300612146 /* UIViewController+AlertController.m in Sources */,
@@ -644,6 +655,7 @@
 				C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */,
 				C62086B91C2F7B230026B943 /* ZHShutterButton.m in Sources */,
 				C6D442F61C28E49900CE843E /* ZHFileManager.m in Sources */,
+				C614854D1C35D5890084F736 /* ZHPlaybackVideoViewController.m in Sources */,
 				C62086AD1C2E896D0026B943 /* UIImage+animatedGIF.m in Sources */,
 				C6BBBFD11C2CBE3000FCBC3F /* ZHNavigationController.m in Sources */,
 				C6D442E51C28A7BD00CE843E /* ZHCaptureViewController.m in Sources */,

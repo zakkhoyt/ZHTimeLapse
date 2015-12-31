@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -493,7 +494,7 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phu-hm-Rw5">
-                                                <rect key="frame" x="8" y="8.5" width="72" height="127.5"/>
+                                                <rect key="frame" x="8" y="8" width="72" height="127.5"/>
                                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="exportButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="sW6-kW-Cg6"/>
@@ -584,11 +585,12 @@
                                                         <rect key="frame" x="150" y="0.0" width="150" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DxN-xk-Jbi">
-                                                                <rect key="frame" x="59" y="9" width="32" height="32"/>
+                                                                <rect key="frame" x="59.5" y="9" width="32" height="32"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="32" id="UmD-9t-xiN"/>
                                                                     <constraint firstAttribute="height" constant="32" id="XfR-Us-vec"/>
                                                                 </constraints>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                                 <state key="normal" image="resolution"/>
                                                                 <connections>
                                                                     <action selector="resolutionButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="S6Y-Xi-mxY"/>
@@ -738,6 +740,7 @@
                         <outletCollection property="rotatableViews" destination="cyO-7N-etY" id="bbq-QR-7X1"/>
                         <segue destination="Apf-cI-YEg" kind="presentation" identifier="SegueCaptureToFrameRateMenu" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="3a7-S9-u74"/>
                         <segue destination="Apf-cI-YEg" kind="presentation" identifier="SegueCaptureToResolutionMenu" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="bR4-0D-8e4"/>
+                        <segue destination="3c7-yo-iul" kind="presentation" identifier="SegueCaptureToPlaybackGIF" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="T3W-00-Pcd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWa-j0-zgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -748,6 +751,72 @@
                 </barButtonItem>
             </objects>
             <point key="canvasLocation" x="2255" y="1476"/>
+        </scene>
+        <!--PlaybackGIF View Controller-->
+        <scene sceneID="Hdz-2u-BmM">
+            <objects>
+                <viewController id="3c7-yo-iul" customClass="ZHPlaybackGIFViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t2P-qC-2XP"/>
+                        <viewControllerLayoutGuide type="bottom" id="kpw-xg-lwA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kxZ-JW-Ax6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wdu-hR-Xby">
+                                <rect key="frame" x="30" y="60" width="540" height="480"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ceF-6J-CZi">
+                                <rect key="frame" x="30" y="540" width="540" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QmD-df-Zt4">
+                                        <rect key="frame" x="0.0" y="0.0" width="266" height="44"/>
+                                        <state key="normal" title="Close"/>
+                                        <connections>
+                                            <action selector="closeButtonTouchUpInside:" destination="3c7-yo-iul" eventType="touchUpInside" id="qQL-ry-kNJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSH-BE-Cx4">
+                                        <rect key="frame" x="274" y="0.0" width="266" height="44"/>
+                                        <state key="normal" title="Export"/>
+                                        <connections>
+                                            <action selector="shareButtonTouchUpInside:" destination="3c7-yo-iul" eventType="touchUpInside" id="7EC-I4-K2V"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="0cX-S7-TI4"/>
+                                    <constraint firstItem="QmD-df-Zt4" firstAttribute="top" secondItem="ceF-6J-CZi" secondAttribute="top" id="7cM-BP-HnY"/>
+                                    <constraint firstAttribute="bottom" secondItem="QmD-df-Zt4" secondAttribute="bottom" id="ALK-Pn-r4M"/>
+                                    <constraint firstAttribute="bottom" secondItem="gSH-BE-Cx4" secondAttribute="bottom" id="DaN-NN-QBI"/>
+                                    <constraint firstItem="QmD-df-Zt4" firstAttribute="leading" secondItem="ceF-6J-CZi" secondAttribute="leading" id="HPt-QH-le8"/>
+                                    <constraint firstAttribute="trailing" secondItem="gSH-BE-Cx4" secondAttribute="trailing" id="JUS-XB-hvz"/>
+                                    <constraint firstItem="gSH-BE-Cx4" firstAttribute="top" secondItem="ceF-6J-CZi" secondAttribute="top" id="Uj9-oY-WXe"/>
+                                    <constraint firstItem="gSH-BE-Cx4" firstAttribute="leading" secondItem="QmD-df-Zt4" secondAttribute="trailing" constant="8" id="gky-qv-TuV"/>
+                                    <constraint firstItem="gSH-BE-Cx4" firstAttribute="width" secondItem="QmD-df-Zt4" secondAttribute="width" id="qwr-E1-FjN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.49636314655172414" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="ceF-6J-CZi" firstAttribute="leading" secondItem="Wdu-hR-Xby" secondAttribute="leading" id="EqL-cL-OdC"/>
+                            <constraint firstItem="Wdu-hR-Xby" firstAttribute="height" secondItem="kxZ-JW-Ax6" secondAttribute="height" multiplier="0.8" priority="750" id="KyI-6t-Stt"/>
+                            <constraint firstItem="ceF-6J-CZi" firstAttribute="top" secondItem="Wdu-hR-Xby" secondAttribute="bottom" id="PBu-1y-rdd"/>
+                            <constraint firstItem="Wdu-hR-Xby" firstAttribute="width" secondItem="kxZ-JW-Ax6" secondAttribute="width" multiplier="0.9" id="UsA-Oe-8Ft"/>
+                            <constraint firstItem="ceF-6J-CZi" firstAttribute="trailing" secondItem="Wdu-hR-Xby" secondAttribute="trailing" id="XUb-Gp-udc"/>
+                            <constraint firstItem="Wdu-hR-Xby" firstAttribute="centerX" secondItem="kxZ-JW-Ax6" secondAttribute="centerX" id="abb-H4-13h"/>
+                            <constraint firstItem="Wdu-hR-Xby" firstAttribute="centerY" secondItem="kxZ-JW-Ax6" secondAttribute="centerY" id="xWh-xF-MhU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gifImageView" destination="Wdu-hR-Xby" id="hPf-dA-cVp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2GK-FU-MP0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1997" y="2269"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="QAn-DY-KUB">
@@ -834,7 +903,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCE-xC-v7O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2114" y="2253"/>
+            <point key="canvasLocation" x="2821" y="2317"/>
         </scene>
         <!--Filters View Controller-->
         <scene sceneID="inU-tL-ylc">

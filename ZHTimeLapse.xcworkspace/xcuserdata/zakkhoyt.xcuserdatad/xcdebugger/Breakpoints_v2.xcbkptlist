@@ -28,11 +28,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473287092.009985"
+            timestampString = "473290777.285805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
+            startingLineNumber = "569"
+            endingLineNumber = "569"
             landmarkName = "-renderVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -44,27 +44,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473287092.009985"
+            timestampString = "473290486.184949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "550"
-            endingLineNumber = "550"
-            landmarkName = "-renderVideo"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473286273.387479"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
             landmarkName = "-setupCaptureSession"
             landmarkType = "5">
          </BreakpointContent>
@@ -76,11 +60,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473287092.009985"
+            timestampString = "473290777.285805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "588"
-            endingLineNumber = "588"
+            startingLineNumber = "611"
+            endingLineNumber = "611"
             landmarkName = "-startRecording"
             landmarkType = "5">
          </BreakpointContent>
@@ -92,11 +76,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473287092.009985"
+            timestampString = "473290777.285805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "587"
-            endingLineNumber = "587"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
             landmarkName = "-startRecording"
             landmarkType = "5">
          </BreakpointContent>
@@ -108,11 +92,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473287092.009985"
+            timestampString = "473290777.285805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "580"
-            endingLineNumber = "580"
+            startingLineNumber = "603"
+            endingLineNumber = "603"
             landmarkName = "-startRecording"
             landmarkType = "5">
             <Locations>
@@ -171,11 +155,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473287092.009985"
+            timestampString = "473290777.285805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "589"
-            endingLineNumber = "589"
+            startingLineNumber = "612"
+            endingLineNumber = "612"
             landmarkName = "-startRecording"
             landmarkType = "5">
          </BreakpointContent>
@@ -215,16 +199,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZHTimeLapse/ZHCaptureViewController.m"
+            timestampString = "473290486.184949"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
+            landmarkName = "-shareItems:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ZHCaptureViewController renderGIF]"
+                  moduleName = "ZHTimeLapse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zakkhoyt/Code/repositories/vwwGithub/ZHTimeLapse/ZHTimeLapse/ZHCaptureViewController.m"
+                  timestampString = "473288651.454086"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "533"
+                  endingLineNumber = "533"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[ZHCaptureViewController renderGIF]_block_invoke"
+                  moduleName = "ZHTimeLapse"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zakkhoyt/Code/repositories/vwwGithub/ZHTimeLapse/ZHTimeLapse/ZHCaptureViewController.m"
+                  timestampString = "473288651.454299"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "533"
+                  endingLineNumber = "533"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZHTimeLapse/ZHCaptureViewController.m"
+            timestampString = "473290486.184949"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
+            landmarkName = "-shareItems:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZHTimeLapse/ZHSession.m"
-            timestampString = "473287071.355148"
+            filePath = "ZHTimeLapse/ZHCaptureViewController.m"
+            timestampString = "473290486.184949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "-renderGIFFromViewController:completionBlock:"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "-updateResolutionLabel"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZHTimeLapse/ZHCaptureViewController.m"
+            timestampString = "473290486.184949"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "-updateResolutionLabel"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
