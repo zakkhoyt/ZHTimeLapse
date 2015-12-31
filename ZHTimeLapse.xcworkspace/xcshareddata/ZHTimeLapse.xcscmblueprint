@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E72A19C17DADB9F60DFD1E814CA80F7914C31EEF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "47EA65831F4AA167B881A99DBC4B3AFD38F02C0C" : 0,
+    "E72A19C17DADB9F60DFD1E814CA80F7914C31EEF" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D1750A23-457A-4790-903A-4E6E2F983193",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "47EA65831F4AA167B881A99DBC4B3AFD38F02C0C" : "Theremin\/",
+    "E72A19C17DADB9F60DFD1E814CA80F7914C31EEF" : "ZHTimeLapse\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ZHTimeLapse",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ZHTimeLapse.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:zakkhoyt\/Theremin.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "47EA65831F4AA167B881A99DBC4B3AFD38F02C0C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:zakkhoyt\/ZHTimeLapse.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E72A19C17DADB9F60DFD1E814CA80F7914C31EEF"
+    }
+  ]
+}

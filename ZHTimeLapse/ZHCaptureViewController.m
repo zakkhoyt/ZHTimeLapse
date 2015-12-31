@@ -21,6 +21,7 @@
 #import "ZHUserDefaults.h"
 #import "ZHDefines.h"
 #import "ZHMenuViewController.h"
+#import "ZHInAppPurchaseIdentifier.h"
 
 static NSString *SegueCaptureToFrameRateMenu = @"SegueCaptureToFrameRateMenu";
 static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
@@ -32,6 +33,7 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 @property (nonatomic, strong) GPUImageVideoCamera *videoCamera;
 @property (nonatomic, strong) GPUImageRawDataOutput *rawOutput;
 @property (nonatomic, strong) GPUImageUIElement *uiElementInput;
+@property (nonatomic, strong) GPUImageAlphaBlendFilter *blendFilter;
 
 // UI Stuff
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
@@ -306,11 +308,15 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
     
     // Clean up
     if(self.videoCamera) {
-        [self.videoCamera stopCameraCapture];
-        [self.videoCamera removeAllTargets];
-        [self.session.input.filter.gpuFilter removeAllTargets];
-        self.rawOutput = nil;
-        self.videoCamera = nil;
+        [_videoCamera stopCameraCapture];
+        [_videoCamera removeAllTargets];
+        [_session.input.filter.gpuFilter removeAllTargets];
+        [_blendFilter removeAllTargets];
+        [_uiElementInput removeAllTargets];
+        _rawOutput = nil;
+        _videoCamera = nil;
+        _blendFilter = nil;
+        _uiElementInput = nil;
     }
     
     
@@ -344,49 +350,49 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
     // Force initial values
     [self paramSliderValueChanged:self.paramSlider];
     
-    BOOL useWatermark = YES;
     
-    if(useWatermark) {
-        GPUImageOutput<GPUImageInput> *zhFilter = _session.input.filter.gpuFilter;
-        
-        GPUImageAlphaBlendFilter *blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
-        blendFilter.mix = 1.0;
-        
-        NSDate *startTime = [NSDate date];
-        
-        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 240.0f, 320.0f)];
-        timeLabel.font = [UIFont systemFontOfSize:17.0f];
-        timeLabel.text = @"Time: 0.0 s";
-        timeLabel.textAlignment = NSTextAlignmentCenter;
-        timeLabel.backgroundColor = [UIColor clearColor];
-        timeLabel.textColor = [UIColor whiteColor];
-        
-        _uiElementInput = [[GPUImageUIElement alloc] initWithView:timeLabel];
-        
-        [zhFilter addTarget:blendFilter];
-        [_uiElementInput addTarget:blendFilter];
-        
-        __unsafe_unretained GPUImageUIElement *weakUIElementInput = _uiElementInput;
-        
-        [zhFilter setFrameProcessingCompletionBlock:^(GPUImageOutput * filter, CMTime frameTime){
-            timeLabel.text = [NSString stringWithFormat:@"Time: %f s", -[startTime timeIntervalSinceNow]];
-            [weakUIElementInput update];
-        }];
-        
-        
-        
-        [self.videoCamera addTarget:zhFilter];
-        [blendFilter addTarget:_filterView];
+    if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseUnlockKey]){
 
-    } else {
         [self.session.input.filter.gpuFilter addTarget:self.filterView];
         
         self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
         [self.session.input.filter.gpuFilter addTarget:self.rawOutput];
         
         [self.videoCamera addTarget:self.session.input.filter.gpuFilter];
+    } else {
+        // If trial version we want to present a watermark. Pipe a UIView through a blend filter with our normal video feed to replace the output.
+        
+        GPUImageOutput<GPUImageInput> *zhFilter = _session.input.filter.gpuFilter;
+        
+        _blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
+        _blendFilter.mix = 1.0;
+        
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _session.input.size.width, _session.input.size.height)];
+        timeLabel.font = [UIFont systemFontOfSize:17.0f];
+        timeLabel.text = @"Trial Version\nPurchase on app` store now.";
+        timeLabel.textAlignment = NSTextAlignmentCenter;
+        timeLabel.backgroundColor = [UIColor clearColor];
+        timeLabel.textColor = [UIColor whiteColor];
+        
+        
+        _uiElementInput = [[GPUImageUIElement alloc] initWithView:timeLabel];
+        
+        [zhFilter addTarget:_blendFilter];
+        [_uiElementInput addTarget:_blendFilter];
+        
+        __unsafe_unretained GPUImageUIElement *weakUIElementInput = _uiElementInput;
+        [zhFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *filter, CMTime frameTime){
+//            timeLabel.text = [NSString stringWithFormat:@"Time: %f s", -[startTime timeIntervalSinceNow]];
+            [weakUIElementInput update];
+        }];
+        
+        [self.videoCamera addTarget:zhFilter];
+        [_blendFilter addTarget:_filterView];
+        
+        self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
+        [_blendFilter addTarget:self.rawOutput];
     }
-    
+
     [self.videoCamera startCameraCapture];
     
 }
@@ -609,11 +615,13 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
 }
 
 
-- (IBAction)resolutionButtonTouchUpInside:(id)sender {
+- (IBAction)resolutionButtonTouchUpInside:(UIButton*)sender {
     
 //    [self performSegueWithIdentifier:SegueCaptureToResolutionMenu sender:nil];
     
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Resolution" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    ac.popoverPresentationController.sourceRect = sender.bounds;
+    ac.popoverPresentationController.sourceView = sender;
     
     [ac addAction:[UIAlertAction actionWithTitle:@"288x352" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.size = CGSizeMake(288, 352);
@@ -660,11 +668,14 @@ static NSString *SegueCaptureToResolutionMenu = @"SegueCaptureToResolutionMenu";
     [_session.input.filter updateParamValue:sender.value];
 }
 
-- (IBAction)frameRateButtonTouchUpInside:(id)sender {
+- (IBAction)frameRateButtonTouchUpInside:(UIButton*)sender {
     
 //    [self performSegueWithIdentifier:SegueCaptureToFrameRateMenu sender:nil];
     
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Capture Frame Rate" message:@"Swipe button left/right for fine control or select from the following:" preferredStyle:UIAlertControllerStyleActionSheet];
+    ac.popoverPresentationController.sourceRect = sender.bounds;
+    ac.popoverPresentationController.sourceView = sender;
+
     
     [ac addAction:[UIAlertAction actionWithTitle:@"4 every second" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         _session.input.frameRateSeconds = 1;
