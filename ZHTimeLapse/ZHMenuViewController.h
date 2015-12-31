@@ -16,9 +16,10 @@ typedef enum {
 
 typedef void (^ZHMenuViewControllerResolutionBlock)(CGSize resolution);
 typedef void (^ZHMenuViewControllerFrameRateBlock)(NSUInteger seconds, NSUInteger frames);
+typedef void (^ZHMenuViewControllerEmptyBlock)();
 
 @interface ZHMenuViewController : UIViewController
-@property (nonatomic) ZHMenuViewControllerType type;
-@property (nonatomic, strong) ZHMenuViewControllerResolutionBlock resolutionBlock;
-@property (nonatomic, strong) ZHMenuViewControllerFrameRateBlock frameRateBlock;
+
+-(void)setTitle:(NSString*)title type:(ZHMenuViewControllerType)type frameRateBlock:(ZHMenuViewControllerFrameRateBlock)frameRateBlock cancelBlock:(ZHMenuViewControllerEmptyBlock)cancelBlock;
+-(void)setTitle:(NSString*)title type:(ZHMenuViewControllerType)type resolutionBlock:(ZHMenuViewControllerResolutionBlock)resolutionBlock cancelBlock:(ZHMenuViewControllerEmptyBlock)cancelBlock;
 @end

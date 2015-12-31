@@ -16,9 +16,18 @@ typedef enum {
     ZHMenuViewControllerMenuItemTypeCancel,
 } ZHMenuViewControllerMenuItemType;
 
-typedef void (^ZHMenuViewControllerEmptyBlock)();
+
 
 @interface ZHMenuViewController ()
+@property (nonatomic, strong) NSString *titleString;
+@property (nonatomic) ZHMenuViewControllerType type;
+@property (nonatomic, strong) ZHMenuViewControllerResolutionBlock resolutionBlock;
+@property (nonatomic, strong) ZHMenuViewControllerFrameRateBlock frameRateBlock;
+@property (nonatomic, strong) ZHMenuViewControllerEmptyBlock cancelBlock;
+
+@property (nonatomic, weak) IBOutlet UIView *containerView;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *cancelButton;
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *centerYConstraint;
 @property (nonatomic, strong) NSArray *menuItems;
@@ -38,9 +47,10 @@ typedef void (^ZHMenuViewControllerEmptyBlock)();
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    _collectionView.layer.masksToBounds = YES;
-    _collectionView.layer.cornerRadius = 10;
+    _containerView.layer.masksToBounds = YES;
+    _containerView.layer.cornerRadius = 10;
     
+    _titleLabel.text = _titleString;
     
     // Set the CV just off the bottom of the screen
     [self animateOutWithDuration:0 completionBlock:NULL];
@@ -69,6 +79,22 @@ typedef void (^ZHMenuViewControllerEmptyBlock)();
     [super viewDidAppear:animated];
     [self animateInWithDuration:0.3];
 }
+
+-(void)setTitle:(NSString*)title type:(ZHMenuViewControllerType)type frameRateBlock:(ZHMenuViewControllerFrameRateBlock)frameRateBlock cancelBlock:(ZHMenuViewControllerEmptyBlock)cancelBlock {
+    _titleString = title;
+    _type = type;
+    _frameRateBlock = frameRateBlock;
+    _cancelBlock = cancelBlock;
+}
+
+-(void)setTitle:(NSString*)title type:(ZHMenuViewControllerType)type resolutionBlock:(ZHMenuViewControllerResolutionBlock)resolutionBlock cancelBlock:(ZHMenuViewControllerEmptyBlock)cancelBlock {
+    _titleString = title;
+    _type = type;
+    _resolutionBlock = resolutionBlock;
+    _cancelBlock = cancelBlock;
+}
+
+
 
 -(void)animateInWithDuration:(NSTimeInterval)duration{
     _centerYConstraint.constant = 0;
@@ -112,6 +138,14 @@ typedef void (^ZHMenuViewControllerEmptyBlock)();
     return type;
 }
 
+-(IBAction)cancelButtonTouchUpInside:(id)sender {
+    if(_cancelBlock) {
+        _cancelBlock();
+        [self animateOutWithDuration:0.3 completionBlock:^{
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }];
+    }
+}
 @end
 
 

@@ -9,6 +9,7 @@
 #import "ZHShutterButton.h"
 #import "ZHDefines.h"
 #import "NSTimer+Blocks.h"
+@import CoreMotion;
 
 static NSString *ZHShutterButtonStoppedString = @"Capture";
 static NSString *ZHShutterButtonStartedString = @"";
@@ -22,8 +23,15 @@ static NSString *ZHShutterButtonStartedString = @"";
 @property (nonatomic, strong) NSTimer *orbitTimer;
 //@property (nonatomic, strong) UIView *orbitView;
 @property (nonatomic, strong) NSTimer *tickTimer;
+@property (nonatomic) NSUInteger tickCounter;
 
 @property (nonatomic) BOOL isRecording;
+
+@property (nonatomic, strong) UIDynamicAnimator *animator;
+@property (nonatomic, strong) UIGravityBehavior *gravity;
+//@property (nonatomic, strong) UIPushBehavior *push;
+
+@property (nonatomic, strong) CMMotionManager *motion;
 @end
 
 @implementation ZHShutterButton
@@ -98,83 +106,54 @@ static NSString *ZHShutterButtonStartedString = @"";
     rotateAnimation.repeatCount = 10000;
     [self.orbitView.layer addAnimation:rotateAnimation forKey:@"rotate"];
     
-//    _orbitTimer = [NSTimer scheduledTimerWithTimeInterval:1/_session.input.frameRate block:^{
-//        // A view to rotate around the button
-//        UIView *bgView = [[UIView alloc]initWithFrame:self.bounds];
-//        bgView.userInteractionEnabled = NO;
-//        bgView.layer.masksToBounds = YES;
-//        bgView.layer.cornerRadius = bgView.bounds.size.width / 2.0;
-//        CALayer *orbitLayer = self.orbitView.layer.presentationLayer;
-//        bgView.layer.transform = orbitLayer.transform;
-//        
-//        // A tick line on the rotating view
-//        const CGFloat w = 8;
-//        const CGFloat h = 8;
-//        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, -h / 2.0, w, h);
-//        UIView *b = [[UIView alloc]initWithFrame:f];
-//        b.layer.cornerRadius = w/2.0;
-//        b.layer.masksToBounds = YES;
-//        b.backgroundColor = [UIColor whiteColor];
-//        [bgView addSubview:b];
-//        [self.shutterButton addSubview:bgView];
-//        
-//        [UIView animateWithDuration:0.5 animations:^{
-//            bgView.alpha = 0;
-//        } completion:^(BOOL finished) {
-//            [bgView removeFromSuperview];
-//        }];
-//    } repeats:YES];
-    
-//    __block NSUInteger counter = 0;
-//    
-//    void (^tick)() = ^(){
-//        // A view to rotate around the button
-//        UIView *bgView = [[UIView alloc]initWithFrame:self.bounds];
-//        bgView.userInteractionEnabled = NO;
-//        bgView.layer.masksToBounds = YES;
-//        bgView.layer.cornerRadius = bgView.bounds.size.width / 2.0;
-//        // Calculate rotation angle
-//        CGFloat angle = counter * 2*M_PI/_session.input.frameRate;
-//        bgView.transform = CGAffineTransformMakeRotation(angle);
-//        
-//        // A tick line on the rotating view
-//        const CGFloat w = 8;
-//        const CGFloat h = 8;
-//        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, -h / 2.0, w, h);
-//        UIView *b = [[UIView alloc]initWithFrame:f];
-//        b.layer.cornerRadius = w/2.0;
-//        b.layer.masksToBounds = YES;
-//        b.backgroundColor = [UIColor whiteColor];
-//        [bgView addSubview:b];
-//        [self.shutterButton addSubview:bgView];
-//        counter++;
-//
-//        [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//            bgView.alpha = 0;
-//            b.transform = CGAffineTransformMakeTranslation(0, (_shutterButton.bounds.size.height) / 2.0);
-//            b.transform = CGAffineTransformScale(b.transform, 0.2, 0.2);
-//        } completion:^(BOOL finished) {
-//            [bgView removeFromSuperview];
-//        }];
-//    };
-//
-//    tick();
-//    _tickTimer = [NSTimer scheduledTimerWithTimeInterval:1/_session.input.frameRate block:^{
-//        tick();
-//    } repeats:YES];
+
+    _tickCounter = 0;
+    [self tick];
+    _tickTimer = [NSTimer scheduledTimerWithTimeInterval:1/_session.input.frameRate block:^{
+        [self tick];
+    } repeats:YES];
     
     
     
 }
 
+
+
 -(void)tick {
+    
+//    // A view to rotate around the button
+//    UIView *bgView = [[UIView alloc]initWithFrame:self.bounds];
+//    bgView.userInteractionEnabled = NO;
+//    bgView.layer.masksToBounds = YES;
+//    bgView.layer.cornerRadius = bgView.bounds.size.width / 2.0;
+//    CALayer *orbitLayer = self.orbitView.layer.presentationLayer;
+//    bgView.layer.transform = orbitLayer.transform;
+//    
+//    // A tick line on the rotating view
+//    const CGFloat w = 8;
+//    const CGFloat h = 8;
+//    CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0, -h / 2.0, w, h);
+//    UIView *b = [[UIView alloc]initWithFrame:f];
+//    b.layer.cornerRadius = w/2.0;
+//    b.layer.masksToBounds = YES;
+//    b.backgroundColor = [UIColor whiteColor];
+//    [bgView addSubview:b];
+//    [self.shutterButton addSubview:bgView];
+//    
+//    [UIView animateWithDuration:0.5 animations:^{
+//        bgView.alpha = 0;
+//    } completion:^(BOOL finished) {
+//        [bgView removeFromSuperview];
+//    }];
+    
     // A view to rotate around the button
     UIView *bgView = [[UIView alloc]initWithFrame:self.bounds];
     bgView.userInteractionEnabled = NO;
     bgView.layer.masksToBounds = YES;
     bgView.layer.cornerRadius = bgView.bounds.size.width / 2.0;
-    CALayer *orbitLayer = self.orbitView.layer.presentationLayer;
-    bgView.layer.transform = orbitLayer.transform;
+    // Calculate rotation angle
+    CGFloat angle = _tickCounter * 2*M_PI/_session.input.frameRate;
+    bgView.transform = CGAffineTransformMakeRotation(angle);
     
     // A tick line on the rotating view
     const CGFloat w = 8;
@@ -186,16 +165,79 @@ static NSString *ZHShutterButtonStartedString = @"";
     b.backgroundColor = [UIColor whiteColor];
     [bgView addSubview:b];
     [self.shutterButton addSubview:bgView];
+    _tickCounter++;
     
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         bgView.alpha = 0;
+        b.transform = CGAffineTransformMakeTranslation(0, (_shutterButton.bounds.size.height) / 2.0);
+        b.transform = CGAffineTransformScale(b.transform, 0.2, 0.2);
     } completion:^(BOOL finished) {
         [bgView removeFromSuperview];
     }];
 
+
 }
 
 -(void)stopAnimation{
+  
+    // Spit out a dot for each frame in a random direction and vector
+    // Turn on gravity
+    _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+    _gravity = [[UIGravityBehavior alloc] init];
+    [_animator addBehavior:_gravity];
+    
+    // Use real gravity
+    _motion = [[CMMotionManager alloc]init];
+    [_motion startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue]  withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
+        double x = motion.gravity.x;
+        double y = motion.gravity.y;
+        _gravity.gravityDirection = CGVectorMake(x, -y);
+    }];
+
+    NSUInteger count = MIN(_session.input.frameCount, 30);
+    NSTimeInterval delay = 1 / (NSTimeInterval)count;
+    
+    for(NSUInteger index = 0; index < count; index++) {
+        // A tick line on the rotating view
+        const CGFloat w = 8;
+        const CGFloat h = 8;
+        CGRect f = CGRectMake((self.bounds.size.width - w) / 2.0,
+                              (self.bounds.size.height - h) / 2.0,
+                              w,
+                              h);
+        __block UIView *b = [[UIView alloc]initWithFrame:f];
+        b.layer.cornerRadius = w/2.0;
+        b.layer.masksToBounds = YES;
+        b.backgroundColor = [UIColor whiteColor];
+        
+        CGFloat angleRatio = arc4random() % 360 / 360.0;
+        CGFloat angle = 2*M_PI * angleRatio;
+        angle += M_PI;
+        CGFloat magnitudeRatio = arc4random() % 360 / 360.0;
+        CGFloat magnitude = 0.05 * magnitudeRatio;
+        
+        
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * index * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self addSubview:b];
+            
+            // Apply an impulse
+            UIPushBehavior *push = [[UIPushBehavior alloc]initWithItems:@[b] mode:UIPushBehaviorModeInstantaneous];
+            [push setAngle:angle magnitude:magnitude];
+            [_animator addBehavior:push];
+            [_gravity addItem:b];
+        });
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.2 animations:^{
+                b.alpha = 0;
+            } completion:^(BOOL finished) {
+                [b removeFromSuperview];
+                b = nil;
+            }];
+        });
+    }
+    
     [_orbitTimer invalidate];
     [_tickTimer invalidate];
     [self.orbitView.layer removeAnimationForKey:@"rotate"];
