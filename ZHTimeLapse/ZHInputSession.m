@@ -22,11 +22,11 @@
 
 
 -(void)commonInit {
-    _frameRateFrames = 2;
+    _frameRateFrames = 4;
     _frameRateSeconds = 1;
     _captureDevicePosition = AVCaptureDevicePositionFront;
-    _size = CGSizeMake(720, 1280);
-    _filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeNone];
+    _size = CGSizeMake(480, 640);
+    _filter = [[ZHFilter alloc]initWithFilterType:ZHFilterTypeThresholdSketch];
 }
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary {

@@ -28,11 +28,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473290777.285805"
+            timestampString = "473305304.018489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
             landmarkName = "-renderVideo"
             landmarkType = "5">
          </BreakpointContent>
@@ -60,11 +60,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473290777.285805"
+            timestampString = "473305304.018489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
+            startingLineNumber = "609"
+            endingLineNumber = "609"
             landmarkName = "-startRecording"
             landmarkType = "5">
          </BreakpointContent>
@@ -76,11 +76,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473290777.285805"
+            timestampString = "473305304.018489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "610"
-            endingLineNumber = "610"
+            startingLineNumber = "608"
+            endingLineNumber = "608"
             landmarkName = "-startRecording"
             landmarkType = "5">
          </BreakpointContent>
@@ -92,11 +92,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473290777.285805"
+            timestampString = "473305304.018489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "603"
-            endingLineNumber = "603"
+            startingLineNumber = "601"
+            endingLineNumber = "601"
             landmarkName = "-startRecording"
             landmarkType = "5">
             <Locations>
@@ -155,11 +155,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473290777.285805"
+            timestampString = "473305304.018489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "612"
-            endingLineNumber = "612"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
             landmarkName = "-startRecording"
             landmarkType = "5">
          </BreakpointContent>

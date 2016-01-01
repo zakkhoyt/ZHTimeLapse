@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="goT-f2-Hm2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="goT-f2-Hm2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -500,14 +500,6 @@
                                                     <action selector="exportButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="sW6-kW-Cg6"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4L-Qq-cJF">
-                                                <rect key="frame" x="88" y="64" width="13" height="14.5"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <size key="shadowOffset" width="1" height="1"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyO-7N-etY" customClass="ZHShutterButton">
                                                 <rect key="frame" x="270" y="42" width="60" height="60"/>
                                                 <constraints>
@@ -521,19 +513,27 @@
                                                     <action selector="shutterButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="nOi-R5-LO1"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4L-Qq-cJF">
+                                                <rect key="frame" x="579" y="64" width="13" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="shadowOffset" width="1" height="1"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.89644396551724137" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Phu-hm-Rw5" firstAttribute="top" secondItem="25s-Dw-j1M" secondAttribute="top" id="46F-Q3-UTI"/>
+                                            <constraint firstItem="N4L-Qq-cJF" firstAttribute="centerY" secondItem="0eV-X0-9tK" secondAttribute="centerY" id="Atk-75-ESP"/>
                                             <constraint firstItem="Phu-hm-Rw5" firstAttribute="leading" secondItem="25s-Dw-j1M" secondAttribute="leading" id="Drk-eg-cP6"/>
                                             <constraint firstItem="cyO-7N-etY" firstAttribute="centerX" secondItem="0eV-X0-9tK" secondAttribute="centerX" id="Eyq-6M-mrC"/>
                                             <constraint firstItem="Phu-hm-Rw5" firstAttribute="trailing" secondItem="25s-Dw-j1M" secondAttribute="trailing" id="KQ9-dF-7PJ"/>
                                             <constraint firstItem="25s-Dw-j1M" firstAttribute="top" secondItem="0eV-X0-9tK" secondAttribute="top" constant="8" id="Ocr-LT-wf0"/>
                                             <constraint firstAttribute="bottom" secondItem="25s-Dw-j1M" secondAttribute="bottom" constant="8" id="Qki-HN-4wY"/>
-                                            <constraint firstItem="N4L-Qq-cJF" firstAttribute="leading" secondItem="25s-Dw-j1M" secondAttribute="trailing" constant="8" id="XCm-xH-drM"/>
                                             <constraint firstItem="25s-Dw-j1M" firstAttribute="leading" secondItem="0eV-X0-9tK" secondAttribute="leading" constant="8" id="a7P-JX-PnB"/>
                                             <constraint firstItem="Phu-hm-Rw5" firstAttribute="bottom" secondItem="25s-Dw-j1M" secondAttribute="bottom" id="kAO-HX-upF"/>
-                                            <constraint firstItem="N4L-Qq-cJF" firstAttribute="centerY" secondItem="25s-Dw-j1M" secondAttribute="centerY" id="kqz-TB-kNv"/>
+                                            <constraint firstAttribute="trailing" secondItem="N4L-Qq-cJF" secondAttribute="trailing" constant="8" id="tM8-4F-U6f"/>
                                             <constraint firstItem="cyO-7N-etY" firstAttribute="centerY" secondItem="0eV-X0-9tK" secondAttribute="centerY" id="xhO-Fk-hWW"/>
                                         </constraints>
                                     </view>

@@ -138,7 +138,10 @@
                         NSLog(@"Exported video to camera roll");
                         
                         if (success == YES) {
-                            [asset saveToAlbum:@"ZHTimeLapse" completionBlock:^(BOOL success) {
+                            NSBundle* bundle = [NSBundle mainBundle];
+                            NSString *executable = [bundle objectForInfoDictionaryKey:@"CFBundleName"];
+
+                            [asset saveToAlbum:executable completionBlock:^(BOOL success) {
                                 NSLog(@"Linking video to photo album");
                             }];
                         }

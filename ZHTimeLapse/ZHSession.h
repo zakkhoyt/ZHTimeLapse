@@ -11,6 +11,8 @@
 #import "ZHInputSession.h"
 #import "ZHOutputSession.h"
 
+
+
 typedef void (^ZHSessionBoolBlock)(BOOL success);
 typedef void (^ZHSessionBoolDataBlock)(BOOL success, NSData *data);
 
@@ -30,6 +32,7 @@ typedef void (^ZHSessionBoolDataBlock)(BOOL success, NSData *data);
 +(ZHSession*)sessionWithName:(NSString*)name;
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 
+-(NSString*)createdByString;
 -(void)saveConfig;
 -(void)cacheImage:(UIImage*)image index:(NSUInteger)index;
 

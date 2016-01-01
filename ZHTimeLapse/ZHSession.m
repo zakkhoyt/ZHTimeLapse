@@ -109,6 +109,33 @@
 
 }
 
+-(NSString*)buildAndVersionString{
+    NSBundle* bundle = [NSBundle mainBundle];
+    NSString* appVersion = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* appBuild = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    return [NSString stringWithFormat:@"v%@ b%@", appVersion, appBuild];
+}
+-(NSString*)executableString{
+    NSBundle* bundle = [NSBundle mainBundle];
+//    NSString *executable = [bundle objectForInfoDictionaryKey:(NSString *)CFBundleName];
+    NSString *executable = [bundle objectForInfoDictionaryKey:@"CFBundleName"];
+    
+    return executable;
+}
+
+
+-(NSString*)createdByString{
+    switch (self.output.outputType) {
+        case ZHOutputSessionOutputTypeVideo:
+            return [NSString stringWithFormat:@"Video created by %@ %@", [self executableString], [self buildAndVersionString]];
+        case ZHOutputSessionOutputTypeGIF:
+            return [NSString stringWithFormat:@"GIF created by %@ %@", [self executableString], [self buildAndVersionString]];
+        default:
+            return [NSString stringWithFormat:@"Created by %@ %@", [self executableString], [self buildAndVersionString]];
+            break;
+    }
+}
+
 -(void)saveConfig{
     // Writes session.json
     NSDictionary *dict = [self dictionaryRepresentation];

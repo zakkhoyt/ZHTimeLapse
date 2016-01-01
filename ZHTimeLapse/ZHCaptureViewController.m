@@ -554,15 +554,13 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
     [_session renderGIFFromViewController:self completionBlock:^(BOOL success, NSData *data) {
         if(success) {
             if(data) {
-                [self shareItems:@[data]];
+                [self shareItems:@[data, _session.createdByString]];
             } else {
-                [self presentAlertDialogWithMessage:@"Weird errro"];
+                [self presentAlertDialogWithMessage:@"Weird error"];
             }
         }
     }];
 }
-
-
 
 
 -(void)renderVideo{

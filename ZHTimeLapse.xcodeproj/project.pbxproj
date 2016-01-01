@@ -168,6 +168,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C61485511C35DB930084F736 /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				C614854B1C35D5890084F736 /* ZHPlaybackVideoViewController.h */,
+				C614854C1C35D5890084F736 /* ZHPlaybackVideoViewController.m */,
+				C614854E1C35D59B0084F736 /* ZHPlaybackGIFViewController.h */,
+				C614854F1C35D59B0084F736 /* ZHPlaybackGIFViewController.m */,
+			);
+			name = Playback;
+			sourceTree = "<group>";
+		};
 		C62086A01C2DE3E10026B943 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,17 +401,14 @@
 		C6D442D41C289E3D00CE843E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C6BBBFD51C2CBF0500FCBC3F /* Navigation */,
 				C6BBBFD31C2CBEF400FCBC3F /* Capture */,
-				C69ADCBA1C2C90D000612146 /* Sessions */,
-				C6BBBFD21C2CBEF000FCBC3F /* Options */,
 				C62086A01C2DE3E10026B943 /* Filters */,
 				C69EB1FE1C30B3E7004F4807 /* Intro */,
 				C627E56B1C348167001152FD /* Menu */,
-				C614854B1C35D5890084F736 /* ZHPlaybackVideoViewController.h */,
-				C614854C1C35D5890084F736 /* ZHPlaybackVideoViewController.m */,
-				C614854E1C35D59B0084F736 /* ZHPlaybackGIFViewController.h */,
-				C614854F1C35D59B0084F736 /* ZHPlaybackGIFViewController.m */,
+				C6BBBFD51C2CBF0500FCBC3F /* Navigation */,
+				C6BBBFD21C2CBEF000FCBC3F /* Options */,
+				C61485511C35DB930084F736 /* Playback */,
+				C69ADCBA1C2C90D000612146 /* Sessions */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
