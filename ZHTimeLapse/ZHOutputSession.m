@@ -47,7 +47,7 @@
 -(void)commonInit{
     _frameRate = 30;
     _size = CGSizeMake(480, 640);
-    _outputType = ZHOutputSessionOutputTypeGIF;
+    _outputType = ZHOutputSessionOutputTypeVideo;
 }
 
 -(NSDictionary*)dictionaryRepresentation {

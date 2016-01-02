@@ -20,6 +20,7 @@
 		C627E56A1C348162001152FD /* ZHMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C627E5691C348162001152FD /* ZHMenuViewController.m */; };
 		C67BACE11C3886F60049B4B4 /* ZHInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACDE1C3886F60049B4B4 /* ZHInAppPurchase.m */; };
 		C67BACE21C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACE01C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m */; };
+		C67BACE41C388F7A0049B4B4 /* description.txt in Resources */ = {isa = PBXBuildFile; fileRef = C67BACE31C388F7A0049B4B4 /* description.txt */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
 		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
@@ -90,6 +91,7 @@
 		C67BACDE1C3886F60049B4B4 /* ZHInAppPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHInAppPurchase.m; sourceTree = "<group>"; };
 		C67BACDF1C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHInAppPurchaseIdentifier.h; sourceTree = "<group>"; };
 		C67BACE01C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHInAppPurchaseIdentifier.m; sourceTree = "<group>"; };
+		C67BACE31C388F7A0049B4B4 /* description.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = description.txt; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
 		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
 		C69ADCA21C2BB1E300612146 /* ZHOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				C6D442DE1C28A64200CE843E /* notes.txt */,
+				C67BACE31C388F7A0049B4B4 /* description.txt */,
 			);
 			name = Documents;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6D442A51C2756D700CE843E /* LaunchScreen.storyboard in Resources */,
+				C67BACE41C388F7A0049B4B4 /* description.txt in Resources */,
 				C6D442A21C2756D700CE843E /* Assets.xcassets in Resources */,
 				C62086A51C2DE3FC0026B943 /* ZHFilterView.xib in Resources */,
 				C6D442A01C2756D700CE843E /* Main.storyboard in Resources */,
