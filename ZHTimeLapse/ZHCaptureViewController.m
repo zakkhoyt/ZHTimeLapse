@@ -36,7 +36,7 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
 @property (nonatomic, strong) GPUImageRawDataOutput *rawOutput;
 @property (nonatomic, strong) GPUImageUIElement *uiElementInput;
 @property (nonatomic, strong) GPUImageAlphaBlendFilter *blendFilter;
-
+@property (nonatomic, strong) GPUImagePicture *sourcePicture;
 // UI Stuff
 @property (weak, nonatomic) IBOutlet UIImageView *captureImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *captureImageViewHeightConstraint;
@@ -400,8 +400,7 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
     // Force initial values
     [self paramSliderValueChanged:self.paramSlider];
     
-    
-//    if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseUnlockKey]){
+    if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseUnlockKey]){
 
         [self.session.input.filter.gpuFilter addTarget:self.filterView];
         
@@ -409,39 +408,23 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
         [self.session.input.filter.gpuFilter addTarget:self.rawOutput];
         
         [self.videoCamera addTarget:self.session.input.filter.gpuFilter];
-//    } else {
-//        // If trial version we want to present a watermark. Pipe a UIView through a blend filter with our normal video feed to replace the output.
-//        
-//        GPUImageOutput<GPUImageInput> *zhFilter = _session.input.filter.gpuFilter;
-//        
-//        _blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
-//        _blendFilter.mix = 1.0;
-//        
-//        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _session.input.size.width, _session.input.size.height)];
-//        timeLabel.font = [UIFont systemFontOfSize:17.0f];
-//        timeLabel.text = @"Trial Version\nPurchase on app` store now.";
-//        timeLabel.textAlignment = NSTextAlignmentCenter;
-//        timeLabel.backgroundColor = [UIColor clearColor];
-//        timeLabel.textColor = [UIColor whiteColor];
-//        
-//        
-//        _uiElementInput = [[GPUImageUIElement alloc] initWithView:timeLabel];
-//        
-//        [zhFilter addTarget:_blendFilter];
-//        [_uiElementInput addTarget:_blendFilter];
-//        
-//        __unsafe_unretained GPUImageUIElement *weakUIElementInput = _uiElementInput;
-//        [zhFilter setFrameProcessingCompletionBlock:^(GPUImageOutput *filter, CMTime frameTime){
-////            timeLabel.text = [NSString stringWithFormat:@"Time: %f s", -[startTime timeIntervalSinceNow]];
-//            [weakUIElementInput update];
-//        }];
-//        
-//        [self.videoCamera addTarget:zhFilter];
-//        [_blendFilter addTarget:_filterView];
-//        
-//        self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
-//        [_blendFilter addTarget:self.rawOutput];
-//    }
+    } else {
+        
+        [self.videoCamera addTarget:self.session.input.filter.gpuFilter];
+
+//        GPUImageSepiaFilter *overlay = [[GPUImageSepiaFilter alloc]init];
+        GPUImageOverlayBlendFilter *overlay = [[GPUImageOverlayBlendFilter alloc] init];
+        UIImage *inputImage = [UIImage imageNamed:@"watermark"];
+        _sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage smoothlyScaleOutput:NO];
+        [_sourcePicture processImage];
+        [_sourcePicture addTarget:overlay];
+    
+        [self.session.input.filter.gpuFilter addTarget:overlay];
+        
+        self.rawOutput = [[GPUImageRawDataOutput alloc]initWithImageSize:self.session.input.size resultsInBGRAFormat:NO];
+        [overlay addTarget:self.rawOutput];
+        [overlay addTarget:self.filterView];
+    }
 
     [self.videoCamera startCameraCapture];
     

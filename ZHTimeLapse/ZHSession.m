@@ -146,43 +146,15 @@
 }
 
 -(void)cacheImage:(UIImage*)image index:(NSUInteger)index {
-    UIImage *outputImage = nil;
-    
-    BOOL watermark = YES;
-    if(watermark) {
-        CIImage *background = [CIImage imageWithCGImage:image.CGImage];
-        CIImage *foreground = [CIImage imageWithCGImage:[UIImage imageNamed:@"watermark"].CGImage];
-        CIFilter *filter = [CIFilter filterWithName:@"CISourceOverCompositing"];
-        [filter setValue:background forKey:kCIInputBackgroundImageKey];
-        [filter setValue:foreground forKey:kCIInputImageKey];
-        CIImage *outputCIImage = [filter outputImage];
-        CIContext *context = [CIContext contextWithOptions:nil];
-        outputImage = [UIImage imageWithCGImage:[context createCGImage:outputCIImage fromRect:outputCIImage.extent]];
-    } else {
-        outputImage = image;
-    }
-
-    NSData *data = UIImagePNGRepresentation(outputImage);
+    NSData *data = UIImagePNGRepresentation(image);
     NSString *fileName = [NSString stringWithFormat:@"%05lu.png", (unsigned long)index];
     NSString *filePath = [_projectPath stringByAppendingPathComponent:@"frames"];
     filePath = [filePath stringByAppendingPathComponent:fileName];
 //    NSLog(@"Writing frame to: %@", filePath);
 
-//    NSError *error = nil;
     if([data writeToFile:filePath atomically:NO] == NO){
         NSLog(@"Error writing frame: %@", filePath);
     }
-//    [data writeToFile:filePath options:NSDataWritingFileProtectionNone error:&error];
-//    if(error != nil) {
-//        NSLog(@"Error writing file %@", error.localizedDescription);
-//    }
-    
-//    NSError *error = nil;
-//    NSURL *url = [NSURL URLWithString:filePath];
-//    [data writeToURL:url options:NSDataWritingFileProtectionNone error:&error];
-//    if(error != nil) {
-//        NSLog(@"Error writing file %@", error.localizedDescription);
-//    }
 
 }
 
