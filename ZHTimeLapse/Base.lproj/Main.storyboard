@@ -521,9 +521,18 @@
                                                 <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="shadowOffset" width="1" height="1"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2a-Ds-qNu">
+                                                <rect key="frame" x="490" y="110" width="102" height="26"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                <state key="normal" title="Remove Watermark"/>
+                                                <connections>
+                                                    <action selector="iapButtonTouchUpInside:" destination="fGH-Mm-j49" eventType="touchUpInside" id="Hoy-sM-6Om"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.89644396551724137" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="X2a-Ds-qNu" secondAttribute="trailing" constant="8" id="0lG-9D-p4c"/>
                                             <constraint firstItem="Phu-hm-Rw5" firstAttribute="top" secondItem="25s-Dw-j1M" secondAttribute="top" id="46F-Q3-UTI"/>
                                             <constraint firstItem="N4L-Qq-cJF" firstAttribute="centerY" secondItem="0eV-X0-9tK" secondAttribute="centerY" id="Atk-75-ESP"/>
                                             <constraint firstItem="Phu-hm-Rw5" firstAttribute="leading" secondItem="25s-Dw-j1M" secondAttribute="leading" id="Drk-eg-cP6"/>
@@ -535,6 +544,7 @@
                                             <constraint firstItem="Phu-hm-Rw5" firstAttribute="bottom" secondItem="25s-Dw-j1M" secondAttribute="bottom" id="kAO-HX-upF"/>
                                             <constraint firstAttribute="trailing" secondItem="N4L-Qq-cJF" secondAttribute="trailing" constant="8" id="tM8-4F-U6f"/>
                                             <constraint firstItem="cyO-7N-etY" firstAttribute="centerY" secondItem="0eV-X0-9tK" secondAttribute="centerY" id="xhO-Fk-hWW"/>
+                                            <constraint firstAttribute="bottom" secondItem="X2a-Ds-qNu" secondAttribute="bottom" constant="8" id="yz7-Te-Byb"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tWv-Nv-rMa">
@@ -585,7 +595,7 @@
                                                         <rect key="frame" x="150" y="0.0" width="150" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DxN-xk-Jbi">
-                                                                <rect key="frame" x="59.5" y="9" width="32" height="32"/>
+                                                                <rect key="frame" x="59" y="9" width="32" height="32"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="32" id="UmD-9t-xiN"/>
                                                                     <constraint firstAttribute="height" constant="32" id="XfR-Us-vec"/>
@@ -720,6 +730,7 @@
                         <outlet property="frameRateButton" destination="wse-gm-dhy" id="URF-0f-Hx7"/>
                         <outlet property="frameRateLabel" destination="ZnT-Th-6Jw" id="hg5-Qw-JGc"/>
                         <outlet property="frameRateView" destination="sqC-JH-SC5" id="hN7-64-q1p"/>
+                        <outlet property="iapButton" destination="X2a-Ds-qNu" id="iCX-TT-0Tz"/>
                         <outlet property="paramSlider" destination="GLs-ja-Y6T" id="LCj-aM-DTl"/>
                         <outlet property="resolutionButton" destination="DxN-xk-Jbi" id="XoB-hm-zOA"/>
                         <outlet property="resolutionLabel" destination="Fut-Lj-ccg" id="lqK-RX-mg3"/>

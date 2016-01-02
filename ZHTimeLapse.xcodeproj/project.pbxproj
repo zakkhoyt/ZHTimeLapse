@@ -18,8 +18,8 @@
 		C62086B91C2F7B230026B943 /* ZHShutterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086B81C2F7B230026B943 /* ZHShutterButton.m */; };
 		C62086BE1C2F84DD0026B943 /* ZHFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C62086BD1C2F84DD0026B943 /* ZHFilter.m */; };
 		C627E56A1C348162001152FD /* ZHMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C627E5691C348162001152FD /* ZHMenuViewController.m */; };
-		C655B4E31C34F007007498A5 /* ZHInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = C655B4E01C34F007007498A5 /* ZHInAppPurchase.m */; };
-		C655B4E41C34F007007498A5 /* ZHInAppPurchaseIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = C655B4E21C34F007007498A5 /* ZHInAppPurchaseIdentifier.m */; };
+		C67BACE11C3886F60049B4B4 /* ZHInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACDE1C3886F60049B4B4 /* ZHInAppPurchase.m */; };
+		C67BACE21C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACE01C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
 		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
@@ -86,10 +86,10 @@
 		C62086BD1C2F84DD0026B943 /* ZHFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFilter.m; sourceTree = "<group>"; };
 		C627E5681C348162001152FD /* ZHMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHMenuViewController.h; sourceTree = "<group>"; };
 		C627E5691C348162001152FD /* ZHMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHMenuViewController.m; sourceTree = "<group>"; };
-		C655B4DF1C34F007007498A5 /* ZHInAppPurchaseIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHInAppPurchaseIdentifier.h; sourceTree = "<group>"; };
-		C655B4E01C34F007007498A5 /* ZHInAppPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHInAppPurchase.m; sourceTree = "<group>"; };
-		C655B4E11C34F007007498A5 /* ZHInAppPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHInAppPurchase.h; sourceTree = "<group>"; };
-		C655B4E21C34F007007498A5 /* ZHInAppPurchaseIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHInAppPurchaseIdentifier.m; sourceTree = "<group>"; };
+		C67BACDD1C3886F60049B4B4 /* ZHInAppPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHInAppPurchase.h; sourceTree = "<group>"; };
+		C67BACDE1C3886F60049B4B4 /* ZHInAppPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHInAppPurchase.m; sourceTree = "<group>"; };
+		C67BACDF1C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHInAppPurchaseIdentifier.h; sourceTree = "<group>"; };
+		C67BACE01C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHInAppPurchaseIdentifier.m; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
 		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
 		C69ADCA21C2BB1E300612146 /* ZHOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -298,18 +298,6 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
-		C6CDA3931C34EE9C00B3F7BF /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				C655B4DF1C34F007007498A5 /* ZHInAppPurchaseIdentifier.h */,
-				C655B4E01C34F007007498A5 /* ZHInAppPurchase.m */,
-				C655B4E11C34F007007498A5 /* ZHInAppPurchase.h */,
-				C655B4E21C34F007007498A5 /* ZHInAppPurchaseIdentifier.m */,
-			);
-			name = Store;
-			path = ../../Theremin/theremin/Controller/NonGUI/Store;
-			sourceTree = "<group>";
-		};
 		C6D1D3A21C31FD6A0040BCF7 /* Include */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,7 +375,10 @@
 		C6D442D31C289E3800CE843E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C6CDA3931C34EE9C00B3F7BF /* Store */,
+				C67BACDD1C3886F60049B4B4 /* ZHInAppPurchase.h */,
+				C67BACDE1C3886F60049B4B4 /* ZHInAppPurchase.m */,
+				C67BACDF1C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.h */,
+				C67BACE01C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m */,
 				C6D442F41C28E49900CE843E /* ZHFileManager.h */,
 				C6D442F51C28E49900CE843E /* ZHFileManager.m */,
 				C69ADCA71C2BCA5100612146 /* ZHUserDefaults.h */,
@@ -654,9 +645,9 @@
 				C6D442D81C28A34D00CE843E /* PHAsset+Utility.m in Sources */,
 				C69ADCB81C2BDE8800612146 /* ZHRenderer.m in Sources */,
 				C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */,
+				C67BACE11C3886F60049B4B4 /* ZHInAppPurchase.m in Sources */,
 				C69ADCBD1C2C90E600612146 /* ZHSessionTableViewCell.m in Sources */,
 				C6D442EC1C28E36B00CE843E /* ZHSession.m in Sources */,
-				C655B4E41C34F007007498A5 /* ZHInAppPurchaseIdentifier.m in Sources */,
 				C6D442F01C28E39000CE843E /* ZHInputSession.m in Sources */,
 				C62086A31C2DE3F40026B943 /* ZHFilterView.m in Sources */,
 				C6D4429B1C2756D700CE843E /* AppDelegate.swift in Sources */,
@@ -668,10 +659,10 @@
 				C6BBBFD11C2CBE3000FCBC3F /* ZHNavigationController.m in Sources */,
 				C6D442E51C28A7BD00CE843E /* ZHCaptureViewController.m in Sources */,
 				C620869F1C2D0B3E0026B943 /* ZHFiltersViewController.m in Sources */,
-				C655B4E31C34F007007498A5 /* ZHInAppPurchase.m in Sources */,
 				C6D442F31C28E39B00CE843E /* ZHOutputSession.m in Sources */,
 				C69ADCB01C2BD1D300612146 /* NSDate+ZH.m in Sources */,
 				C6D442E81C28A99400CE843E /* NSTimer+Blocks.m in Sources */,
+				C67BACE21C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m in Sources */,
 				C627E56A1C348162001152FD /* ZHMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
