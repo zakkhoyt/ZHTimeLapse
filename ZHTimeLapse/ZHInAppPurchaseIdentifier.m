@@ -17,10 +17,7 @@
     static ZHInAppPurchaseIdentifier * sharedInstance;
     dispatch_once(&once, ^{
         NSSet *productIdentifiers = [NSMutableSet setWithObjects:
-                                     ZHInAppPurchaseAutotuneKeysKey,
-                                     ZHInAppPurchaseCameraDeviceKey,
-                  
-                                     ZHInAppPurchaseGraphSensorsKey,
+                                     ZHInAppPurchaseRemoveWatermarkKey,
                                      nil];
         sharedInstance = [[self alloc] initWithProductIdentifiers:productIdentifiers];
     });

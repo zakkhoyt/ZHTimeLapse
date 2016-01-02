@@ -9,7 +9,7 @@
 #import <StoreKit/StoreKit.h>
 
 
-static NSString *ZHInAppPurchaseUnlockKey = @"com.vaporwarewolf.ZHTimeLapse.unlock";
+static NSString *ZHInAppPurchaseRemoveWatermarkKey = @"com.vaporwarewolf.ZHTimeLapse.removeWatermark";
 
 @interface ZHInAppPurchaseIdentifier : ZHInAppPurchase
 + (ZHInAppPurchaseIdentifier *)sharedInstance;

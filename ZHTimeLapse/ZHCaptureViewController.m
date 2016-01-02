@@ -45,6 +45,9 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
 @property (weak, nonatomic) IBOutlet UIView *bottomToolbarView;
 @property (weak, nonatomic) IBOutlet UIView *topToolbarView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topToolbarViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *iapButton;
+
+@property (nonatomic, strong) NSArray *products;
 
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rotatableViews;
 @property (weak, nonatomic) IBOutlet UIButton *frameRateButton;
@@ -70,10 +73,27 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
 @property (nonatomic) BOOL isRecording;
 @end
 
+@interface ZHCaptureViewController ()
+
+@end
+
+
 @implementation ZHCaptureViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:ZHInAppPurchaseProductPurchasedNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [self setupUI];
+        [self setupCaptureSession];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    }];
+    
+    // Get Apple product IDs
+    [[ZHInAppPurchaseIdentifier sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        self.products = products;
+    }];
+
     
     if(_session == nil) {
         _session = [ZHSession session];
@@ -267,7 +287,17 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
     }
 }
 
+-(void)setupIAPButton{
+    if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseRemoveWatermarkKey]){
+        self.iapButton.hidden = YES;
+    } else {
+        self.iapButton.hidden = NO;
+    }
+}
+
 -(void)setupUI {
+    
+    [self setupIAPButton];
     
 //    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 //    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
@@ -400,7 +430,7 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
     // Force initial values
     [self paramSliderValueChanged:self.paramSlider];
     
-    if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseUnlockKey]){
+    if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseRemoveWatermarkKey]){
 
         [self.session.input.filter.gpuFilter addTarget:self.filterView];
         
@@ -414,7 +444,24 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
 
 //        GPUImageSepiaFilter *overlay = [[GPUImageSepiaFilter alloc]init];
         GPUImageOverlayBlendFilter *overlay = [[GPUImageOverlayBlendFilter alloc] init];
-        UIImage *inputImage = [UIImage imageNamed:@"watermark"];
+        
+        UIImage *inputImage = nil;
+        if(_session.input.size.width == 288 && _session.input.size.height == 352) {
+            inputImage = [UIImage imageNamed:@"watermark_288x352"];
+        } else if(_session.input.size.width == 480 && _session.input.size.height == 640) {
+            inputImage = [UIImage imageNamed:@"watermark_480x640"];
+        } else if(_session.input.size.width == 720 && _session.input.size.height == 1280) {
+            inputImage = [UIImage imageNamed:@"watermark_720x1280"];
+        } else if(_session.input.size.width == 352 && _session.input.size.height == 288) {
+            inputImage = [UIImage imageNamed:@"watermark_352x288"];
+        } else if(_session.input.size.width == 640 && _session.input.size.height == 480) {
+            inputImage = [UIImage imageNamed:@"watermark_640x480"];
+        } else if(_session.input.size.width == 1280 && _session.input.size.height == 720) {
+            inputImage = [UIImage imageNamed:@"watermark_1280x720"];
+        } else {
+            inputImage = [UIImage imageNamed:@"ZHTimeLapse_512"];
+        }
+        
         _sourcePicture = [[GPUImagePicture alloc] initWithImage:inputImage smoothlyScaleOutput:NO];
         [_sourcePicture processImage];
         [_sourcePicture addTarget:overlay];
@@ -633,6 +680,41 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
 
 
 #pragma mark IBActions
+- (IBAction)iapButtonTouchUpInside:(UIButton*)sender {
+    
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Support the developer" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    ac.popoverPresentationController.sourceRect = sender.bounds;
+    ac.popoverPresentationController.sourceView = sender;
+    
+    
+    
+    [self.products enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if([obj isKindOfClass:[SKProduct class]]) {
+            SKProduct *product = obj;
+            NSString *productString = [NSString stringWithFormat:@"%@ $%@", product.localizedTitle, product.price];
+            [ac addAction:[UIAlertAction actionWithTitle:productString style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                [[ZHInAppPurchaseIdentifier sharedInstance] buyProduct:product];
+                ZH_LOG_TODO_TASK(@"Observer delegate to update");
+            }]];
+        } else {
+            ZH_LOG_CRITICAL(@"Product is not SKProduct");
+        }
+    }];
+    
+    
+
+    [ac addAction:[UIAlertAction actionWithTitle:@"Restore purchases" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[ZHInAppPurchaseIdentifier sharedInstance] restoreCompletedTransactions];
+    }]];
+
+    [ac addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    
+    [self presentViewController:ac animated:YES completion:nil];
+
+}
 
 - (IBAction)exportButtonTouchUpInside:(id)sender {
 //    [self performSegueWithIdentifier:SegueCaptureToPlaybackGIF sender:nil];

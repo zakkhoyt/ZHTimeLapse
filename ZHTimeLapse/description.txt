@@ -1,0 +1,17 @@
+ThrashCam allows you to make time-lapse videos or GIFs. You can change the capture rate, filters, and output format.
+
+Test:
+* Make time-lapse while changing:
+    * Orientation
+    * Camera
+    * Resolution / output format
+    * Filters
+    * Capture Frame Rate
+
+* In app purshase should be free since this is a beta build. It should state "Sandbox" in the propmts.
+    * Purchase the watermark removal
+    * Ensure that the watermark is gone
+    * Delete and reinstall app from test flight
+    * Restore purshases using the second button
+    * Ensure that the watermark is gone
+
