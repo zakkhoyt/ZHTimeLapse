@@ -1,49 +1,13 @@
-// ** View Controller
-* Show a live stream (video)
-* Show last captured frame
-* Timer to capture frames
-* Save frame to array with filter applied
 
-// ** Renderer
-* Pass frames to util
-* Process into video
-
-// ** Options
-* Capture size
-* Render size
-* Capture framerate
-* Render framerate
-
-
-
-// Directory will look like:
+// Each session directory will look like:
 $DocumentsDir/$UUID/Frames -> contains loose images
 $DocumentsDir/$UUID/session.json -> contains info about the project
 
 
 
-
-
 // 1.0
-//* Remove simple mode
-//* Remove stop animation
-//* Show/hide slider based on filter
-
-
-* Test GIF output
 
 * Detects existing project on launch to finish (from a crash)
-
-* Scaling problem with gifs
-* large res gifs crashing on render
-
-* selection controls
-    * drop menus
-* Tap to focus
-* Pinch to zoom
-* Tap to hide controls
-
-
 
 * ------- ITC
 * Device screen shots
@@ -51,4 +15,22 @@ $DocumentsDir/$UUID/session.json -> contains info about the project
 * Get/update logo
 * Get/update marketing content
 
+
+
+
+
+// 1.1
+* Library screen
+* Tap preview -> Library
+* Playback screen(s)
+* Action on playback screen
+
+* Low/medium/high quality?
+
+* CollectionView for filters
+* Add more filters
+
+* Utiltiy to read existing video into session
+
+* Gifycat support?  // https://gfycat.com/api
 

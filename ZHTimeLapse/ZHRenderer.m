@@ -207,7 +207,7 @@
     CGContextRelease(context);
     
     CVPixelBufferUnlockBaseAddress(pxbuffer, 0);
-    
+
     return pxbuffer;
 }
 
