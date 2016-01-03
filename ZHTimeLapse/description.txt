@@ -1,4 +1,4 @@
-ThrashCam allows you to make time-lapse videos or GIFs. You can change the capture rate, filters, and output format.
+ThrashCam allows you to create time-lapse videos or GIFs which look like animated sketches. ThrashCam allows you to change the capture rate, filters, output format, orientation, and cameras. 
 
 Test:
 * Make time-lapse while changing:

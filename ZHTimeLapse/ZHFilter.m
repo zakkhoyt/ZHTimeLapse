@@ -252,51 +252,52 @@
 }
 
 -(void)updateParamValue:(CGFloat)value {
+    _paramValue = value;
     switch (_filterType) {
             // ** B&W filters
         case ZHFilterTypeCannyEdgeDetection:{
-            [(GPUImageCannyEdgeDetectionFilter*)_gpuFilter setBlurTexelSpacingMultiplier:value];
+            [(GPUImageCannyEdgeDetectionFilter*)_gpuFilter setBlurTexelSpacingMultiplier:_paramValue];
         }
             break;
         case ZHFilterTypeInvertedCannyEdgeDetection: {
             GPUImageFilterGroup *group = (GPUImageFilterGroup*)_gpuFilter;
              GPUImageCannyEdgeDetectionFilter *cannyFilter = [group.initialFilters firstObject];
-            [cannyFilter setBlurTexelSpacingMultiplier:value];
+            [cannyFilter setBlurTexelSpacingMultiplier:_paramValue];
         }
             break;
         case ZHFilterTypePrewittEdgeDetection:{
-            [(GPUImagePrewittEdgeDetectionFilter*)_gpuFilter setEdgeStrength:value];
+            [(GPUImagePrewittEdgeDetectionFilter*)_gpuFilter setEdgeStrength:_paramValue];
         }
             break;
         case ZHFilterTypeThresholdEdgeDetection:{
-            [(GPUImageLuminanceThresholdFilter*)_gpuFilter setThreshold:value];
+            [(GPUImageLuminanceThresholdFilter*)_gpuFilter setThreshold:_paramValue];
         }
             break;
         case ZHFilterTypeSobelEdgeDetection:{
-            [(GPUImageSobelEdgeDetectionFilter*)_gpuFilter setEdgeStrength:value];
+            [(GPUImageSobelEdgeDetectionFilter*)_gpuFilter setEdgeStrength:_paramValue];
         }
             break;
         case ZHFilterTypeSketch:{
-            [(GPUImageSketchFilter*)_gpuFilter setEdgeStrength:value];
+            [(GPUImageSketchFilter*)_gpuFilter setEdgeStrength:_paramValue];
         }
             break;
         case ZHFilterTypeAdaptiveThreshold:{
-            [(GPUImageAdaptiveThresholdFilter*)_gpuFilter setBlurRadiusInPixels:value];
+            [(GPUImageAdaptiveThresholdFilter*)_gpuFilter setBlurRadiusInPixels:_paramValue];
         }
             break;
             
         case ZHFilterTypeThresholdSketch:{
-            [(GPUImageThresholdSketchFilter*)_gpuFilter setThreshold:value];
+            [(GPUImageThresholdSketchFilter*)_gpuFilter setThreshold:_paramValue];
         }
             break;
             
         case ZHFilterTypeHalftone:{
-            [(GPUImageHalftoneFilter *)_gpuFilter setFractionalWidthOfAPixel:value];
+            [(GPUImageHalftoneFilter *)_gpuFilter setFractionalWidthOfAPixel:_paramValue];
         }
             break;
             
         case ZHFilterTypeMosaic:{
-            [(GPUImageMosaicFilter *)_gpuFilter setDisplayTileSize:CGSizeMake(value, value)];
+            [(GPUImageMosaicFilter *)_gpuFilter setDisplayTileSize:CGSizeMake(_paramValue, _paramValue)];
         }
             break;
             
@@ -304,11 +305,11 @@
             
         // ** Color filters
         case ZHFilterTypeSmoothToon:{
-            [(GPUImageSmoothToonFilter*)_gpuFilter setBlurRadiusInPixels:value];
+            [(GPUImageSmoothToonFilter*)_gpuFilter setBlurRadiusInPixels:_paramValue];
         }
             break;
         case ZHFilterTypePolkaDot:{
-            [(GPUImagePolkaDotFilter*)_gpuFilter setFractionalWidthOfAPixel:value];
+            [(GPUImagePolkaDotFilter*)_gpuFilter setFractionalWidthOfAPixel:_paramValue];
         }
             break;
             
