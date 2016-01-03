@@ -88,8 +88,9 @@
             @autoreleasepool {
                 UIImage* image = [session imageForIndex:index];
                 if(image == nil) {
-                    NSLog(@"Error Frame not found for index: %lu", (unsigned long)index);
-                    break;
+                    // TODO: Either use last frame again or consider this unacceptible
+                    NSLog(@"Missing frame for index: %lu", (unsigned long) index);
+                    continue;
                 }
                 
                 // rotate frames if needed

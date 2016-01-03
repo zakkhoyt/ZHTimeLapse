@@ -34,3 +34,28 @@ $DocumentsDir/$UUID/session.json -> contains info about the project
 
 * Gifycat support?  // https://gfycat.com/api
 
+
+
+
+----------------- resizing video
+// Add padding but not streched to fill
+ffmpeg -i input.MOV -vf "pad=width=1080:height=1920:x=0:y=20:color=black" ~/temp/output.MOV
+
+
+// Resizes and clips
+
+
+-b:v 11M
+
+export width=640
+export height=1136
+ffmpeg -i input.MOV -filter:v "scale=iw*min($width/iw\,$height/ih):ih*min($width/iw\,$height/ih), pad=$width:$height:($width-iw*min($width/iw\,$height/ih))/2:($height-ih*min($width/iw\,$height/ih))/2" out_640x1136.mp4
+
+export width=750
+export height=1134
+ffmpeg -i input.MOV -filter:v "scale=iw*min($width/iw\,$height/ih):ih*min($width/iw\,$height/ih), pad=$width:$height:($width-iw*min($width/iw\,$height/ih))/2:($height-ih*min($width/iw\,$height/ih))/2" out_750x1134.mp4
+
+export width=1242
+export height=2208
+ffmpeg -i input.MOV -filter:v "scale=iw*min($width/iw\,$height/ih):ih*min($width/iw\,$height/ih), pad=$width:$height:($width-iw*min($width/iw\,$height/ih))/2:($height-ih*min($width/iw\,$height/ih))/2" out_1242x2208.mp4
+

@@ -287,25 +287,14 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
     }
 }
 
--(void)setupIAPButton{
+-(void)setupUI {
+    
     if([[ZHInAppPurchaseIdentifier sharedInstance] productPurchased:ZHInAppPurchaseRemoveWatermarkKey]){
         self.iapButton.hidden = YES;
     } else {
         self.iapButton.hidden = NO;
     }
-}
 
--(void)setupUI {
-    
-    [self setupIAPButton];
-    
-//    UIImage *exportImage = [[UIImage imageNamed:@"export"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//    [self.exportButton setImage:exportImage forState:UIControlStateNormal];
-//    [self.exportButton setTitle:@"" forState:UIControlStateNormal];
-    
-//    UIImage *resolutionImage = [[UIImage imageNamed:@"gif"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//    [self.resolutionButton setImage:resolutionImage forState:UIControlStateNormal];
-//    [self.resolutionButton setTitle:@"" forState:UIControlStateNormal];
     
     UIImage *closeImage = [[UIImage imageNamed:@"close"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.closeButton setImage:closeImage forState:UIControlStateNormal];

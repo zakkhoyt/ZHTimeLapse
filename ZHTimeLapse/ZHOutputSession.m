@@ -46,7 +46,7 @@
 
 -(void)commonInit{
     _frameRate = 30;
-    _size = CGSizeMake(480, 640);
+    _size = CGSizeMake(720, 1280);
     _outputType = ZHOutputSessionOutputTypeVideo;
 }
 
