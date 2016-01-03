@@ -99,22 +99,23 @@ static NSString *ZHShutterButtonStartedString = @"";
     b.backgroundColor = [UIColor whiteColor];
     [self.orbitView addSubview:b];
     [self.shutterButton addSubview:self.orbitView];
-    
+
     CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotateAnimation.toValue = @(2*M_PI); // The angle we are rotating to
     rotateAnimation.duration = 1.0;
     rotateAnimation.repeatCount = 10000;
-    [self.orbitView.layer addAnimation:rotateAnimation forKey:@"rotate"];
+    // Add small delay to try to sync the followin animation
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1/_session.input.frameRate * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.orbitView.layer addAnimation:rotateAnimation forKey:@"rotate"];
+    });
     
+
 
     _tickCounter = 0;
     [self tick];
     _tickTimer = [NSTimer scheduledTimerWithTimeInterval:1/_session.input.frameRate block:^{
         [self tick];
     } repeats:YES];
-    
-    
-    
 }
 
 
@@ -146,6 +147,8 @@ static NSString *ZHShutterButtonStartedString = @"";
 //        [bgView removeFromSuperview];
 //    }];
     
+    
+    
     // A view to rotate around the button
     UIView *bgView = [[UIView alloc]initWithFrame:self.bounds];
     bgView.userInteractionEnabled = NO;
@@ -166,6 +169,7 @@ static NSString *ZHShutterButtonStartedString = @"";
     [bgView addSubview:b];
     [self.shutterButton addSubview:bgView];
     _tickCounter++;
+    
     
     [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         bgView.alpha = 0;
