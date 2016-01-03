@@ -379,11 +379,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZHTimeLapse/ZHCaptureViewController.m"
-            timestampString = "473545048.586973"
+            timestampString = "473545307.502862"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "802"
-            endingLineNumber = "802"
+            startingLineNumber = "805"
+            endingLineNumber = "805"
             landmarkName = "-paramSliderValueChanged:"
             landmarkType = "5">
          </BreakpointContent>

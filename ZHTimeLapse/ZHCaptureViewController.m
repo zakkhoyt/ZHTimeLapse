@@ -648,6 +648,9 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
         self.topToolbarView.alpha = 1.0;
     }];
     
+    // Clear preview window
+    self.captureImageView.image = nil;
+    
     self.navigationItem.rightBarButtonItem = self.startBarButtonItem;
     
     self.isRecording = NO;
