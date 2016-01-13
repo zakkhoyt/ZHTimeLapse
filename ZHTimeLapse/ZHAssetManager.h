@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 @import Photos;
 
+typedef void (^ZHAssetManagerAVAssetBlock)(AVAsset *avAsset);
 typedef void (^ZHAssetManagerErrorBlock)(NSError *error);
 typedef void (^ZHAssetManagerFloatBlock)(float progress);
 typedef void (^ZHAssetManagerImageErrorBlock)(UIImage *image, NSError *error);
@@ -32,5 +33,9 @@ typedef void (^ZHAssetManagerImageErrorBlock)(UIImage *image, NSError *error);
                          imageView:(UIImageView*)imageView
                      progressBlock:(ZHAssetManagerFloatBlock)progressBlock
                    completionBlock:(ZHAssetManagerErrorBlock)completionBlock;
+
+-(void)requesAVAssetForAsset:(PHAsset*)asset
+             completionBlock:(ZHAssetManagerAVAssetBlock)completionBlock;
+
 
 @end

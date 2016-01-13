@@ -18,7 +18,7 @@
 #import "ZHSession.h"
 #import "PHAsset+Utility.h"
 #import "ZHFileManager.h"
-
+#import "ZHAssetManager.h"
 
 @interface ZHRenderer ()
 @property (nonatomic, strong) AVAssetWriter *videoWriter;
@@ -314,7 +314,46 @@
 }
 
 -(void)renderVideoAssetToGIF:(PHAsset*)asset progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock{
-    ZH_LOG_CRITICAL(@"TODO:");
+
+    [[ZHAssetManager sharedInstance] requesAVAssetForAsset:asset completionBlock:^(AVAsset *avAsset) {
+        if(avAsset == nil) {
+            ZH_LOG_DEBUG(@"Failed to get avasset for phasset");
+        } else {
+            
+            ZH_LOG_DEBUG(@"value/timescale = %lu/%lu", (unsigned long)avAsset.duration.value, (unsigned long)avAsset.duration.timescale);
+            
+            
+            double frameTime = 0.25;
+            // calculate frame times to extract
+            NSUInteger numberOfFrames = (avAsset.duration.value / avAsset.duration.timescale) / frameTime;
+            NSMutableArray *frameTimes = [[NSMutableArray alloc]initWithCapacity:numberOfFrames];
+            for(NSUInteger t = 0; t < numberOfFrames; t++) {
+                NSNumber *time = @(t * frameTime);
+                [frameTimes addObject:time];
+            }
+            
+            NSLog(@"test");
+            
+            
+//            [frameTimes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                
+//            }];
+            AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:avAsset];
+            gen.appliesPreferredTrackTransform = YES;
+//            CMTime time = CMTimeMakeWithSeconds(0.0, 600);
+            CMTime time = CMTimeMake(1.0, 0.25);
+            NSError *error = nil;
+            CMTime actualTime;
+            
+            CGImageRef image = [gen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+            UIImage *thumb = [[UIImage alloc] initWithCGImage:image];
+            CGImageRelease(image);
+        }
+    }];
+
+    
+    
+    
 }
 
 
