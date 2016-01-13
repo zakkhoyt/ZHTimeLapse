@@ -308,6 +308,17 @@
 }
 
 
+
+-(void)renderVideoAssetToVideo:(PHAsset*)asset progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock{
+    ZH_LOG_CRITICAL(@"TODO:");
+}
+
+-(void)renderVideoAssetToGIF:(PHAsset*)asset progressBlock:(ZHRendererProgressBlock)progressBlock completionBlock:(ZHRendererCompletionBlock)completionBlock{
+    ZH_LOG_CRITICAL(@"TODO:");
+}
+
+
+
 @end
 
 
