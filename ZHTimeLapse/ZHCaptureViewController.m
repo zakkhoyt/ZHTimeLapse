@@ -48,6 +48,7 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
 @property (weak, nonatomic) IBOutlet UIButton *iapButton;
 
 @property (nonatomic, strong) NSArray *products;
+@property (strong, nonatomic) IBOutlet UIView *buttonsView;
 
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rotatableViews;
 @property (weak, nonatomic) IBOutlet UIButton *frameRateButton;
@@ -88,6 +89,7 @@ static NSString *SegueCaptureToPlaybackGIF = @"SegueCaptureToPlaybackGIF";
         [self setupCaptureSession];
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
+    
     
     // Get Apple product IDs
     [[ZHInAppPurchaseIdentifier sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
