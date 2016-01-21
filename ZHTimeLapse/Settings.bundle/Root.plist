@@ -6,16 +6,6 @@
 	<array>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Render as GIF</string>
-			<key>Key</key>
-			<string>ZHApplicationRenderAsGIF</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Attribution</string>
@@ -24,41 +14,9 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>File</key>
-			<string>Acknowledgements</string>
+			<string>Pods-acknowledgements</string>
 			<key>Title</key>
-			<string>Acknowledgements</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>File</key>
-			<string>GPUImage</string>
-			<key>Title</key>
-			<string>GPUImage</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>File</key>
-			<string>Icon8</string>
-			<key>Title</key>
-			<string>Icon8</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>File</key>
-			<string>MBProgressHUD</string>
-			<key>Title</key>
-			<string>MBProgressHUD</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>File</key>
-			<string>VWWPermissionKit</string>
-			<key>Title</key>
-			<string>VWWPermissionKit</string>
+			<string>Pods-acknowledgements</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>
