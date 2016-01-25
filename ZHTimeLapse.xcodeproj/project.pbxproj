@@ -29,6 +29,7 @@
 		C69843DD1C55E25A00481220 /* ZHTimeLapseOSXUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C69843DC1C55E25A00481220 /* ZHTimeLapseOSXUITests.m */; };
 		C69843EA1C55EC5500481220 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69843E91C55EC5500481220 /* Directory.swift */; };
 		C69843EF1C55EC8900481220 /* ZHMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69843EE1C55EC8900481220 /* ZHMainViewController.swift */; };
+		C69843F11C55F0FF00481220 /* ZHImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69843F01C55F0FF00481220 /* ZHImageMetadata.swift */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
 		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
@@ -130,6 +131,7 @@
 		C69843E81C55EC5400481220 /* ZHTimeLapseOSX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZHTimeLapseOSX-Bridging-Header.h"; sourceTree = "<group>"; };
 		C69843E91C55EC5500481220 /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
 		C69843EE1C55EC8900481220 /* ZHMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHMainViewController.swift; sourceTree = "<group>"; };
+		C69843F01C55F0FF00481220 /* ZHImageMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHImageMetadata.swift; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
 		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
 		C69ADCA21C2BB1E300612146 /* ZHOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				C69843BD1C55E25A00481220 /* Supporting Files */,
 				C69843E81C55EC5400481220 /* ZHTimeLapseOSX-Bridging-Header.h */,
 				C69843EE1C55EC8900481220 /* ZHMainViewController.swift */,
+				C69843F01C55F0FF00481220 /* ZHImageMetadata.swift */,
 			);
 			path = ZHTimeLapseOSX;
 			sourceTree = "<group>";
@@ -853,6 +856,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C69843F11C55F0FF00481220 /* ZHImageMetadata.swift in Sources */,
 				C69843BF1C55E25A00481220 /* main.m in Sources */,
 				C69843BC1C55E25A00481220 /* AppDelegate.m in Sources */,
 				C69843EA1C55EC5500481220 /* Directory.swift in Sources */,

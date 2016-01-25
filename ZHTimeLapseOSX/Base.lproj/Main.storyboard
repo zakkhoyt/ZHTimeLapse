@@ -839,6 +839,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="miniSystem"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="outputURLButtonAction:" target="XfG-lQ-9wD" id="aRI-27-AL3"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EOF-nm-O35">
                                 <rect key="frame" x="529" y="413" width="52" height="16"/>
@@ -874,6 +877,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="inputPathLabel" destination="cpI-lJ-s7c" id="2IO-eu-Hsd"/>
+                        <outlet property="outputPathLabel" destination="rTQ-6B-Kbo" id="zSA-S2-S4N"/>
                         <outlet property="tableView" destination="C9Y-XC-dFB" id="Ou6-ko-89N"/>
                     </connections>
                 </viewController>

@@ -11,10 +11,12 @@ import Cocoa
 class ZHMainViewController: NSViewController {
 
     
-    var inputFileURLs = [NSURL]()
+    var inputFileURLs = [ZHImageMetadata]()
+    var outputURL: NSURL? = nil
     
-    
+    @IBOutlet weak var outputPathLabel: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var inputPathLabel: NSTextField!
     
     
     
@@ -34,9 +36,36 @@ class ZHMainViewController: NSViewController {
         let clicked = panel.runModal()
         
         if clicked == NSFileHandlingPanelOKButton {
-            inputFileURLs = panel.URLs
+            
+            for url in panel.URLs {
+                if let metadata = ZHImageMetadata(url: url) {
+                    inputFileURLs.append(metadata)
+                } else {
+                    print("Failed to create metadata from url")
+                }
+            }
+            
             tableView.reloadData()
+
         }
+    }
+    
+    @IBAction func outputURLButtonAction(sender: AnyObject) {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = false
+        
+        let clicked = panel.runModal()
+        
+        if clicked == NSFileHandlingPanelOKButton {
+            for url in panel.URLs {
+                print("selected output dir: " + url.description)
+                outputURL = url
+                outputPathLabel.stringValue = url.description
+            }
+        }
+
     }
 }
 
@@ -54,25 +83,22 @@ extension ZHMainViewController: NSTableViewDelegate {
         var text = ""
         
         
-        guard let url = inputFileURLs[row] as? NSURL else {
+        guard let metadata = inputFileURLs[row] as? ZHImageMetadata else {
             print("Could not find url for row")
         }
-//        let url = inputFileURLs[row] as? NSURL
-        
         
         if tableColumn == tableView.tableColumns[0] {
             cellID = "ZHFileTableViewCell"
-            text = (url.pathComponents?.last)!
+            text = (metadata.file)!
             imageName = "picture"
         } else if tableColumn == tableView.tableColumns[1] {
             cellID = "ZHResolutionTableViewCell"
-//            text = u
             imageName = "resolution"
-            text = "res"
+            text = metadata.resolution!
         } else if tableColumn == tableView.tableColumns[2] {
             cellID = "ZHSizeTableViewCell"
             imageName = "size'"
-            text = "size"
+            text = metadata.size!
         }
         
         if let view = tableView.makeViewWithIdentifier(cellID, owner: nil) as? NSTableCellView {
