@@ -21,6 +21,14 @@
 		C67BACE11C3886F60049B4B4 /* ZHInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACDE1C3886F60049B4B4 /* ZHInAppPurchase.m */; };
 		C67BACE21C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = C67BACE01C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m */; };
 		C67BACE41C388F7A0049B4B4 /* description.txt in Resources */ = {isa = PBXBuildFile; fileRef = C67BACE31C388F7A0049B4B4 /* description.txt */; };
+		C69843BC1C55E25A00481220 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C69843BB1C55E25A00481220 /* AppDelegate.m */; };
+		C69843BF1C55E25A00481220 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C69843BE1C55E25A00481220 /* main.m */; };
+		C69843C41C55E25A00481220 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69843C31C55E25A00481220 /* Assets.xcassets */; };
+		C69843C71C55E25A00481220 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69843C51C55E25A00481220 /* Main.storyboard */; };
+		C69843D21C55E25A00481220 /* ZHTimeLapseOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C69843D11C55E25A00481220 /* ZHTimeLapseOSXTests.m */; };
+		C69843DD1C55E25A00481220 /* ZHTimeLapseOSXUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C69843DC1C55E25A00481220 /* ZHTimeLapseOSXUITests.m */; };
+		C69843EA1C55EC5500481220 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69843E91C55EC5500481220 /* Directory.swift */; };
+		C69843EF1C55EC8900481220 /* ZHMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69843EE1C55EC8900481220 /* ZHMainViewController.swift */; };
 		C69ADCA11C2BB17200612146 /* ZHSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */; };
 		C69ADCA41C2BB1E300612146 /* ZHOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA31C2BB1E300612146 /* ZHOptionsTableViewController.m */; };
 		C69ADCA91C2BCA5100612146 /* ZHUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C69ADCA81C2BCA5100612146 /* ZHUserDefaults.m */; };
@@ -49,6 +57,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C69843CE1C55E25A00481220 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6D4428F1C2756D700CE843E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C69843B71C55E25A00481220;
+			remoteInfo = ZHTimeLapseOSX;
+		};
+		C69843D91C55E25A00481220 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6D4428F1C2756D700CE843E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C69843B71C55E25A00481220;
+			remoteInfo = ZHTimeLapseOSX;
+		};
 		C6D442AC1C2756D700CE843E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C6D4428F1C2756D700CE843E /* Project object */;
@@ -92,6 +114,22 @@
 		C67BACDF1C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHInAppPurchaseIdentifier.h; sourceTree = "<group>"; };
 		C67BACE01C3886F60049B4B4 /* ZHInAppPurchaseIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHInAppPurchaseIdentifier.m; sourceTree = "<group>"; };
 		C67BACE31C388F7A0049B4B4 /* description.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = description.txt; sourceTree = "<group>"; };
+		C69843B81C55E25A00481220 /* ZHTimeLapseOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZHTimeLapseOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69843BA1C55E25A00481220 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C69843BB1C55E25A00481220 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C69843BE1C55E25A00481220 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C69843C31C55E25A00481220 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C69843C61C55E25A00481220 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C69843C81C55E25A00481220 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C69843CD1C55E25A00481220 /* ZHTimeLapseOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZHTimeLapseOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69843D11C55E25A00481220 /* ZHTimeLapseOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHTimeLapseOSXTests.m; sourceTree = "<group>"; };
+		C69843D31C55E25A00481220 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C69843D81C55E25A00481220 /* ZHTimeLapseOSXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZHTimeLapseOSXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69843DC1C55E25A00481220 /* ZHTimeLapseOSXUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHTimeLapseOSXUITests.m; sourceTree = "<group>"; };
+		C69843DE1C55E25A00481220 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C69843E81C55EC5400481220 /* ZHTimeLapseOSX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZHTimeLapseOSX-Bridging-Header.h"; sourceTree = "<group>"; };
+		C69843E91C55EC5500481220 /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
+		C69843EE1C55EC8900481220 /* ZHMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZHMainViewController.swift; sourceTree = "<group>"; };
 		C69ADC9F1C2BB17200612146 /* ZHSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSessionsViewController.h; sourceTree = "<group>"; };
 		C69ADCA01C2BB17200612146 /* ZHSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSessionsViewController.m; sourceTree = "<group>"; };
 		C69ADCA21C2BB1E300612146 /* ZHOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -145,6 +183,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C69843B51C55E25A00481220 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C69843CA1C55E25A00481220 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C69843D51C55E25A00481220 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C6D442941C2756D700CE843E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -216,6 +275,48 @@
 				C627E5691C348162001152FD /* ZHMenuViewController.m */,
 			);
 			name = Menu;
+			sourceTree = "<group>";
+		};
+		C69843B91C55E25A00481220 /* ZHTimeLapseOSX */ = {
+			isa = PBXGroup;
+			children = (
+				C69843E91C55EC5500481220 /* Directory.swift */,
+				C69843BA1C55E25A00481220 /* AppDelegate.h */,
+				C69843BB1C55E25A00481220 /* AppDelegate.m */,
+				C69843C31C55E25A00481220 /* Assets.xcassets */,
+				C69843C51C55E25A00481220 /* Main.storyboard */,
+				C69843C81C55E25A00481220 /* Info.plist */,
+				C69843BD1C55E25A00481220 /* Supporting Files */,
+				C69843E81C55EC5400481220 /* ZHTimeLapseOSX-Bridging-Header.h */,
+				C69843EE1C55EC8900481220 /* ZHMainViewController.swift */,
+			);
+			path = ZHTimeLapseOSX;
+			sourceTree = "<group>";
+		};
+		C69843BD1C55E25A00481220 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C69843BE1C55E25A00481220 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C69843D01C55E25A00481220 /* ZHTimeLapseOSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				C69843D11C55E25A00481220 /* ZHTimeLapseOSXTests.m */,
+				C69843D31C55E25A00481220 /* Info.plist */,
+			);
+			path = ZHTimeLapseOSXTests;
+			sourceTree = "<group>";
+		};
+		C69843DB1C55E25A00481220 /* ZHTimeLapseOSXUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C69843DC1C55E25A00481220 /* ZHTimeLapseOSXUITests.m */,
+				C69843DE1C55E25A00481220 /* Info.plist */,
+			);
+			path = ZHTimeLapseOSXUITests;
 			sourceTree = "<group>";
 		};
 		C69ADCA61C2BC91600612146 /* Documents */ = {
@@ -315,6 +416,9 @@
 				C6D442991C2756D700CE843E /* ZHTimeLapse */,
 				C6D442AE1C2756D700CE843E /* ZHTimeLapseTests */,
 				C6D442B91C2756D700CE843E /* ZHTimeLapseUITests */,
+				C69843B91C55E25A00481220 /* ZHTimeLapseOSX */,
+				C69843D01C55E25A00481220 /* ZHTimeLapseOSXTests */,
+				C69843DB1C55E25A00481220 /* ZHTimeLapseOSXUITests */,
 				C6D442981C2756D700CE843E /* Products */,
 				C7E40C232DDEB9B00B8B8E77 /* Pods */,
 				F22E2BCC89B2EC6D87935546 /* Frameworks */,
@@ -327,6 +431,9 @@
 				C6D442971C2756D700CE843E /* ZHTimeLapse.app */,
 				C6D442AB1C2756D700CE843E /* ZHTimeLapseTests.xctest */,
 				C6D442B61C2756D700CE843E /* ZHTimeLapseUITests.xctest */,
+				C69843B81C55E25A00481220 /* ZHTimeLapseOSX.app */,
+				C69843CD1C55E25A00481220 /* ZHTimeLapseOSXTests.xctest */,
+				C69843D81C55E25A00481220 /* ZHTimeLapseOSXUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -471,6 +578,59 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C69843B71C55E25A00481220 /* ZHTimeLapseOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C69843E51C55E25A00481220 /* Build configuration list for PBXNativeTarget "ZHTimeLapseOSX" */;
+			buildPhases = (
+				C69843B41C55E25A00481220 /* Sources */,
+				C69843B51C55E25A00481220 /* Frameworks */,
+				C69843B61C55E25A00481220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZHTimeLapseOSX;
+			productName = ZHTimeLapseOSX;
+			productReference = C69843B81C55E25A00481220 /* ZHTimeLapseOSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C69843CC1C55E25A00481220 /* ZHTimeLapseOSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C69843E61C55E25A00481220 /* Build configuration list for PBXNativeTarget "ZHTimeLapseOSXTests" */;
+			buildPhases = (
+				C69843C91C55E25A00481220 /* Sources */,
+				C69843CA1C55E25A00481220 /* Frameworks */,
+				C69843CB1C55E25A00481220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C69843CF1C55E25A00481220 /* PBXTargetDependency */,
+			);
+			name = ZHTimeLapseOSXTests;
+			productName = ZHTimeLapseOSXTests;
+			productReference = C69843CD1C55E25A00481220 /* ZHTimeLapseOSXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C69843D71C55E25A00481220 /* ZHTimeLapseOSXUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C69843E71C55E25A00481220 /* Build configuration list for PBXNativeTarget "ZHTimeLapseOSXUITests" */;
+			buildPhases = (
+				C69843D41C55E25A00481220 /* Sources */,
+				C69843D51C55E25A00481220 /* Frameworks */,
+				C69843D61C55E25A00481220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C69843DA1C55E25A00481220 /* PBXTargetDependency */,
+			);
+			name = ZHTimeLapseOSXUITests;
+			productName = ZHTimeLapseOSXUITests;
+			productReference = C69843D81C55E25A00481220 /* ZHTimeLapseOSXUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		C6D442961C2756D700CE843E /* ZHTimeLapse */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C6D442BF1C2756D700CE843E /* Build configuration list for PBXNativeTarget "ZHTimeLapse" */;
@@ -537,6 +697,17 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Zakk Hoyt";
 				TargetAttributes = {
+					C69843B71C55E25A00481220 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					C69843CC1C55E25A00481220 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = C69843B71C55E25A00481220;
+					};
+					C69843D71C55E25A00481220 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = C69843B71C55E25A00481220;
+					};
 					C6D442961C2756D700CE843E = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = J7U74N85YF;
@@ -567,11 +738,37 @@
 				C6D442961C2756D700CE843E /* ZHTimeLapse */,
 				C6D442AA1C2756D700CE843E /* ZHTimeLapseTests */,
 				C6D442B51C2756D700CE843E /* ZHTimeLapseUITests */,
+				C69843B71C55E25A00481220 /* ZHTimeLapseOSX */,
+				C69843CC1C55E25A00481220 /* ZHTimeLapseOSXTests */,
+				C69843D71C55E25A00481220 /* ZHTimeLapseOSXUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C69843B61C55E25A00481220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C69843C41C55E25A00481220 /* Assets.xcassets in Resources */,
+				C69843C71C55E25A00481220 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C69843CB1C55E25A00481220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C69843D61C55E25A00481220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C6D442951C2756D700CE843E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -652,6 +849,33 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C69843B41C55E25A00481220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C69843BF1C55E25A00481220 /* main.m in Sources */,
+				C69843BC1C55E25A00481220 /* AppDelegate.m in Sources */,
+				C69843EA1C55EC5500481220 /* Directory.swift in Sources */,
+				C69843EF1C55EC8900481220 /* ZHMainViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C69843C91C55E25A00481220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C69843D21C55E25A00481220 /* ZHTimeLapseOSXTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C69843D41C55E25A00481220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C69843DD1C55E25A00481220 /* ZHTimeLapseOSXUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C6D442931C2756D700CE843E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -706,6 +930,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C69843CF1C55E25A00481220 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C69843B71C55E25A00481220 /* ZHTimeLapseOSX */;
+			targetProxy = C69843CE1C55E25A00481220 /* PBXContainerItemProxy */;
+		};
+		C69843DA1C55E25A00481220 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C69843B71C55E25A00481220 /* ZHTimeLapseOSX */;
+			targetProxy = C69843D91C55E25A00481220 /* PBXContainerItemProxy */;
+		};
 		C6D442AD1C2756D700CE843E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C6D442961C2756D700CE843E /* ZHTimeLapse */;
@@ -719,6 +953,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C69843C51C55E25A00481220 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C69843C61C55E25A00481220 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		C6D4429E1C2756D700CE843E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -738,6 +980,105 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C69843DF1C55E25A00481220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZHTimeLapseOSX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapseOSX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "ZHTimeLapseOSX/ZHTimeLapseOSX-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C69843E01C55E25A00481220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZHTimeLapseOSX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapseOSX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "ZHTimeLapseOSX/ZHTimeLapseOSX-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		C69843E11C55E25A00481220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZHTimeLapseOSXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapseOSXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZHTimeLapseOSX.app/Contents/MacOS/ZHTimeLapseOSX";
+			};
+			name = Debug;
+		};
+		C69843E21C55E25A00481220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZHTimeLapseOSXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapseOSXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZHTimeLapseOSX.app/Contents/MacOS/ZHTimeLapseOSX";
+			};
+			name = Release;
+		};
+		C69843E31C55E25A00481220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZHTimeLapseOSXUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapseOSXUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = ZHTimeLapseOSX;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		C69843E41C55E25A00481220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZHTimeLapseOSXUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaporwarewolf.ZHTimeLapseOSXUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = ZHTimeLapseOSX;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		C6D442BD1C2756D700CE843E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -911,6 +1252,30 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C69843E51C55E25A00481220 /* Build configuration list for PBXNativeTarget "ZHTimeLapseOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C69843DF1C55E25A00481220 /* Debug */,
+				C69843E01C55E25A00481220 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C69843E61C55E25A00481220 /* Build configuration list for PBXNativeTarget "ZHTimeLapseOSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C69843E11C55E25A00481220 /* Debug */,
+				C69843E21C55E25A00481220 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C69843E71C55E25A00481220 /* Build configuration list for PBXNativeTarget "ZHTimeLapseOSXUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C69843E31C55E25A00481220 /* Debug */,
+				C69843E41C55E25A00481220 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C6D442921C2756D700CE843E /* Build configuration list for PBXProject "ZHTimeLapse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -9,9 +9,29 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>ZHTimeLapseOSX.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>C69843B71C55E25A00481220</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C69843CC1C55E25A00481220</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C69843D71C55E25A00481220</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C6D442961C2756D700CE843E</key>
 		<dict>
 			<key>primary</key>
